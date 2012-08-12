@@ -1,0 +1,13 @@
+" Removing scrollbars
+if has("gui_running")
+    set guitablabel=%-0.12t%M
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions+=a
+    set guioptions+=m
+    color badwolf
+		set listchars=tab:▸\ ,eol:¬,nbsp:%
+		set guifont=Osaka−等幅:h11:cSHIFTJIS
+		set visualbell t_vb=
+endif
