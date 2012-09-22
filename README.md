@@ -1,4 +1,4 @@
-# dotfiles
+# system configuration files
 
 ## install
     $ cd ~/git/dotfiles
