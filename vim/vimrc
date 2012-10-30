@@ -231,7 +231,7 @@ if has('vim_starting')
 endif
 
 NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete.git'
+NeoBundle 'git://github.com/Shougo/neosnippet.git'
 NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
 "NeoBundle 'git://github.com/Shougo/unite.vim.git'
 "NeoBundle 'git://github.com/Shougo/echodoc.git'
@@ -251,12 +251,11 @@ NeoBundle 'git://github.com/mattn/zencoding-vim.git'
 NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
 NeoBundle 'git://github.com/lukaszkorecki/CoffeeTags.git'
 
+""" syntax
 NeoBundle 'git://github.com/jsx/jsx.vim.git'
-
 NeoBundle 'git://github.com/othree/html5.vim.git'
 
 "NeoBundle 'git://github.com/othree/eregex.vim.git'
-
 "NeoBundle 'git://github.com/vim-scripts/Align.vim.git'
 
 """ Vim as your IDE [http://haridas.in/vim-as-your-ide.html]
