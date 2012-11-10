@@ -12,7 +12,7 @@ set swapfile
 set directory=$HOME/git/dotfiles/vim/swp
 set backupskip=/tmp/*
 set history=10000
-set viminfo='100,<50,s10,h,:10000,n$HOME/.viminfo
+set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.viminfo
 set ttyfast
 set lazyredraw
 
@@ -161,6 +161,7 @@ autocmd VimResized * :wincmd =
 autocmd BufNewFile,BufRead *.psgi setl filetype=perl
 autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl filetype=apache
 autocmd BufNewFile,BufRead *.scss                   setl filetype=scss
+autocmd BufNewFile,BufRead *.sass                   setl filetype=sass
 autocmd BufNewFile,BufRead *.coffee,Cakefile        setl filetype=coffeescript
 autocmd BufNewFile,BufRead *.as                     setl filetype=actionscript
 autocmd BufNewFile,BufRead *.go                     setl filetype=go fileencoding=utf-8 fileformat=unix
@@ -394,7 +395,7 @@ endif
 
 " ----------------------------------------
 " filetype setting
-autocmd FileType html,xhtml,haml,scss,css,javascript,coffeescript setl fileformat=dos tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType html,xhtml,haml,scss,sass,css,javascript,coffeescript setl fileformat=dos tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType sql    setl expandtab tabstop=2 softtabstop=2 shiftwidth=2 nonumber
 autocmd FileType yaml   setl expandtab
 autocmd FileType vim    setl tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
