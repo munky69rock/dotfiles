@@ -59,9 +59,9 @@ highlight PmenuSel ctermbg=1
 highlight PmenuSbar ctermbg=0
 set completeopt=menuone,longest,preview
 if has('win32') || has('win64')
-	"" TODO 
+  "" TODO 
 else
-	set listchars=tab:▸.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
+  set listchars=tab:▸.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
 endif
 
 "" indent
@@ -85,69 +85,68 @@ highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
 
 "" encoding
-set fileencoding=utf-8
 if &encoding !=# 'utf-8'
-set encoding=japan
-set fileencoding=japan
+  set encoding=japan
+  set fileencoding=japan
 endif
 if has('iconv')
-let s:enc_euc = 'euc-jp'
-let s:enc_jis = 'iso-2022-jp'
-if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-  let s:enc_euc = 'eucjp-ms'
-  let s:enc_jis = 'iso-2022-jp-3'
-elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-  let s:enc_euc = 'euc-jisx0213'
-  let s:enc_jis = 'iso-2022-jp-3'
-endif
-if &encoding ==# 'utf-8'
-  let s:fileencodings_default = &fileencodings
-  let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-  let &fileencodings = &fileencodings .','. s:fileencodings_default
-  unlet s:fileencodings_default
-else
-  let &fileencodings = &fileencodings .','. s:enc_jis
-  set fileencodings+=utf-8,ucs-2le,ucs-2
-  if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-	set fileencodings+=cp932
-	set fileencodings-=euc-jp
-	set fileencodings-=euc-jisx0213
-	set fileencodings-=eucjp-ms
-	let &encoding = s:enc_euc
-	let &fileencoding = s:enc_euc
-  else
-	let &fileencodings = &fileencodings .','. s:enc_euc
+  let s:enc_euc = 'euc-jp'
+  let s:enc_jis = 'iso-2022-jp'
+  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'eucjp-ms'
+    let s:enc_jis = 'iso-2022-jp-3'
+  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'euc-jisx0213'
+    let s:enc_jis = 'iso-2022-jp-3'
   endif
-endif
-unlet s:enc_euc
-unlet s:enc_jis
+  if &encoding ==# 'utf-8'
+    let s:fileencodings_default = &fileencodings
+    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+    let &fileencodings = &fileencodings .','. s:fileencodings_default
+    unlet s:fileencodings_default
+  else
+    let &fileencodings = &fileencodings .','. s:enc_jis
+    set fileencodings+=utf-8,ucs-2le,ucs-2
+    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+      set fileencodings+=cp932
+      set fileencodings-=euc-jp
+      set fileencodings-=euc-jisx0213
+      set fileencodings-=eucjp-ms
+      let &encoding = s:enc_euc
+      let &fileencoding = s:enc_euc
+    else
+      let &fileencodings = &fileencodings .','. s:enc_euc
+    endif
+  endif
+  unlet s:enc_euc
+  unlet s:enc_jis
 endif
 if has('autocmd')
-function! AU_ReCheck_FENC()
-  if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-	let &fileencoding=&encoding
-  endif
-endfunction
-autocmd BufReadPost * call AU_ReCheck_FENC()
+  function! AU_ReCheck_FENC()
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+      let &fileencoding=&encoding
+    endif
+  endfunction
+  autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 set fileformats=unix,dos,mac
 if exists('&ambiwidth')
-set ambiwidth=double
+  set ambiwidth=double
 endif
 
 "" fold  {zo,zO: open | zc,zC: close}
 if exists('foldmethod')
-set foldmethod=syntax
-let perl_fold=1
-set foldlevel=100
-highlight Folded guibg=grey guifg=blue
-highlight FoldColumn guibg=darkgrey guifg=white
-set foldtext=MyFoldText()
-function MyFoldText()
-	let line = getline(v:foldstart)
-	let sub = substitute(line, '/\*\|\*/\|{{{\d\=', '', 'g')
-	return v:folddashes . sub 
-endfunction
+  set foldmethod=syntax
+  let perl_fold=1
+  set foldlevel=100
+  highlight Folded guibg=grey guifg=blue
+  highlight FoldColumn guibg=darkgrey guifg=white
+  set foldtext=MyFoldText()
+  function MyFoldText()
+    let line = getline(v:foldstart)
+    let sub = substitute(line, '/\*\|\*/\|{{{\d\=', '', 'g')
+    return v:folddashes . sub 
+  endfunction
 endif
 
 "" auto save
@@ -188,7 +187,7 @@ function SyntaxCheck()
   elseif &syntax == 'javascript'
     execute ':!jslint %'
   elseif &syntax == 'coffee'
-		execute ':!coffee -c %'
+    execute ':!coffee -c %'
   endif
 endf
 autocmd FileType perl nmap ,w :!perl -wc %<CR>
@@ -217,7 +216,7 @@ imap <leader>l <ESC>:TagbarToggle<CR>i
 " ----------------------------------------
 "" unify vim plugin path to ~/.vim
 if has('win32') || has('win64')
-	set runtimepath+=$HOME/.vim
+  set runtimepath+=$HOME/.vim
 endif
 
 "" --------------------
@@ -275,7 +274,7 @@ filetype plugin on
 filetype indent on
 
 "" --------------------
-"" neocomplcache.vim	
+"" neocomplcache.vim  
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -286,7 +285,7 @@ let g:neocomplcache_min_syntax_length = 3
 
 """ Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
+  let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -330,7 +329,7 @@ autocmd FileType perl setlocal omnifunc=perlcomplete#CompleteTags
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-	let g:neocomplcache_omni_patterns = {}
+  let g:neocomplcache_omni_patterns = {}
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -372,7 +371,7 @@ let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:prop
 " ----------------------------------------
 " load local vimrc
 if filereadable(expand('$HOME/.vimrc.local'))
-	source $HOME/.vimrc.local
+  source $HOME/.vimrc.local
 endif
 
 " ----------------------------------------
@@ -400,6 +399,7 @@ autocmd FileType sql    setl expandtab tabstop=2 softtabstop=2 shiftwidth=2 nonu
 autocmd FileType yaml   setl expandtab
 autocmd FileType vim    setl tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 autocmd FileType perl   setl fileformat=unix tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+autocmd FileType ruby   setl fileformat=unix tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType python setl fileformat=unix tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 autocmd FileType sh     setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 """ TODO: windows g?vimrc encoding=cp932
