@@ -13,6 +13,17 @@ SPROMPT="%{${fg[white]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 #[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
 #	PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
 
+# for git, mercurial, ect...
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd () {
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+RPROMPT="%1(v|%F{green}%1v%f|)"
+
 export PROMPT_EOL_MARK=""
 setopt auto_cd
 setopt auto_pushd
@@ -71,9 +82,9 @@ esac
 # set terminal title including current directory
 case "${TERM}" in
 kterm*|xterm*)
-  precmd() {
-    echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-  }
+  #precmd() {
+  #  echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+  #}
   export LSCOLORS=exfxcxdxbxegedabagacad
   export LS_COLORS='di=01;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30'
   zstyle ':completion:*' list-colors \
