@@ -12,3 +12,4 @@ else
 	set listchars=tab:▸\ ,eol:¬,nbsp:%
 endif
 set visualbell t_vb=
+colorscheme evening
