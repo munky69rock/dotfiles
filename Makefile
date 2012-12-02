@@ -22,6 +22,7 @@ config:
 	test -e $(PREFIX)/.vimrc     || ln -s $(PREFIX)/git/dotfiles/vim/vimrc       $(PREFIX)/.vimrc
 	test -e $(PREFIX)/.gvimrc    || ln -s $(PREFIX)/git/dotfiles/vim/gvimrc      $(PREFIX)/.gvimrc
 	test -e $(PREFIX)/.zshrc     || ln -s $(PREFIX)/git/dotfiles/zsh/zshrc       $(PREFIX)/.zshrc
+	test -e $(PREFIX)/.gitconfig || ln -s $(PREFIX)/git/dotfiles/git/gitconfig   $(PREFIX)/.gitconfig
 	test -e $(PREFIX)/.screenrc  || ln -s $(PREFIX)/git/dotfiles/screen/screenrc $(PREFIX)/.screenrc
 	test -e $(PREFIX)/.tmux.conf || ln -s $(PREFIX)/git/dotfiles/tmux/tmux.conf  $(PREFIX)/.tmux.conf
 
