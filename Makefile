@@ -3,7 +3,7 @@ PREFIX = ~
 # node.js
 NODE_APP_FRAMEWORK  = express nodeigniter mojito singool
 NODE_TEST_FRAMEWORK = testem
-NODE_CL_TOOL        = coffee-script less jshint uglify-js uglify-js2 jq
+NODE_CL_TOOL        = coffee-script typescript less jshint uglify-js uglify-js2 jq
 NODE_PKGS = $(NODE_APP_FRAMEWORK) $(NODE_TEST_FRAMEWORK) $(NODE_CL_TOOL)
 
 all: config node 
