@@ -6,16 +6,19 @@ NODE_TEST_FRAMEWORK = testem
 NODE_CL_TOOL        = coffee-script typescript less jshint uglify-js uglify-js2 jq
 NODE_PKGS = $(NODE_APP_FRAMEWORK) $(NODE_TEST_FRAMEWORK) $(NODE_CL_TOOL)
 
+# perl
+CPAN_MODULES = Task::Plack
+
 all: config node 
 
 config:
 	test -e $(PREFIX)/git/dotfiles ||                                \
 		(                                                            \
-			mkdir -p $(PREFIX)/git &&                                \
-			cd $(PREFIX)/git       &&                                \
+			mkdir -p $(PREFIX)/git                                && \
+			cd $(PREFIX)/git                                      && \
 			git clone https://github.com/munky69rock/dotfiles.git && \
-			cd dotfiles &&                                           \
-			git submodule init &&                                    \
+			cd dotfiles                                           && \
+			git submodule init                                    && \
 			git submodule update                                     \
 		)
 	test -e $(PREFIX)/.vim       || ln -s $(PREFIX)/git/dotfiles/vim             $(PREFIX)/.vim
@@ -29,17 +32,24 @@ config:
 node:
 	test -e $(PREFIX)/bin/nave ||                               \
 		(                                                       \
-			mkdir -p $(PREFIX)/bin &&                           \
-			mkdir -p $(PREFIX)/git &&                           \
-			cd $(PREFIX)/git &&                                 \
-			git clone https://github.com/isaacs/nave.git &&     \
+			mkdir -p $(PREFIX)/bin                           && \
+			mkdir -p $(PREFIX)/git                           && \
+			cd $(PREFIX)/git                                 && \
+			git clone https://github.com/isaacs/nave.git     && \
 			ln -s $(PREFIX)/git/nave/nave.sh $(PREFIX)/bin/nave \
 		)
 	$(PREFIX)/bin/nave use stable npm install -g $(NODE_PKGS)
 
 perl:
-	# cpanm
-	# perlbrew
+	test -e $(PREFIX)/perl5/perlbrew ||                   \
+		(                                                 \
+			PERLBREW_ROOT=$(PREFIX)/perl5/perlbrew        \
+			PERLBREW_HOME=$(PREFIX)/.perlbrew             \
+			curl -kL http://install.perlbrew.pl | bash && \
+			bash --rcfile $(PREFIX)/perl5/perlbrew/etc/bashrc -c "perlbrew install-cpanm" &&     \
+			bash --rcfile $(PREFIX)/perl5/perlbrew/etc/bashrc -c "perlbrew install-ack"   &&     \
+			bash --rcfile $(PREFIX)/perl5/perlbrew/etc/bashrc -c "cpanm install $(CPAN_MODULES)"
+		)
 
 ruby:
 	# rvm
