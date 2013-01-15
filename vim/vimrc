@@ -5,7 +5,8 @@
 syntax on
 set shell=/bin/sh
 set nocompatible
-set modelines=0
+set modeline
+"set modelines=0
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set swapfile
