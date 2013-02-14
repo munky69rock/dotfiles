@@ -93,11 +93,22 @@ kterm*|xterm*)
   ;;
 esac
 
+# perl
+export PERLBREW_ROOT=$HOME/lib/perl5/perlbrew
+
+# python
+export PYTHONBREW_ROOT=$HOME/lib/python/pythonbrew
+
+# ruby
+export rvm_path=$HOME/lib/ruby/rvm
+
 ## load user .zshrc configuration file
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
-[ -f $HOME/.aliases ] && source $HOME/.aliases
-[ -s $HOME/.perlbrew/perl5/etc/bashrc ] && source $HOME/.perlbrew/perl5/etc/bashrc
-[ -s $HOME/.pythonbrew/etc/bashrc ] && source $HOME/.pythonbrew/etc/bashrc
+[ -f $HOME/.aliases ]     && source $HOME/.aliases
 
-# for nave
-[ "$NAVE_LOGIN" = "1" ] && export PATH=$NAVEPATH:$npm_config_prefix/lib/node_modules:$PATH
+[ -s $PERLBREW_ROOT/etc/bashrc ]   && source $PERLBREW_ROOT/etc/bashrc
+[ -s $PYTHONBREW_ROOT/etc/bashrc ] && source $PYTHONBREW_ROOT/etc/bashrc
+[ -s $rvm_path/scripts/rvm ]       && source $rvm_path/scripts/rvm
+[ "$NAVE_LOGIN" = "1" ]            && export PATH=$NAVEPATH:$npm_config_prefix/lib/node_modules:$PATH
+
+PATH=$PATH:$HOME/lib/ruby/rvm/bin # Add RVM to PATH for scripting

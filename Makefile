@@ -1,4 +1,9 @@
-PREFIX = ~
+PREFIX ?= ~
+
+BIN_DIR  = $(PREFIX)/bin
+LIB_DIR  = $(PREFIX)/lib
+GIT_DIR  = $(PREFIX)/git
+CONF_DIR = $(GIT_DIR)/dotfiles
 
 # node.js
 NODE_APP_FRAMEWORK  = express nodeigniter mojito singool
@@ -6,56 +11,60 @@ NODE_TEST_FRAMEWORK = testem
 NODE_CL_TOOL        = coffee-script typescript less jshint uglify-js uglify-js2 jq
 NODE_PKGS = $(NODE_APP_FRAMEWORK) $(NODE_TEST_FRAMEWORK) $(NODE_CL_TOOL)
 
-# perl
-CPAN_MODULES = Task::Plack
-
-all: config node 
+all: config node perl ruby python
 
 config:
-	test -e $(PREFIX)/git/dotfiles ||                                \
+	test -e $(CONF_DIR) ||                                           \
 		(                                                            \
-			mkdir -p $(PREFIX)/git                                && \
-			cd $(PREFIX)/git                                      && \
+			mkdir -p $(GIT_DIR)                                   && \
+			mkdir -p $(BIN_DIR)                                   && \
+			mkdir -p $(LIB_DIR)                                   && \
+			cd $(GIT_DIR)                                         && \
 			git clone https://github.com/munky69rock/dotfiles.git && \
 			cd dotfiles                                           && \
 			git submodule init                                    && \
 			git submodule update                                     \
 		)
-	test -e $(PREFIX)/.vim       || ln -s $(PREFIX)/git/dotfiles/vim             $(PREFIX)/.vim
-	test -e $(PREFIX)/.vimrc     || ln -s $(PREFIX)/git/dotfiles/vim/vimrc       $(PREFIX)/.vimrc
-	test -e $(PREFIX)/.gvimrc    || ln -s $(PREFIX)/git/dotfiles/vim/gvimrc      $(PREFIX)/.gvimrc
-	test -e $(PREFIX)/.zshrc     || ln -s $(PREFIX)/git/dotfiles/zsh/zshrc       $(PREFIX)/.zshrc
-	test -e $(PREFIX)/.gitconfig || ln -s $(PREFIX)/git/dotfiles/git/gitconfig   $(PREFIX)/.gitconfig
-	test -e $(PREFIX)/.screenrc  || ln -s $(PREFIX)/git/dotfiles/screen/screenrc $(PREFIX)/.screenrc
-	test -e $(PREFIX)/.tmux.conf || ln -s $(PREFIX)/git/dotfiles/tmux/tmux.conf  $(PREFIX)/.tmux.conf
+	test -e $(PREFIX)/.vim       || ln -s $(CONF_DIR)/vim             $(PREFIX)/.vim
+	test -e $(PREFIX)/.vimrc     || ln -s $(CONF_DIR)/vim/vimrc       $(PREFIX)/.vimrc
+	test -e $(PREFIX)/.gvimrc    || ln -s $(CONF_DIR)/vim/gvimrc      $(PREFIX)/.gvimrc
+	test -e $(PREFIX)/.zshrc     || ln -s $(CONF_DIR)/zsh/zshrc       $(PREFIX)/.zshrc
+	test -e $(PREFIX)/.gitconfig || ln -s $(CONF_DIR)/git/gitconfig   $(PREFIX)/.gitconfig
+	test -e $(PREFIX)/.screenrc  || ln -s $(CONF_DIR)/screen/screenrc $(PREFIX)/.screenrc
+	test -e $(PREFIX)/.tmux.conf || ln -s $(CONF_DIR)/tmux/tmux.conf  $(PREFIX)/.tmux.conf
 
 node:
-	test -e $(PREFIX)/bin/nave ||                               \
+	test -e $(BIN_DIR)/nave ||                                  \
 		(                                                       \
-			mkdir -p $(PREFIX)/bin                           && \
-			mkdir -p $(PREFIX)/git                           && \
-			cd $(PREFIX)/git                                 && \
+		    mkdir $(LIB_DIR)/node                            && \
+			cd $(LIB_DIR)/node                               && \
 			git clone https://github.com/isaacs/nave.git     && \
-			ln -s $(PREFIX)/git/nave/nave.sh $(PREFIX)/bin/nave \
+			ln -s $(LIB_DIR)/nave/nave.sh $(BIN_DIR)/nave       \
 		)
-	$(PREFIX)/bin/nave use stable npm install -g $(NODE_PKGS)
+	$(BIN_DIR)/nave use stable npm install -g $(NODE_PKGS)
 
 perl:
-	test -e $(PREFIX)/perl5/perlbrew ||                   \
-		(                                                 \
-			PERLBREW_ROOT=$(PREFIX)/perl5/perlbrew        \
-			PERLBREW_HOME=$(PREFIX)/.perlbrew             \
-			curl -kL http://install.perlbrew.pl | bash && \
-			bash --rcfile $(PREFIX)/perl5/perlbrew/etc/bashrc -c "perlbrew install-cpanm" &&     \
-			bash --rcfile $(PREFIX)/perl5/perlbrew/etc/bashrc -c "perlbrew install-ack"   &&     \
-			bash --rcfile $(PREFIX)/perl5/perlbrew/etc/bashrc -c "cpanm install $(CPAN_MODULES)"
+	test -e $(LIB_DIR)/perl5/perlbrew || \
+		( \
+			PERLBREW_ROOT=$(LIB_DIR)/perl5/perlbrew \
+			PERLBREW_HOME=$(LIB_DIR)/perl5/perlbrew \
+			$(CONF_DIR)/perl/setup.sh               \
 		)
 
 ruby:
-	# rvm
-	# ruby
-	# bundle
-	# gemfile
+	test -e $(LIB_DIR)/ruby/rvm || \
+		( \
+			rvm_path=$(LIB_DIR)/ruby/rvm    \
+			$(CONF_DIR)/ruby/setup.sh    && \
+			cd $(CONF_DIR)/ruby          && \
+			bundle install                  \
+		)
 
 python:
-	# pythonbrew
+	test -e $(LIB_DIR)/python/pythonbrew || \
+		( \
+			PYTHONBREW_ROOT=$(LIB_DIR)/python/pythonbrew \
+			$(CONF_DIR)/python/setup.sh \
+		)
+
+.PHONY: all config perl ruby node python
