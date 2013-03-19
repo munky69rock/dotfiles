@@ -158,7 +158,8 @@ endif
 autocmd VimResized * :wincmd =
 
 "" extention
-autocmd BufNewFile,BufRead *.psgi setl filetype=perl
+autocmd BufNewFile,BufRead *.psgi                   setl filetype=perl
+autocmd BufNewFile,BufRead *.tt                     setl filetype=html
 autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl filetype=apache
 autocmd BufNewFile,BufRead *.scss                   setl filetype=scss
 autocmd BufNewFile,BufRead *.sass                   setl filetype=sass
@@ -175,6 +176,9 @@ nmap * *zz
 nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
+
+"nnoremap <PageDown> <C-F>
+"nnoremap <PageUp> <C-B>
 
 nmap ,b :ls<CR>:buf 
 nmap ,e :e!<CR>
@@ -270,6 +274,8 @@ NeoBundle 'git://github.com/scrooloose/nerdtree.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 "NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 NeoBundle 'git://github.com/vim-scripts/simple-pairs.git'
+
+"NeoBundle 'git://github.com/vim-scripts/Smooth-Scroll.git'
 
 filetype plugin on
 filetype indent on
