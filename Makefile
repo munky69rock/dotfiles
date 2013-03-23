@@ -17,14 +17,13 @@ init:
 	touch init
 
 install:
-	pwd=$$(pwd)
-	test -e $(PREFIX)/.vim       || ln -s $$pwd/vim             $(PREFIX)/.vim
-	test -e $(PREFIX)/.vimrc     || ln -s $$pwd/vim/vimrc       $(PREFIX)/.vimrc
-	test -e $(PREFIX)/.gvimrc    || ln -s $$pwd/vim/gvimrc      $(PREFIX)/.gvimrc
-	test -e $(PREFIX)/.zshrc     || ln -s $$pwd/zsh/zshrc       $(PREFIX)/.zshrc
-	test -e $(PREFIX)/.gitconfig || ln -s $$pwd/git/gitconfig   $(PREFIX)/.gitconfig
-	test -e $(PREFIX)/.screenrc  || ln -s $$pwd/screen/screenrc $(PREFIX)/.screenrc
-	test -e $(PREFIX)/.tmux.conf || ln -s $$pwd/tmux/tmux.conf  $(PREFIX)/.tmux.conf
+	test -e $(PREFIX)/.vim       || ln -s $$PWD/vim             $(PREFIX)/.vim
+	test -e $(PREFIX)/.vimrc     || ln -s $$PWD/vim/vimrc       $(PREFIX)/.vimrc
+	test -e $(PREFIX)/.gvimrc    || ln -s $$PWD/vim/gvimrc      $(PREFIX)/.gvimrc
+	test -e $(PREFIX)/.zshrc     || ln -s $$PWD/zsh/zshrc       $(PREFIX)/.zshrc
+	test -e $(PREFIX)/.gitconfig || ln -s $$PWD/git/gitconfig   $(PREFIX)/.gitconfig
+	test -e $(PREFIX)/.screenrc  || ln -s $$PWD/screen/screenrc $(PREFIX)/.screenrc
+	test -e $(PREFIX)/.tmux.conf || ln -s $$PWD/tmux/tmux.conf  $(PREFIX)/.tmux.conf
 
 node:
 	test -e $(BIN_DIR)/nave ||                                  \
