@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 RUBY_VERSION=2.0.0
+RVM_URL=http://get.rvm.io/ 
 rvm_path=${rvm_path:-~/lib/ruby/rvm}
 
-curl -L http://get.rvm.io/ | bash
+curl -L $RVM_URL | bash
 . $rvm_path/scripts/rvm
 
 #rvm pkg install libyaml

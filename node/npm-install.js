@@ -8,7 +8,6 @@ var commands = ['npm', 'install', '-g'];
 for (var pkg in pkgs.dependencies) {
   commands.push(pkg);
 }
-
 var exec = require('child_process').exec;
 var ci = exec(commands.join(' '), function (err, stdout, stderr) {
   console.log('stderr: '  + stderr);

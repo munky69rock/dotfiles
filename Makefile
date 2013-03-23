@@ -3,11 +3,12 @@ PREFIX ?= ~
 BIN_DIR  = $(PREFIX)/bin
 LIB_DIR  = $(PREFIX)/lib
 
-# node.js
-NODE_APP_FRAMEWORK  = express nodeigniter mojito singool
-NODE_TEST_FRAMEWORK = testem
-NODE_CL_TOOL        = coffee-script typescript less jshint uglify-js uglify-js2 jq
-NODE_PKGS = $(NODE_APP_FRAMEWORK) $(NODE_TEST_FRAMEWORK) $(NODE_CL_TOOL)
+NODE_DIR = $(LIB_DIR)/node
+PERL_DIR = $(LIB_DIR)/perl5
+RUBY_DIR = $(LIB_DIR)/ruby
+PYTHON_DIR = $(LIB_DIR)/python
+
+NAVE_URL = https://github.com/isaacs/nave.git
 
 init:
 	mkdir -p $(BIN_DIR)
@@ -25,40 +26,6 @@ install:
 	test -e $(PREFIX)/.screenrc  || ln -s $$PWD/screen/screenrc $(PREFIX)/.screenrc
 	test -e $(PREFIX)/.tmux.conf || ln -s $$PWD/tmux/tmux.conf  $(PREFIX)/.tmux.conf
 
-node:
-	test -e $(BIN_DIR)/nave ||                                  \
-		(                                                       \
-		    mkdir $(LIB_DIR)/node                            && \
-			cd $(LIB_DIR)/node                               && \
-			git clone https://github.com/isaacs/nave.git     && \
-			ln -s $(LIB_DIR)/nave/nave.sh $(BIN_DIR)/nave       \
-		)
-	$(BIN_DIR)/nave use stable npm install -g $(NODE_PKGS)
-
-perl:
-	test -e $(LIB_DIR)/perl5/perlbrew || \
-		( \
-			PERLBREW_ROOT=$(LIB_DIR)/perl5/perlbrew \
-			PERLBREW_HOME=$(LIB_DIR)/perl5/perlbrew \
-			perl/setup.sh                           \
-		)
-
-ruby:
-	test -e $(LIB_DIR)/ruby/rvm || \
-		( \
-			rvm_path=$(LIB_DIR)/ruby/rvm    \
-			ruby/setup.sh                && \
-			cd ruby                      && \
-			bundle install                  \
-		)
-
-python:
-	test -e $(LIB_DIR)/python/pythonbrew || \
-		( \
-			PYTHONBREW_ROOT=$(LIB_DIR)/python/pythonbrew \
-			python/setup.sh \
-		)
-
 uninstall:
 	for target in .vim .vimrc .gvimrc .zshrc .gitconfig .screenrc .tmux.conf; do \
 		if [ -L $(PREFIX)/$$target ]; then \
@@ -70,4 +37,73 @@ uninstall:
 
 all: init install node perl ruby python
 
-.PHONY: all install perl ruby node python uninstall
+## node.js
+
+node: nodebrew node_modules
+
+nave:
+	test -e $(BIN_DIR)/nave || \
+		( \
+			mkdir -p $(NODE_DIR)                           && \
+			cd $(NODE_DIR)                                 && \
+			git clone $(NAVE_URL)                          && \
+			ln -s $(NODE_DIR)/nave/nave.sh $(BIN_DIR)/nave    \
+		)
+
+nodebrew:
+	test -e $(NODE_DIR)/nodebrew ||
+		( \
+			NODEBREW_ROOT=$(NODE_DIR)/nodebrew \
+			node/setup-nodebrew.sh             \
+		)
+
+node_modules:
+	if   which node > /dev/null; then \
+		node node/npm-install.js;
+	elif which nave > /dev/null; then \
+		nave use stable node/npm-install.js;
+	fi
+
+## perl
+
+perl: perlbrew cpanm
+
+perlbrew:
+	test -e $(PERL_DIR)/perlbrew || \
+		( \
+			PERLBREW_ROOT=$(PERL_DIR)/perlbrew \
+			PERLBREW_HOME=$(PERL_DIR)/perlbrew \
+			perl/setup-perlbrew.sh \
+		)
+
+cpanm:
+	cd perl
+	cpanm --installdeps .
+
+## ruby
+
+ruby: rvm bundler
+
+rvm:
+	test -e $(RUBY_DIR)/rvm || \
+		( \
+			rvm_path=$(RUBY_DIR)/rvm \
+			ruby/setup-rvm.sh        \
+		)
+
+bundler:
+	cd ruby
+	bundle install
+
+## python
+
+python: pythonbrew
+
+pythonbrew:
+	test -e $(PYTHON_DIR)/pythonbrew || \
+		( \
+			PYTHONBREW_ROOT=$(PYTHON_DIR)/pythonbrew \
+			python/setup-pythonbrew.sh \
+		)
+
+.PHONY: all install uninstall node nave node_modules perl perlbrew cpanm ruby rvm bundler python pythonbrew
