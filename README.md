@@ -1,6 +1,8 @@
 # system configuration files
 
 ## install
-    $ cd ~/git/dotfiles
+
+	$ git checkout https://github.com/munky69rock/dotfiles.git 
+    $ cd dotfiles
 	$ make
 	$ make install
