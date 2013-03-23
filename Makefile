@@ -1,5 +1,9 @@
 PREFIX ?= ~
 
+PERL_VERSION ?= 5.16.2
+RUBY_VERSION ?= 2.0.0
+PYTHON_VERSION ?= 2.7.3
+
 BIN_DIR  = $(PREFIX)/bin
 LIB_DIR  = $(PREFIX)/lib
 
@@ -39,7 +43,7 @@ all: init install node perl ruby python
 
 ## node.js
 
-node: nodebrew node_modules
+node: nodebrew
 
 nave:
 	test -e $(BIN_DIR)/nave || \
@@ -49,51 +53,40 @@ nave:
 			git clone $(NAVE_URL)                          && \
 			ln -s $(NODE_DIR)/nave/nave.sh $(BIN_DIR)/nave    \
 		)
+	$(BIN_DIR)/nave use stable node/npm-install.js
 
 nodebrew:
-	test -e $(NODE_DIR)/nodebrew ||
+	test -e $(NODE_DIR)/nodebrew || \
 		( \
+			mkdir -p $(NODE_DIR) && \
 			NODEBREW_ROOT=$(NODE_DIR)/nodebrew \
 			node/setup-nodebrew.sh             \
 		)
 
-node_modules:
-	if   which node > /dev/null; then \
-		node node/npm-install.js;
-	elif which nave > /dev/null; then \
-		nave use stable node/npm-install.js;
-	fi
-
 ## perl
 
-perl: perlbrew cpanm
+perl: perlbrew
 
 perlbrew:
 	test -e $(PERL_DIR)/perlbrew || \
 		( \
 			PERLBREW_ROOT=$(PERL_DIR)/perlbrew \
 			PERLBREW_HOME=$(PERL_DIR)/perlbrew \
+			PERL_VERSION=$(PERL_VERSION) \
 			perl/setup-perlbrew.sh \
 		)
 
-cpanm:
-	cd perl
-	cpanm --installdeps .
-
 ## ruby
 
-ruby: rvm bundler
+ruby: rvm
 
 rvm:
 	test -e $(RUBY_DIR)/rvm || \
 		( \
 			rvm_path=$(RUBY_DIR)/rvm \
-			ruby/setup-rvm.sh        \
+			RUBY_VERSION=$(RUBY_VERSION) \
+			ruby/setup-rvm.sh \
 		)
-
-bundler:
-	cd ruby
-	bundle install
 
 ## python
 
@@ -103,7 +96,8 @@ pythonbrew:
 	test -e $(PYTHON_DIR)/pythonbrew || \
 		( \
 			PYTHONBREW_ROOT=$(PYTHON_DIR)/pythonbrew \
+			PYTHON_VERSION=$(PYTHON_VERSION) \
 			python/setup-pythonbrew.sh \
 		)
 
-.PHONY: all install uninstall node nave node_modules perl perlbrew cpanm ruby rvm bundler python pythonbrew
+.PHONY: all install uninstall node nave perl perlbrew ruby rvm python pythonbrew

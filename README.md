@@ -1,6 +1,6 @@
-# system configuration files
+# System Configuration Files
 
-## install
+## Install
 
 	$ git checkout https://github.com/munky69rock/dotfiles.git 
     $ cd dotfiles

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PYTHON_VERSION=2.7.3
+PYTHON_VERSION=${PYTHON_VERSION:-2.7.3}
 PYTHONBREW_URL=http://xrl.us/pythonbrewinstall 
 PYTHONBREW_ROOT=${PYTHONBREW_ROOT:-~/lib/python/pythonbrew}
 

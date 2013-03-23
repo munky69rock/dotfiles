@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PERL_VERSION=5.16.2
+PERL_VERSION=${PERL_VERSION:-5.16.2}
 
 PERLBREW_URL=http://install.perlbrew.pl 
 
@@ -14,3 +14,6 @@ perlbrew install-cpanm
 perlbrew install-ack
 perlbrew install -j 4 -n perl-$PERL_VERSION
 perlbrew switch perl-$PERL_VERSION
+
+cd $(dirname $0)
+cpanm --installdeps .
