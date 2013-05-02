@@ -1,28 +1,11 @@
 {
-  "name": "global node modules",
+  "name": "global_node_modules",
   "version": "0.0.0",
   "description": "ERROR: No README.md file found!",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm install -g coffee-script js2coffee jsx typescript jade html2jade grunt-cli bower jshint uglify-js2 express yo",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "coffee-script": "*",
-    "jsx": "*",
-    "typescript": "*",
-    "js2coffee": "*",
-
-    "jade": "*",
-    "html2jade": "*",
-
-    "grunt-cli": "*",
-
-    "jshint": "*",
-    "uglify-js2": "*",
-
-    "express": "*",
-
-    "yo": "*"
   },
   "repository": "",
   "author": "Masayuki Uehara",

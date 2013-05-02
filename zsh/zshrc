@@ -4,8 +4,8 @@ export LC_ALL=$LANG
 export EDITOR=$(which vim)
 export HOST=`hostname`
 
-__LIB_DIR__=$HOME/lib
-__CONF_DIR__=$HOME/git/dotfiles
+MY_LIB_DIR=$HOME/lib
+MY_CONF_DIR=$HOME/git/dotfiles
 
 autoload colors
 colors
@@ -52,7 +52,7 @@ setopt hist_reduce_blanks # ignore command spaces
 setopt share_history # share command history data
 
 # zsh-completions
-[ -d $__CONF_DIR__/zsh/zsh-completions ] && fpath=($__CONF_DIR__/zsh/zsh-completions/src $fpath)
+[ -d $MY_CONF_DIR/zsh/zsh-completions ] && fpath=($MY_CONF_DIR/zsh/zsh-completions/src $fpath)
 
 autoload -U compinit
 compinit
@@ -97,17 +97,17 @@ kterm*|xterm*)
 esac
 
 # perl
-export PERLBREW_ROOT=$__LIB_DIR__/perl5/perlbrew
-export PERLBREW_HOME=$__LIB_DIR__/perl5/perlbrew
+export PERLBREW_ROOT=$MY_LIB_DIR/perl5/perlbrew
+export PERLBREW_HOME=$MY_LIB_DIR/perl5/perlbrew
 
 # python
-export PYTHONBREW_ROOT=$__LIB_DIR__/python/pythonbrew
+export PYTHONBREW_ROOT=$MY_LIB_DIR/python/pythonbrew
 
 # ruby
-export rvm_path=$__LIB_DIR__/ruby/rvm
+export rvm_path=$MY_LIB_DIR/ruby/rvm
 
 # node
-export NODEBREW_ROOT=$__LIB_DIR__/node/nodebrew
+export NODEBREW_ROOT=$MY_LIB_DIR/node/nodebrew
 
 [ -s $PERLBREW_ROOT/etc/bashrc ]   && source $PERLBREW_ROOT/etc/bashrc
 [ -s $PYTHONBREW_ROOT/etc/bashrc ] && source $PYTHONBREW_ROOT/etc/bashrc

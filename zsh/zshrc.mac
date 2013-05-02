@@ -1,0 +1,5 @@
+# homebrew
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+[ -d /usr/local/share/zsh-completions ] && fpath=(/usr/local/share/zsh-completions $fpath) 
+
+# vim: se ft=sh :

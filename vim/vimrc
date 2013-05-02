@@ -1,6 +1,6 @@
-" ----------------------------------------
-" vim settings 
-" ----------------------------------------
+"========================================
+" VIM SETTINGS 
+"========================================
 "" general
 syntax on
 set shell=/bin/sh
@@ -27,7 +27,7 @@ set showmode
 set matchtime=2
 set hidden
 set shortmess+=I
-set statusline==%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+set statusline==%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%{fugitive#statusline()}%=%l,%c%V%8P
 set wrap
 set textwidth=0
 set laststatus=2
@@ -85,7 +85,16 @@ set showmatch
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
 
-"" encoding
+"" auto save
+"autocmd FocusLost * :wa
+
+"" Working with split screen nicely
+"" Resize Split When the window is resized
+autocmd VimResized * :wincmd =
+
+"========================================
+" ENCODING
+"========================================
 if &encoding !=# 'utf-8'
   set encoding=japan
   set fileencoding=japan
@@ -150,25 +159,23 @@ if exists('foldmethod')
   endfunction
 endif
 
-"" auto save
-"autocmd FocusLost * :wa
+"========================================
+" SET FILETYPE FOR UNKNOWN EXTENSIONS
+"========================================
+autocmd BufNewFile,BufRead *.psgi                   setl ft=perl
+autocmd BufNewFile,BufRead *.tt                     setl ft=html
+autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl ft=apache
+autocmd BufNewFile,BufRead *.scss                   setl ft=scss
+autocmd BufNewFile,BufRead *.sass                   setl ft=sass
+autocmd BufNewFile,BufRead *.jade                   setl ft=jade
+autocmd BufNewFile,BufRead *.coffee,Cakefile        setl ft=coffeescript
+autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
+autocmd BufNewFile,BufRead *.go                     setl ft=go
+autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
 
-"" Working with split screen nicely
-"" Resize Split When the window is resized
-autocmd VimResized * :wincmd =
-
-"" extention
-autocmd BufNewFile,BufRead *.psgi                   setl filetype=perl
-autocmd BufNewFile,BufRead *.tt                     setl filetype=html
-autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl filetype=apache
-autocmd BufNewFile,BufRead *.scss                   setl filetype=scss
-autocmd BufNewFile,BufRead *.sass                   setl filetype=sass
-autocmd BufNewFile,BufRead *.coffee,Cakefile        setl filetype=coffeescript
-autocmd BufNewFile,BufRead *.as                     setl filetype=actionscript
-autocmd BufNewFile,BufRead *.go                     setl filetype=go fileencoding=utf-8 fileformat=unix
-autocmd BufNewFile,BufRead *.tsv,*.csv              setl fileencoding=cp932 fileformat=dos
-
-"" key mapping
+"========================================
+" KEY MAPPING
+"========================================
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 nmap n nzz
 nmap N Nzz
@@ -198,33 +205,16 @@ endf
 autocmd FileType perl nmap ,w :!perl -wc %<CR>
 autocmd FileType perl nmap ,d :!perl %<CR>
 
-let mapleader = ","
-""" Mapping to NERDTree
-nnoremap <C-n> :NERDTreeToggle<CR>
+"========================================
+" PLUGINS
+"========================================
 
-""" Mini Buffer some settigns."
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
-""" Rope Plugin settings
-"imap <leader>j <ESC>:RopeGotoDefinition<CR>
-"nmap <leader>j <ESC>:RopeGotoDefinition<CR>
-
-""" Tagbar key bindings."
-nmap <leader>l <ESC>:TagbarToggle<CR>
-imap <leader>l <ESC>:TagbarToggle<CR>i
-
-" ----------------------------------------
-" plugin
-" ----------------------------------------
 "" unify vim plugin path to ~/.vim
 if has('win32') || has('win64')
   set runtimepath+=$HOME/.vim
 endif
 
-"" --------------------
+""--------------------
 "" neobundle.vim
 set nocompatible
 filetype off
@@ -275,12 +265,35 @@ NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/simple-pairs'
 
-"NeoBundle 'vim-scripts/Smooth-Scroll'
+"NeoBundle 'vim-scripts/Smooth-Scroll' (incompatible with zen-coding.vim)
+
+" git
+NeoBundle 'tpope/vim-fugitive'
 
 NeoBundleCheck
 
 filetype plugin on
 filetype indent on
+
+
+let mapleader = ","
+""" Mapping to NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+""" Mini Buffer some settigns."
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
+""" Rope Plugin settings
+"imap <leader>j <ESC>:RopeGotoDefinition<CR>
+"nmap <leader>j <ESC>:RopeGotoDefinition<CR>
+
+""" Tagbar key bindings."
+nmap <leader>l <ESC>:TagbarToggle<CR>
+imap <leader>l <ESC>:TagbarToggle<CR>i
+
 
 "" --------------------
 "" neocomplcache.vim  
@@ -378,12 +391,6 @@ endif
 let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:property'
 
 " ----------------------------------------
-" load local vimrc
-if filereadable(expand('$HOME/.vimrc.local'))
-  source $HOME/.vimrc.local
-endif
-
-" ----------------------------------------
 " coffeetags
 if executable('coffeetags')
   let g:tagbar_type_coffee = {
@@ -401,14 +408,22 @@ if executable('coffeetags')
         \ }
 endif
 
-" ----------------------------------------
-" filetype setting
-autocmd FileType html,xhtml,haml,scss,sass,css,javascript,coffeescript setl fileformat=dos tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-autocmd FileType sql    setl expandtab tabstop=2 softtabstop=2 shiftwidth=2 nonumber
+"========================================
+" SETTINGS FOR SPECIFIED FILETYPE 
+"========================================
+autocmd FileType html,xhtml,haml,jade,scss,sass,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
+autocmd FileType sql    setl expandtab ts=2 sts=2 sw=2 nonu
 autocmd FileType yaml   setl expandtab
-autocmd FileType vim    setl tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
-autocmd FileType perl   setl fileformat=unix tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-autocmd FileType ruby   setl fileformat=unix tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-autocmd FileType python setl fileformat=unix tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType sh     setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType vim    setl noexpandtab ts=2 sts=2 sw=2 
+autocmd FileType perl   setl noexpandtab ff=unix ts=4 sts=4 sw=4
+autocmd FileType ruby   setl expandtab   ff=unix ts=2 sts=2 sw=2
+autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
+autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 """ TODO: windows g?vimrc encoding=cp932
+
+"========================================
+" LOCAL VIMRC SETTINGS
+"========================================
+if filereadable(expand('$HOME/.vimrc.local'))
+  source $HOME/.vimrc.local
+endif

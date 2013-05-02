@@ -7,4 +7,4 @@ export PATH=$NODEBREW_ROOT/current/bin:$PATH
 nodebrew use stable
 
 cd $(dirname $0)
-node npm-install.js
+npm install

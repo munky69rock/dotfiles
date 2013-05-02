@@ -56,3 +56,8 @@
 	top = https://{host}/{path}
 	ref = https://{host}/{path}/tree/{short_ref}
 	rev = https://{host}/{path}/commit/{commit}
+
+[alias]
+	st = status
+	ci = commit
+	co = checkout
