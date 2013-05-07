@@ -1,7 +1,7 @@
 PREFIX ?= ~
 
 PERL_VERSION ?= 5.16.2
-RUBY_VERSION ?= 2.0.0
+RUBY_VERSION ?= 2.0.0-p0
 PYTHON_VERSION ?= 2.7.3
 
 BIN_DIR  = $(PREFIX)/bin
@@ -27,11 +27,10 @@ install:
 	test -e $(PREFIX)/.gvimrc    || ln -s $$PWD/vim/gvimrc      $(PREFIX)/.gvimrc
 	test -e $(PREFIX)/.zshrc     || ln -s $$PWD/zsh/zshrc       $(PREFIX)/.zshrc
 	test -e $(PREFIX)/.gitconfig || ln -s $$PWD/git/gitconfig   $(PREFIX)/.gitconfig
-	test -e $(PREFIX)/.screenrc  || ln -s $$PWD/screen/screenrc $(PREFIX)/.screenrc
 	test -e $(PREFIX)/.tmux.conf || ln -s $$PWD/tmux/tmux.conf  $(PREFIX)/.tmux.conf
 
 uninstall:
-	for target in .vim .vimrc .gvimrc .zshrc .gitconfig .screenrc .tmux.conf; do \
+	for target in .vim .vimrc .gvimrc .zshrc .gitconfig .tmux.conf; do \
 		if [ -L $(PREFIX)/$$target ]; then \
 			rm $(PREFIX)/$$target;    \
 		else \
@@ -78,14 +77,24 @@ perlbrew:
 
 ## ruby
 
-ruby: rvm
+ruby: rbenv
 
 rvm:
 	test -e $(RUBY_DIR)/rvm || \
 		( \
+			mkdir -p $(RUBY_DIR)/rvm && \
 			rvm_path=$(RUBY_DIR)/rvm \
 			RUBY_VERSION=$(RUBY_VERSION) \
 			ruby/setup-rvm.sh \
+		)
+
+rbenv:
+	test -e $(RUBY_DIR)/rbenv || \
+		( \
+			mkdir -p $(RUBY_DIR)/rbenv && \
+			RBENV_ROOT=$(RUBY_DIR)/rbenv \
+			RUBY_VERSION=$(RUBY_VERSION) \
+			ruby/setup-rbenv.sh \
 		)
 
 ## python
@@ -100,4 +109,4 @@ pythonbrew:
 			python/setup-pythonbrew.sh \
 		)
 
-.PHONY: all install uninstall node nave perl perlbrew ruby rvm python pythonbrew
+.PHONY: all install uninstall node nave perl perlbrew ruby rvm rbenv python pythonbrew

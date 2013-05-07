@@ -184,6 +184,10 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
+noremap <Space>h ^
+noremap <Space>l $
+noremap <Space>/ *
+
 "nnoremap <PageDown> <C-F>
 "nnoremap <PageUp> <C-B>
 
