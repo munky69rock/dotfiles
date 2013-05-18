@@ -52,7 +52,8 @@ nave:
 			git clone $(NAVE_URL)                          && \
 			ln -s $(NODE_DIR)/nave/nave.sh $(BIN_DIR)/nave    \
 		)
-	$(BIN_DIR)/nave use stable node/npm-install.js
+	cd node && \
+	$(BIN_DIR)/nave use stable npm install
 
 nodebrew:
 	test -e $(NODE_DIR)/nodebrew || \
