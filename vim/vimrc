@@ -1,7 +1,7 @@
-"========================================
-" VIM SETTINGS 
-"========================================
-"" general
+" VIMRC
+
+" GENERAL SETTINGS: {{{1
+
 syntax on
 set shell=/bin/sh
 set nocompatible
@@ -11,7 +11,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set swapfile
 set directory=$HOME/git/dotfiles/vim/swp
-set backupskip=/tmp/*
+set backupskip=/tmp/*,/private/tmp/*
 set history=10000
 set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.viminfo
 set ttyfast
@@ -92,9 +92,7 @@ match ZenkakuSpace /　/
 "" Resize Split When the window is resized
 autocmd VimResized * :wincmd =
 
-"========================================
-" ENCODING
-"========================================
+" ENCODING: {{{1
 if &encoding !=# 'utf-8'
   set encoding=japan
   set fileencoding=japan
@@ -144,24 +142,7 @@ if exists('&ambiwidth')
   set ambiwidth=double
 endif
 
-"" fold  {zo,zO: open | zc,zC: close}
-if exists('foldmethod')
-  set foldmethod=syntax
-  let perl_fold=1
-  set foldlevel=100
-  highlight Folded guibg=grey guifg=blue
-  highlight FoldColumn guibg=darkgrey guifg=white
-  set foldtext=MyFoldText()
-  function MyFoldText()
-    let line = getline(v:foldstart)
-    let sub = substitute(line, '/\*\|\*/\|{{{\d\=', '', 'g')
-    return v:folddashes . sub 
-  endfunction
-endif
-
-"========================================
-" SET FILETYPE FOR UNKNOWN EXTENSIONS
-"========================================
+" SPECIFY FILETYPE: {{{1
 autocmd BufNewFile,BufRead *.psgi                   setl ft=perl
 autocmd BufNewFile,BufRead *.tt                     setl ft=html
 autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl ft=apache
@@ -173,9 +154,7 @@ autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
 autocmd BufNewFile,BufRead *.go                     setl ft=go
 autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
 
-"========================================
-" KEY MAPPING
-"========================================
+" KEY MAPPING: {{{1
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 nmap n nzz
 nmap N Nzz
@@ -209,17 +188,17 @@ endf
 autocmd FileType perl nmap ,w :!perl -wc %<CR>
 autocmd FileType perl nmap ,d :!perl %<CR>
 
-"========================================
-" PLUGINS
-"========================================
+
+" PLUGINS: {{{1
 
 "" unify vim plugin path to ~/.vim
 if has('win32') || has('win64')
   set runtimepath+=$HOME/.vim
 endif
 
-""--------------------
-"" neobundle.vim
+let mapleader = ","
+
+"" neobundle.vim {{{2
 set nocompatible
 filetype off
 
@@ -253,6 +232,7 @@ NeoBundle 'lukaszkorecki/CoffeeTags'
 """ syntax
 NeoBundle 'jsx/jsx.vim'
 NeoBundle 'othree/html5.vim'
+NeoBundle 'statianzo/vim-jade'
 
 "NeoBundle 'othree/eregex.vim'
 "NeoBundle 'vim-scripts/Align.vim'
@@ -279,28 +259,24 @@ NeoBundleCheck
 filetype plugin on
 filetype indent on
 
-
-let mapleader = ","
-""" Mapping to NERDTree
+"" nerdtree.vim {{{2
 nnoremap <C-n> :NERDTreeToggle<CR>
 
-""" Mini Buffer some settigns."
+"" minibufexpl.vim {{{2
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
-""" Rope Plugin settings
+"" rope.vim {{{2
 "imap <leader>j <ESC>:RopeGotoDefinition<CR>
 "nmap <leader>j <ESC>:RopeGotoDefinition<CR>
 
-""" Tagbar key bindings."
+"" tagbar.vim {{{2
 nmap <leader>l <ESC>:TagbarToggle<CR>
 imap <leader>l <ESC>:TagbarToggle<CR>i
 
-
-"" --------------------
-"" neocomplcache.vim  
+"" neocomplcache.vim {{{2
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -360,8 +336,7 @@ endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
-"""" --------------------
-"""" unite.vim
+"""" unite.vim {{{2
 ""let g:unite_enable_start_insert=1
 ""noremap <C-P> :Unite buffer<CR>
 """noremap <C-N> :Unite -buffer-name=file file<CR>
@@ -390,12 +365,10 @@ endif
 ""  call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
 ""endif
 
-"" --------------------
-"" taglist.vim
+"" taglist.vim {{{2
 let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:property'
 
-" ----------------------------------------
-" coffeetags
+"" coffeetags {{{2
 if executable('coffeetags')
   let g:tagbar_type_coffee = {
         \ 'ctagsbin' : 'coffeetags',
@@ -412,9 +385,9 @@ if executable('coffeetags')
         \ }
 endif
 
-"========================================
-" SETTINGS FOR SPECIFIED FILETYPE 
-"========================================
+" }}}2
+
+" FILETYPE SETTINGS: {{{1
 autocmd FileType html,xhtml,haml,jade,scss,sass,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
 autocmd FileType sql    setl expandtab ts=2 sts=2 sw=2 nonu
 autocmd FileType yaml   setl expandtab
@@ -425,9 +398,10 @@ autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
 autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 """ TODO: windows g?vimrc encoding=cp932
 
-"========================================
-" LOCAL VIMRC SETTINGS
-"========================================
+" LOCAL SETTINGS: {{{1
 if filereadable(expand('$HOME/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
+" }}}1
+
+" vim: foldmethod=marker foldcolumn=3 foldlevel=0 :
