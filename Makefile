@@ -1,7 +1,7 @@
 PREFIX ?= ~
 
-PERL_VERSION ?= 5.16.2
-RUBY_VERSION ?= 2.0.0-p0
+PERL_VERSION ?= 5.16.3
+RUBY_VERSION ?= 2.0.0-p195
 PYTHON_VERSION ?= 2.7.3
 
 BIN_DIR  = $(PREFIX)/bin
@@ -22,12 +22,13 @@ init:
 	touch init
 
 install:
-	test -e $(PREFIX)/.vim       || ln -s $$PWD/vim             $(PREFIX)/.vim
-	test -e $(PREFIX)/.vimrc     || ln -s $$PWD/vim/vimrc       $(PREFIX)/.vimrc
-	test -e $(PREFIX)/.gvimrc    || ln -s $$PWD/vim/gvimrc      $(PREFIX)/.gvimrc
-	test -e $(PREFIX)/.zshrc     || ln -s $$PWD/zsh/zshrc       $(PREFIX)/.zshrc
-	test -e $(PREFIX)/.gitconfig || ln -s $$PWD/git/gitconfig   $(PREFIX)/.gitconfig
-	test -e $(PREFIX)/.tmux.conf || ln -s $$PWD/tmux/tmux.conf  $(PREFIX)/.tmux.conf
+	test -e $(PREFIX)/.vim             || ln -s $$PWD/vim                 $(PREFIX)/.vim
+	test -e $(PREFIX)/.vimrc           || ln -s $$PWD/vim/vimrc           $(PREFIX)/.vimrc
+	test -e $(PREFIX)/.gvimrc          || ln -s $$PWD/vim/gvimrc          $(PREFIX)/.gvimrc
+	test -e $(PREFIX)/.zshrc           || ln -s $$PWD/zsh/zshrc           $(PREFIX)/.zshrc
+	test -e $(PREFIX)/.zsh-completions || ln -s $$PWD/zsh/zsh-completions $(PREFIX)/.zsh-completions
+	test -e $(PREFIX)/.gitconfig       || ln -s $$PWD/git/gitconfig       $(PREFIX)/.gitconfig
+	test -e $(PREFIX)/.tmux.conf       || ln -s $$PWD/tmux/tmux.conf      $(PREFIX)/.tmux.conf
 
 uninstall:
 	for target in .vim .vimrc .gvimrc .zshrc .gitconfig .tmux.conf; do \

@@ -247,7 +247,7 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'vim-scripts/simple-pairs'
+"NeoBundle 'vim-scripts/simple-pairs'
 
 "NeoBundle 'vim-scripts/Smooth-Scroll' (incompatible with zen-coding.vim)
 

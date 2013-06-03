@@ -4,8 +4,7 @@ export LC_ALL=$LANG
 export EDITOR=$(which vim)
 export HOST=`hostname`
 
-MY_LIB_DIR=$HOME/lib
-MY_CONF_DIR=$HOME/git/dotfiles
+LOCAL_LIB_DIR=$HOME/lib
 
 autoload colors
 colors
@@ -52,7 +51,7 @@ setopt hist_reduce_blanks # ignore command spaces
 setopt share_history # share command history data
 
 # zsh-completions
-[ -d $MY_CONF_DIR/zsh/zsh-completions ] && fpath=($MY_CONF_DIR/zsh/zsh-completions/src $fpath)
+[ -d ~/.zsh-completions ] && fpath=(~/.zsh-completions/src $fpath)
 
 autoload -U compinit
 compinit
@@ -98,36 +97,36 @@ esac
 
 # perl
 ## plenv
-export PLENV_ROOT=$MY_LIB_DIR/perl5/plenv
+export PLENV_ROOT=$LOCAL_LIB_DIR/perl5/plenv
 export PATH=$PLENV_ROOT/bin:$PATH
 [ -s $PLENV_ROOT/bin/plenv ] && eval "$(plenv init -)"
 
 ## perlbrew
-export PERLBREW_ROOT=$MY_LIB_DIR/perl5/perlbrew
-export PERLBREW_HOME=$MY_LIB_DIR/perl5/perlbrew
-[ -s $PERLBREW_ROOT/etc/bashrc ]   && source $PERLBREW_ROOT/etc/bashrc
+#export PERLBREW_ROOT=$LOCAL_LIB_DIR/perl5/perlbrew
+#export PERLBREW_HOME=$LOCAL_LIB_DIR/perl5/perlbrew
+#[ -s $PERLBREW_ROOT/etc/bashrc ]   && source $PERLBREW_ROOT/etc/bashrc
 
 # python
-export PYTHONBREW_ROOT=$MY_LIB_DIR/python/pythonbrew
-[ -s $PYTHONBREW_ROOT/etc/bashrc ] && source $PYTHONBREW_ROOT/etc/bashrc
+## pythonbrew
+#export PYTHONBREW_ROOT=$LOCAL_LIB_DIR/python/pythonbrew
+#[ -s $PYTHONBREW_ROOT/etc/bashrc ] && source $PYTHONBREW_ROOT/etc/bashrc
 
 # ruby
 ## rbenv
-#export RBENV_ROOT=$MY_LIB_DIR/ruby/rbenv
-#export PATH=$RBENV_ROOT/bin:$PATH
-#eval "$(rbenv init -)"
+export RBENV_ROOT=$LOCAL_LIB_DIR/ruby/rbenv
+export PATH=$RBENV_ROOT/bin:$PATH
+[ -s $RBENV_ROOT/bin/rbenv ] && eval "$(rbenv init -)"
 
 ## rvm
-#export rvm_path=$MY_LIB_DIR/ruby/rvm
+#export rvm_path=$LOCAL_LIB_DIR/ruby/rvm
 #[ -s $rvm_path/scripts/rvm ]       && source $rvm_path/scripts/rvm
 
 # node
-export NODEBREW_ROOT=$MY_LIB_DIR/node/nodebrew
+export NODEBREW_ROOT=$LOCAL_LIB_DIR/node/nodebrew
 [ -s $NODEBREW_ROOT/current/bin ]  && export PATH=$NODEBREW_ROOT/current/bin:$PATH
-#[ "$NAVE_LOGIN" = "1" ]            && export NODE_PATH=$npm_config_prefix/lib/node_modules:$NODE_PATH
 
 ## load user .zshrc configuration file
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
 [ -f $HOME/.aliases ]     && source $HOME/.aliases
 
-#PATH=$PATH:$HOME/lib/ruby/rvm/bin # Add RVM to PATH for scripting
+#PATH=$PATH:$LOCAL_LIB_DIR/ruby/rvm/bin # Add RVM to PATH for scripting
