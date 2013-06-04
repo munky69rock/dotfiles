@@ -66,7 +66,15 @@ nodebrew:
 
 ## perl
 
-perl: perlbrew
+perl: plenv
+
+plenv:
+	test -e $(PERL_DIR)/plenv || \
+		( \
+			PLENV_DIR=$(PERL_DIR)/plenv  \
+			PERL_VERSION=$(PERL_VERSION) \
+			perl/setup-plenv.sh \
+		)
 
 perlbrew:
 	test -e $(PERL_DIR)/perlbrew || \
