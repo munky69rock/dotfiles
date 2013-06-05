@@ -2,7 +2,7 @@ PREFIX ?= ~
 
 PERL_VERSION ?= 5.16.3
 RUBY_VERSION ?= 2.0.0-p195
-PYTHON_VERSION ?= 2.7.3
+PYTHON_VERSION ?= 2.7.5
 
 BIN_DIR  = $(PREFIX)/bin
 LIB_DIR  = $(PREFIX)/lib
@@ -41,9 +41,19 @@ uninstall:
 
 all: init install node perl ruby python
 
+##========================================
 ## node.js
+##========================================
 
 node: nodebrew
+
+nodebrew:
+	test -e $(NODE_DIR)/nodebrew || \
+		( \
+			mkdir -p $(NODE_DIR) && \
+			NODEBREW_ROOT=$(NODE_DIR)/nodebrew \
+			node/setup-nodebrew.sh             \
+		)
 
 nave:
 	test -e $(BIN_DIR)/nave || \
@@ -56,15 +66,9 @@ nave:
 	cd node && \
 	$(BIN_DIR)/nave use stable npm install
 
-nodebrew:
-	test -e $(NODE_DIR)/nodebrew || \
-		( \
-			mkdir -p $(NODE_DIR) && \
-			NODEBREW_ROOT=$(NODE_DIR)/nodebrew \
-			node/setup-nodebrew.sh             \
-		)
-
+##========================================
 ## perl
+##========================================
 
 perl: plenv
 
@@ -85,18 +89,11 @@ perlbrew:
 			perl/setup-perlbrew.sh \
 		)
 
+##========================================
 ## ruby
+##========================================
 
 ruby: rbenv
-
-rvm:
-	test -e $(RUBY_DIR)/rvm || \
-		( \
-			mkdir -p $(RUBY_DIR)/rvm && \
-			rvm_path=$(RUBY_DIR)/rvm \
-			RUBY_VERSION=$(RUBY_VERSION) \
-			ruby/setup-rvm.sh \
-		)
 
 rbenv:
 	test -e $(RUBY_DIR)/rbenv || \
@@ -107,9 +104,29 @@ rbenv:
 			ruby/setup-rbenv.sh \
 		)
 
-## python
+rvm:
+	test -e $(RUBY_DIR)/rvm || \
+		( \
+			mkdir -p $(RUBY_DIR)/rvm && \
+			rvm_path=$(RUBY_DIR)/rvm \
+			RUBY_VERSION=$(RUBY_VERSION) \
+			ruby/setup-rvm.sh \
+		)
 
-python: pythonbrew
+##========================================
+## python
+##========================================
+
+python: pyenv
+
+pyenv:
+	test -e $(PYTHON_DIR)/pyenv || \
+		( \
+			mkdir -p $(PYTHON_DIR)/pyenv && \
+			PYENV_ROOT=$(PYTHON_DIR)/pyenv \
+			PYTHON_VERSION=$(PYTHON_VERSION) \
+			python/setup-pyenv.sh \
+		)
 
 pythonbrew:
 	test -e $(PYTHON_DIR)/pythonbrew || \

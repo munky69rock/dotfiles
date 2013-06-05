@@ -1,4 +1,5 @@
 vim/bundle/*
 vim/swp/*
+ruby/Gemfile.lock
 init
 !.gitkeep
