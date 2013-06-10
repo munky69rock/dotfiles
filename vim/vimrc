@@ -245,7 +245,7 @@ NeoBundle 'majutsushi/tagbar'
 "NeoBundle 'msanders/snipmate.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'vim-scripts/simple-pairs'
 
