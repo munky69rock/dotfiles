@@ -107,6 +107,11 @@ export PATH=$PLENV_ROOT/bin:$PATH
 #[ -s $PERLBREW_ROOT/etc/bashrc ]   && source $PERLBREW_ROOT/etc/bashrc
 
 # python
+## pyenv
+export PYENV_ROOT=$LOCAL_LIB_DIR/python/pyenv
+export PATH=$PYENV_ROOT/bin:$PYENV_ROOT/plugins/python-build/bin:$PATH
+[ -s $PYENV_ROOT/bin/pyenv ] && eval "$(pyenv init -)"
+
 ## pythonbrew
 #export PYTHONBREW_ROOT=$LOCAL_LIB_DIR/python/pythonbrew
 #[ -s $PYTHONBREW_ROOT/etc/bashrc ] && source $PYTHONBREW_ROOT/etc/bashrc
@@ -128,5 +133,7 @@ export NODEBREW_ROOT=$LOCAL_LIB_DIR/node/nodebrew
 ## load user .zshrc configuration file
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
 [ -f $HOME/.aliases ]     && source $HOME/.aliases
+
+export PATH=$HOME/bin:$PATH
 
 #PATH=$PATH:$LOCAL_LIB_DIR/ruby/rvm/bin # Add RVM to PATH for scripting
