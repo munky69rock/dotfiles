@@ -27,7 +27,7 @@ set showmode
 set matchtime=2
 set hidden
 set shortmess+=I
-set statusline==%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%{fugitive#statusline()}%=%l,%c%V%8P
+"set statusline==%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%{fugitive#statusline()}%=%l,%c%V%8P
 set wrap
 set textwidth=0
 set laststatus=2
@@ -253,8 +253,8 @@ NeoBundle 'scrooloose/nerdtree'
 
 " git
 NeoBundle 'tpope/vim-fugitive'
-
-NeoBundle 'bling/vim-airline'
+"NeoBundle 'bling/vim-airline'
+NeoBundle 'itchyny/lightline.vim'
 
 NeoBundleCheck
 
@@ -337,6 +337,9 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
+"" neosnippet {{{2
+let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
 
 """" unite.vim {{{2
 ""let g:unite_enable_start_insert=1

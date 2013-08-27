@@ -1,3 +1,4 @@
 # vim: set ft=perl :
 
 requires "Task::Plack";
+requires "Minilla";
