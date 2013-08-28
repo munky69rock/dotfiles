@@ -5,11 +5,14 @@ RBENV_URL=https://github.com/sstephenson/rbenv.git
 RUBY_BUILD_URL=https://github.com/sstephenson/ruby-build.git
 
 RBENV_ROOT=${RBENV_ROOT:-~/lib/ruby/rbenv}
+PLUGIN_DIR=$PYENV_ROOT/plugins
 
-# install rbenv + ruby-build
+# install rbenv
 git clone $RBENV_URL $RBENV_ROOT
-mkdir -p $RBENV_ROOT/plugins
-git clone $RUBY_BUILD_URL $RBENV_ROOT/plugins/ruby-build
+
+# install ruby-build
+mkdir -p $PLUGIN_DIR
+git clone $RUBY_BUILD_URL $PLUGIN_DIR/ruby-build
 
 # load rbenv
 PATH=$RBENV_ROOT/bin:$PATH

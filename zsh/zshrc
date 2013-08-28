@@ -12,7 +12,7 @@ PROMPT="%{${fg[white]}%}[%n@%m:%~]%#%{${reset_color}%} "
 PROMPT2="%{${fg[white]}%}%_%#%{${reset_color}%} "
 SPROMPT="%{${fg[white]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 #[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-#	PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
+#  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
 
 # http://qiita.com/items/8d5a627d773758dd8078?utm_source=Qiita+Newsletter+Users&utm_campaign=bff63624dd-Qiita_newsletter_31_19_12_2012&utm_medium=email
 # for git, mercurial, ect...
@@ -133,6 +133,14 @@ export NODEBREW_ROOT=$LOCAL_LIB_DIR/node/nodebrew
 ## load user .zshrc configuration file
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
 [ -f $HOME/.aliases ]     && source $HOME/.aliases
+
+# zsh plugins
+_zsh_plugin_dir=$HOME/git/dotfiles/zsh/plugins
+if [ -s "$_zsh_plugin_dir" ]; then
+  for f in $(find $_zsh_plugin_dir/ -type f); do
+    source $f
+  done
+fi
 
 export PATH=$HOME/bin:$PATH
 
