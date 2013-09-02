@@ -34,6 +34,7 @@ emacs vi vim
 ssh mosh telnet nc netcat
 gdb
 "git diff"
+"sudo su -"
 )
 
 export __timetrack_threshold

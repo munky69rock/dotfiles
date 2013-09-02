@@ -256,6 +256,8 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'bling/vim-airline'
 "NeoBundle 'itchyny/lightline.vim'
 
+"NeoBundle 'altercation/vim-colors-solarized'
+
 NeoBundleCheck
 
 filetype plugin on

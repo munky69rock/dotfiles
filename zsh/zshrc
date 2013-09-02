@@ -135,12 +135,12 @@ export NODEBREW_ROOT=$LOCAL_LIB_DIR/node/nodebrew
 [ -f $HOME/.aliases ]     && source $HOME/.aliases
 
 # zsh plugins
-_zsh_plugin_dir=$HOME/git/dotfiles/zsh/plugins
-if [ -s "$_zsh_plugin_dir" ]; then
-  for f in $(find $_zsh_plugin_dir/ -type f); do
-    source $f
-  done
-fi
+#_zsh_plugin_dir=$HOME/git/dotfiles/zsh/plugins
+#if [ -s "$_zsh_plugin_dir" ]; then
+#  for f in $(find $_zsh_plugin_dir/ -type f); do
+#    source $f
+#  done
+#fi
 
 export PATH=$HOME/bin:$PATH
 
