@@ -91,7 +91,7 @@ match ZenkakuSpace /　/
 "" Working with split screen nicely
 "" Resize Split When the window is resized
 autocmd VimResized * :wincmd =
-
+"1}}}
 " ENCODING: {{{1
 if &encoding !=# 'utf-8'
   set encoding=japan
@@ -141,7 +141,7 @@ set fileformats=unix,dos,mac
 if exists('&ambiwidth')
   set ambiwidth=double
 endif
-
+"1}}}
 " SPECIFY FILETYPE: {{{1
 autocmd BufNewFile,BufRead *.psgi                   setl ft=perl
 autocmd BufNewFile,BufRead *.tt                     setl ft=html
@@ -153,7 +153,7 @@ autocmd BufNewFile,BufRead *.coffee,Cakefile        setl ft=coffeescript
 autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
 autocmd BufNewFile,BufRead *.go                     setl ft=go
 autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
-
+"1}}}
 " KEY MAPPING: {{{1
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 nmap n nzz
@@ -187,8 +187,7 @@ function SyntaxCheck()
 endf
 autocmd FileType perl nmap ,w :!perl -wc %<CR>
 autocmd FileType perl nmap ,d :!perl %<CR>
-
-
+"1}}}
 " PLUGINS: {{{1
 
 "" unify vim plugin path to ~/.vim
@@ -199,18 +198,18 @@ endif
 let mapleader = ","
 
 "" neobundle.vim {{{2
-set nocompatible
-filetype off
-
+"filetype off
 if has('vim_starting')
-  set runtimepath+=$HOME/git/dotfiles/vim/neobundle.vim
-
-  call neobundle#rc(expand('$HOME/git/dotfiles/vim/bundle'))
+	set nocompatible
+  set runtimepath+=$HOME/git/dotfiles/vim/bundle/neobundle.vim
 endif
+call neobundle#rc(expand('$HOME/git/dotfiles/vim/bundle'))
 
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neobundle.vim'
 "NeoBundle 'Shougo/unite.vim'
 "NeoBundle 'Shougo/echodoc'
 "NeoBundle 'Shougo/vim-vcs'
@@ -257,29 +256,30 @@ NeoBundle 'bling/vim-airline'
 "NeoBundle 'itchyny/lightline.vim'
 
 "NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'editorconfig/editorconfig-vim'
 
 NeoBundleCheck
 
-filetype plugin on
-filetype indent on
+filetype plugin indent on
+""2}}}
 
 "" nerdtree.vim {{{2
 nnoremap <C-n> :NERDTreeToggle<CR>
-
+""2}}}
 "" minibufexpl.vim {{{2
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-
+""2}}}
 "" rope.vim {{{2
 "imap <leader>j <ESC>:RopeGotoDefinition<CR>
 "nmap <leader>j <ESC>:RopeGotoDefinition<CR>
-
+"2}}}
 "" tagbar.vim {{{2
 nmap <leader>l <ESC>:TagbarToggle<CR>
 imap <leader>l <ESC>:TagbarToggle<CR>i
-
+"" 2}}}
 "" neocomplcache.vim {{{2
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
@@ -339,10 +339,10 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-
+"2}}}
 "" neosnippet {{{2
 let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
-
+""2}}}
 """" unite.vim {{{2
 ""let g:unite_enable_start_insert=1
 ""noremap <C-P> :Unite buffer<CR>
@@ -371,10 +371,10 @@ let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosn
 ""else
 ""  call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
 ""endif
-
+""2}}}
 "" taglist.vim {{{2
 let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:property'
-
+"" 2}}}
 "" coffeetags {{{2
 if executable('coffeetags')
   let g:tagbar_type_coffee = {
@@ -392,8 +392,9 @@ if executable('coffeetags')
         \ }
 endif
 
-" }}}2
+"" }}}2
 
+"1}}}
 " FILETYPE SETTINGS: {{{1
 autocmd FileType html,xhtml,haml,jade,scss,sass,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
 autocmd FileType sql    setl expandtab ts=2 sts=2 sw=2 nonu
@@ -404,7 +405,7 @@ autocmd FileType ruby   setl expandtab   ff=unix ts=2 sts=2 sw=2
 autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
 autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 """ TODO: windows g?vimrc encoding=cp932
-
+" 1}}}
 " LOCAL SETTINGS: {{{1
 if filereadable(expand('$HOME/.vimrc.local'))
   source $HOME/.vimrc.local
