@@ -1,0 +1,56 @@
+brew 'ack'
+brew 'the_silver_searcher'
+
+brew 'android-sdk'
+
+brew 'gnu-getopt'
+brew 'gnu-tar'
+brew 'discount'
+brew 'groff'
+brew 'graphicsmagick'
+brew 'jq'
+brew 'mobile-shell'
+brew 'lv'
+brew 'nkf'
+brew 'protobuf'
+brew 'pidof'
+brew 'htop-osx'
+brew 'pstree'
+brew 'tree'
+brew 'wget'
+
+brew 'node'
+brew 'casperjs'
+brew 'phantomjs'
+
+brew 'plenv'
+brew 'perl-build'
+brew 'rbenv'
+brew 'ruby-build'
+brew 'pyenv'
+brew 'lua'
+
+brew 'vim'
+brew 'macvim'
+
+brew 'tmux'
+brew 'reattach-to-user-namespace'
+
+brew 'sip'
+brew 'sshfs'
+
+# vcs
+brew 'subversion'
+brew 'git'
+brew 'git-flow'
+brew 'hub'
+brew 'tig'
+brew 'mercurial'
+
+brew 'zsh'
+brew 'zsh-completions'
+
+#brew 'memcached'
+#brew 'mongodb'
+#brew 'redis'
+#brew 'sqlite'

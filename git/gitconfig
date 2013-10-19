@@ -5,7 +5,7 @@
 [include]
     path = .gitconfig.local
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
 #    # https://github.com/github/gitignore
 #    # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
 #    pager = less -r
