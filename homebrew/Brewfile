@@ -1,56 +1,81 @@
-brew 'ack'
-brew 'the_silver_searcher'
+# ref: http://masutaka.net/chalow/2014-01-25-1.html
 
-brew 'android-sdk'
+# update Homebrew
+update
 
-brew 'gnu-getopt'
-brew 'gnu-tar'
-brew 'discount'
-brew 'groff'
-brew 'graphicsmagick'
-brew 'jq'
-brew 'mobile-shell'
-brew 'lv'
-brew 'nkf'
-brew 'protobuf'
-brew 'pidof'
-brew 'htop-osx'
-brew 'pstree'
-brew 'tree'
-brew 'wget'
+# Add Repository
+tap homebrew/binary
+tap phinze/homebrew-cask
 
-brew 'node'
-brew 'casperjs'
-brew 'phantomjs'
+install ack
+install the_silver_searcher
 
-brew 'plenv'
-brew 'perl-build'
-brew 'rbenv'
-brew 'ruby-build'
-brew 'pyenv'
-brew 'lua'
+install android-sdk
 
-brew 'vim'
-brew 'macvim'
+install gnu-getopt
+install gnu-tar
+install discount
+install graphicsmagick
+install jq
+install mobile-shell
+install lv
+install nkf
+install protobuf
+install pidof
+install htop-osx
+install pstree
+install tree
+install wget
 
-brew 'tmux'
-brew 'reattach-to-user-namespace'
+install node
+install casperjs
+install phantomjs
 
-brew 'sip'
-brew 'sshfs'
+install plenv
+install perl-build
+install rbenv
+install ruby-build
+install pyenv
+install lua
+
+install vim
+install macvim
+
+install tmux
+install reattach-to-user-namespace
+
+install sip
+install sshfs
 
 # vcs
-brew 'subversion'
-brew 'git'
-brew 'git-flow'
-brew 'hub'
-brew 'tig'
-brew 'mercurial'
+install subversion
+install git
+install git-flow
+install hub
+install tig
+install mercurial
 
-brew 'zsh'
-brew 'zsh-completions'
+install zsh
+install zsh-completions
 
-#brew 'memcached'
-#brew 'mongodb'
-#brew 'redis'
-#brew 'sqlite'
+#install memcached
+#install mongodb
+#install redis
+#install sqlite
+
+install brew-cask
+#cask install appcleaner
+#cask install dropbox
+#cask install firefox
+#cask install google-chrome
+#cask install handbrake
+#cask install libreoffice
+#cask install limechat
+#cask install openoffice
+#cask install opera
+#cask install sequel-pro
+#cask install skitch
+#cask install skype
+#cask install sublime-text
+#cask install vagrant
+#cask install virtualbox

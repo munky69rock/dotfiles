@@ -38,7 +38,7 @@ if has("autocmd")
     \   exe "normal! g'\"" |
     \ endif
 endif
-set scrolloff=3
+"set scrolloff=3
 
 "" Wildmenu completion
 set wildmenu
@@ -259,6 +259,8 @@ NeoBundle 'bling/vim-airline'
 
 NeoBundle 'editorconfig/editorconfig-vim'
 
+NeoBundle 'osyo-manga/vim-over'
+
 NeoBundleCheck
 
 filetype plugin indent on
@@ -443,7 +445,9 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
+"let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
+let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
+
 ""2}}}
 "" unite.vim {{{2
 noremap <C-Z> :Unite file_mru<CR>
@@ -467,7 +471,11 @@ if executable('coffeetags')
         \ }
         \ }
 endif
-
+"" }}}2
+"" over.vim {{{2
+nnoremap <silent> <Leader>m :OverCommandLine<CR>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 "" }}}2
 
 "1}}}
