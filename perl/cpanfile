@@ -1,5 +1,7 @@
 # vim: set ft=perl :
 
+requires 'pmtools';
+requires 'Module::CoreList';
 requires "Task::Plack";
 requires "Minilla";
 #requires "Ark"
