@@ -144,10 +144,11 @@ endif
 "1}}}
 " SPECIFY FILETYPE: {{{1
 autocmd BufNewFile,BufRead *.psgi                   setl ft=perl
-autocmd BufNewFile,BufRead *.tt                     setl ft=html
+autocmd BufNewFile,BufRead *.tt,*.tx                setl ft=html
 autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl ft=apache
 autocmd BufNewFile,BufRead *.scss                   setl ft=scss
 autocmd BufNewFile,BufRead *.sass                   setl ft=sass
+autocmd BufNewFile,BufRead *.less                   setl ft=less
 autocmd BufNewFile,BufRead *.jade                   setl ft=jade
 autocmd BufNewFile,BufRead *.coffee,Cakefile        setl ft=coffeescript
 autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
@@ -480,7 +481,7 @@ nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!
 
 "1}}}
 " FILETYPE SETTINGS: {{{1
-autocmd FileType html,xhtml,haml,jade,scss,sass,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
+autocmd FileType html,xhtml,haml,jade,scss,sass,less,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
 autocmd FileType sql    setl expandtab ts=2 sts=2 sw=2 nonu
 autocmd FileType yaml   setl expandtab
 autocmd FileType vim    setl noexpandtab ts=2 sts=2 sw=2 

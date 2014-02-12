@@ -27,9 +27,14 @@
 	rev = https://{host}/{path}/commit/{commit}
 
 [alias]
-	st = status
+	br = branch
+	st = status --short --branch
 	ci = commit
 	co = checkout
+	df = diff --color-words
+	blank = checkout --orphan
+	graph = log --graph --decorate --oneline
+
 
 #[difftool "sourcetree"]
 #	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
