@@ -101,53 +101,13 @@ kterm*|xterm*)
   ;;
 esac
 
-# perl
-## plenv
-export PLENV_ROOT=$LOCAL_LIB_DIR/perl5/plenv
-[ -s $PLENV_ROOT/bin ]           && export PATH=$PLENV_ROOT/bin:$PATH
-[ -s $PLENV_ROOT/bin/plenv ]     && eval "$(plenv init -)"
-
-## perlbrew
-#export PERLBREW_ROOT=$LOCAL_LIB_DIR/perl5/perlbrew
-#export PERLBREW_HOME=$LOCAL_LIB_DIR/perl5/perlbrew
-#[ -s $PERLBREW_ROOT/etc/bashrc ]   && source $PERLBREW_ROOT/etc/bashrc
-
-# python
-## pyenv
-export PYENV_ROOT=$LOCAL_LIB_DIR/python/pyenv
-[ -s $PYENV_ROOT/bin ]             && export PATH=$PYENV_ROOT/bin:$PATH
-[ -s $PYENV_ROOT/bin/pyenv ]       && eval "$(pyenv init -)"
-
-## pythonbrew
-#export PYTHONBREW_ROOT=$LOCAL_LIB_DIR/python/pythonbrew
-#[ -s $PYTHONBREW_ROOT/etc/bashrc ] && source $PYTHONBREW_ROOT/etc/bashrc
-
-# ruby
-## rbenv
-export RBENV_ROOT=$LOCAL_LIB_DIR/ruby/rbenv
-[ -s $RBENV_ROOT/bin ]           && export PATH=$RBENV_ROOT/bin:$PATH
-[ -s $RBENV_ROOT/bin/rbenv ]     && eval "$(rbenv init -)"
-
-## rvm
-#export rvm_path=$LOCAL_LIB_DIR/ruby/rvm
-#[ -s $rvm_path/scripts/rvm ]       && source $rvm_path/scripts/rvm
-
-# node
-export NODEBREW_ROOT=$LOCAL_LIB_DIR/node/nodebrew
-[ -s $NODEBREW_ROOT/current/bin ] && export PATH=$NODEBREW_ROOT/current/bin:$PATH
+#export ANYENV_ROOT=$LOCAL_LIB_DIR/anyenv
+export ANYENV_ROOT=$HOME/.anyenv
+[ -d "$ANYENV_ROOT/bin" ] && export PATH=$ANYENV_ROOT/bin:$PATH
+[ -d "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"
 
 ## load user .zshrc configuration file
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
 [ -f $HOME/.aliases ]     && source $HOME/.aliases
 
-# zsh plugins
-#_zsh_plugin_dir=$HOME/git/dotfiles/zsh/plugins
-#if [ -s "$_zsh_plugin_dir" ]; then
-#  for f in $(find $_zsh_plugin_dir/ -type f); do
-#    source $f
-#  done
-#fi
-
 export PATH=$HOME/bin:$PATH
-
-#PATH=$PATH:$LOCAL_LIB_DIR/ruby/rvm/bin # Add RVM to PATH for scripting
