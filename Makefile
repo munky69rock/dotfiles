@@ -39,7 +39,13 @@ uninstall:
 		fi ; \
 	done
 
-all: init install node perl ruby python
+all: init install anyenv
+
+anyenv:
+	test -e $$ANYENV_ROOT || \
+		( \
+			anyenv/setup.sh \
+		)
 
 ##========================================
 ## node.js
@@ -136,4 +142,4 @@ pythonbrew:
 			python/setup-pythonbrew.sh \
 		)
 
-.PHONY: all install uninstall node nave perl perlbrew ruby rvm rbenv python pythonbrew
+.PHONY: all install uninstall anyenv node nave perl perlbrew ruby rvm rbenv python pythonbrew
