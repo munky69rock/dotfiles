@@ -104,7 +104,7 @@ esac
 #export ANYENV_ROOT=$LOCAL_LIB_DIR/anyenv
 export ANYENV_ROOT=$HOME/.anyenv
 [ -d "$ANYENV_ROOT/bin" ] && export PATH=$ANYENV_ROOT/bin:$PATH
-[ -d "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"
+[ -f "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"
 
 ## load user .zshrc configuration file
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
