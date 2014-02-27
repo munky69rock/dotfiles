@@ -492,10 +492,22 @@ autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
 autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 """ TODO: windows g?vimrc encoding=cp932
 " 1}}}
-" LOCAL SETTINGS: {{{1
-if filereadable(expand('$HOME/.vimrc.local'))
-  source $HOME/.vimrc.local
+" LOCAL SETTINGS:{{{1
+function! SourceIfExist(path)
+	if filereadable(a:path)
+		execute 'source' a:path
+	endif
+endfunction
+
+if has('mac')
+    call SourceIfExist($HOME."/.vimrc.mac")
+elseif has('unix')
+    call SourceIfExist($HOME.'/.vimrc.linux')
+elseif has('win32') || has('win64')
+    call SourceIfExist($HOME.'/.vimrc.win')
 endif
+
+call SourceIfExist($HOME.'/.vimrc.local')
 " }}}1
 
 " vim: foldmethod=marker foldcolumn=3 foldlevel=0 :
