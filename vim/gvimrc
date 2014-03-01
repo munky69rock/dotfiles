@@ -17,3 +17,5 @@ else
 endif
 se visualbell t_vb=
 colorscheme evening
+
+call SourceIfExist($HOME.'/.gvimrc.local')
