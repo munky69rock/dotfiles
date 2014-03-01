@@ -4,8 +4,6 @@ export LC_ALL=$LANG
 export EDITOR=$(which vim)
 export HOST=`hostname`
 
-LOCAL_LIB_DIR=$HOME/lib
-
 autoload colors
 colors
 PROMPT="%{${fg[white]}%}[%n@%m:%~]%#%{${reset_color}%} "
@@ -20,9 +18,9 @@ autoload -Uz vcs_info add-zsh-hook
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 function _precmd_for_git () {
-  psvar=()
-  LANG=en_US.UTF-8 vcs_info
-  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+psvar=()
+LANG=en_US.UTF-8 vcs_info
+[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 add-zsh-hook preexec _precmd_for_git
 RPROMPT="%1(v|%F{green}%1v%f|)"
@@ -101,7 +99,6 @@ kterm*|xterm*)
   ;;
 esac
 
-#export ANYENV_ROOT=$LOCAL_LIB_DIR/anyenv
 export ANYENV_ROOT=$HOME/.anyenv
 [ -d "$ANYENV_ROOT/bin" ] && export PATH=$ANYENV_ROOT/bin:$PATH
 [ -f "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"

@@ -5,18 +5,11 @@ RUBY_VERSION ?= 2.0.0-p195
 PYTHON_VERSION ?= 2.7.5
 
 BIN_DIR  = $(PREFIX)/bin
-LIB_DIR  = $(PREFIX)/lib
-
-NODE_DIR = $(LIB_DIR)/node
-PERL_DIR = $(LIB_DIR)/perl5
-RUBY_DIR = $(LIB_DIR)/ruby
-PYTHON_DIR = $(LIB_DIR)/python
 
 NAVE_URL = https://github.com/isaacs/nave.git
 
 init:
 	mkdir -p $(BIN_DIR)
-	mkdir -p $(LIB_DIR)
 	git submodule init
 	git submodule update
 	touch init

@@ -31,11 +31,6 @@ install node
 install casperjs
 install phantomjs
 
-install plenv
-install perl-build
-install rbenv
-install ruby-build
-install pyenv
 install lua
 
 install vim
