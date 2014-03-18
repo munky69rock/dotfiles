@@ -156,6 +156,8 @@ autocmd BufNewFile,BufRead *.go                     setl ft=go
 autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
 "1}}}
 " KEY MAPPING: {{{1
+let mapleader = ","
+
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 nmap n nzz
 nmap N Nzz
@@ -171,9 +173,9 @@ noremap <Space>/ *
 "nnoremap <PageDown> <C-F>
 "nnoremap <PageUp> <C-B>
 
-nmap ,b :ls<CR>:buf 
-nmap ,e :e!<CR>
-nmap ,c :call SyntaxCheck()<CR>
+nmap <leader>b :ls<CR>:buf 
+nmap <leader>e :e!<CR>
+nmap <leader>c :call SyntaxCheck()<CR>
 if !exists("*SyntaxCheck")
   function SyntaxCheck()
     execute ':w'
@@ -189,8 +191,8 @@ if !exists("*SyntaxCheck")
   endf
 endif
 
-autocmd FileType perl nmap ,w :!perl -wc %<CR>
-autocmd FileType perl nmap ,d :!perl %<CR>
+autocmd FileType perl nmap <leader>w :!perl -wc %<CR>
+autocmd FileType perl nmap <leader>d :!perl %<CR>
 "1}}}
 " PLUGINS: {{{1
 
@@ -199,7 +201,6 @@ if has('win32') || has('win64')
   set runtimepath+=$HOME/.vim
 endif
 
-let mapleader = ","
 
 "" neobundle.vim {{{2
 "filetype off
@@ -457,7 +458,8 @@ let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
 
 ""2}}}
 "" unite.vim {{{2
-noremap <C-Z> :Unite file_mru<CR>
+nnoremap <leader>h :<C-u>Unite -start-insert file_mru<CR>
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
 ""2}}}
 "" taglist.vim {{{2
 let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:property'
