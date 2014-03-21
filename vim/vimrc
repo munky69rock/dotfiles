@@ -460,6 +460,7 @@ let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
 "" unite.vim {{{2
 nnoremap <leader>h :<C-u>Unite -start-insert file_mru<CR>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>F :<C-u>Unite -start-insert file_rec<CR>
 ""2}}}
 "" taglist.vim {{{2
 let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:property'
