@@ -205,7 +205,7 @@ endif
 "" neobundle.vim {{{2
 "filetype off
 if has('vim_starting')
-	set nocompatible
+  set nocompatible
   set runtimepath+=$HOME/git/dotfiles/vim/bundle/neobundle.vim
 endif
 call neobundle#rc(expand('$HOME/git/dotfiles/vim/bundle'))
@@ -458,6 +458,9 @@ let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
 
 ""2}}}
 "" unite.vim {{{2
+if executable('ag')
+  let g:unite_source_rec_async_command = 'ag --nocolor --nogroup --hidden -g ""'
+endif
 nnoremap <leader>h :<C-u>Unite -start-insert file_mru<CR>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
 nnoremap <leader>F :<C-u>Unite -start-insert file_rec<CR>
