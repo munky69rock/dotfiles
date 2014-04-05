@@ -11,6 +11,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set swapfile
 set directory=$HOME/git/dotfiles/vim/swp
+set undodir=$HOME/git/dotfiles/vim/undo
 set backupskip=/tmp/*,/private/tmp/*
 set history=10000
 set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.viminfo
@@ -222,6 +223,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
 "NeoBundle 'Shougo/echodoc'
@@ -236,6 +238,10 @@ NeoBundle 'Shougo/vimshell'
 "NeoBundle 'thinca/vim-quickrun'
 
 NeoBundle 'mattn/emmet-vim'
+
+if executable('ag')
+  NeoBundle 'rking/ag.vim'
+endif
 
 """ syntax
 NeoBundle 'jsx/jsx.vim'
@@ -505,9 +511,9 @@ autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 " 1}}}
 " LOCAL SETTINGS:{{{1
 function! SourceIfExist(path)
-	if filereadable(a:path)
-		execute 'source' a:path
-	endif
+  if filereadable(a:path)
+    execute 'source' a:path
+  endif
 endfunction
 
 if has('mac')
