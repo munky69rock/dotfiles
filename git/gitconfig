@@ -34,14 +34,8 @@
 	ci = commit
 	co = checkout
 	df = diff --color-words
+	pl = pull
+	cl = clone
 	blank = checkout --orphan
 	graph = log --graph --decorate --oneline
 	hub = browse-remote
-
-
-#[difftool "sourcetree"]
-#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-#	path = 
-#[mergetool "sourcetree"]
-#	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-#	trustExitCode = true
