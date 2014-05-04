@@ -5,12 +5,12 @@
 [include]
     path = .gitconfig.local
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore
 	autocrlf = input
 #    # https://github.com/github/gitignore
 #    # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
 #    pager = less -r
-#    editor = vi
+#    editor = vim
 
 [color]
     ui = auto   
