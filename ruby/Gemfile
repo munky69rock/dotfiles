@@ -13,3 +13,7 @@ gem 'rbenv-rehash'
 
 # homebrew
 gem 'brewdler'
+
+# git
+gem 'git-browse-remote'
+gem 'git-prune-remote-branch'
