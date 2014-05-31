@@ -509,6 +509,20 @@ autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
 autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 """ TODO: windows g?vimrc encoding=cp932
 " 1}}}
+" SYNTAX HIGHLIGHTING: {{{1
+let g:markdown_fenced_languages = [
+\  'coffee',
+\  'css',
+\  'erb=eruby',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'ruby',
+\  'sass',
+\  'xml',
+\  'sh',
+\]
+" 1}}}
 " LOCAL SETTINGS:{{{1
 function! SourceIfExist(path)
   if filereadable(a:path)

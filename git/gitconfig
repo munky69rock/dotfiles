@@ -33,7 +33,7 @@
 	st = status --short --branch
 	ci = commit
 	co = checkout
-	df = diff --color-words
+	df = diff --color-words -w
 	pl = pull
 	cl = clone
 	blank = checkout --orphan

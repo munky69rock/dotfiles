@@ -99,6 +99,9 @@ kterm*|xterm*)
   ;;
 esac
 
+# http://d.hatena.ne.jp/zariganitosh/20140523/minimum_bash_keybind
+stty stop undef
+
 export ANYENV_ROOT=$HOME/.anyenv
 [ -d "$ANYENV_ROOT/bin" ] && export PATH=$ANYENV_ROOT/bin:$PATH
 [ -f "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"
