@@ -106,8 +106,11 @@ export ANYENV_ROOT=$HOME/.anyenv
 [ -d "$ANYENV_ROOT/bin" ] && export PATH=$ANYENV_ROOT/bin:$PATH
 [ -f "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"
 
+stty stop undef
+
 ## load user .zshrc configuration file
-[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
 [ -f $HOME/.aliases ]     && source $HOME/.aliases
+[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
+[ -f $HOME/.zshrc.peco ]  && source $HOME/.zshrc.peco
 
 export PATH=$HOME/bin:$PATH

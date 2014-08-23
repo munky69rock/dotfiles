@@ -19,12 +19,13 @@ install:
 	test -e $(PREFIX)/.vimrc           || ln -s $$PWD/vim/vimrc           $(PREFIX)/.vimrc
 	test -e $(PREFIX)/.gvimrc          || ln -s $$PWD/vim/gvimrc          $(PREFIX)/.gvimrc
 	test -e $(PREFIX)/.zshrc           || ln -s $$PWD/zsh/zshrc           $(PREFIX)/.zshrc
+	test -e $(PREFIX)/.aliases         || ln -s $$PWD/zsh/aliases         $(PREFIX)/.aliases
 	test -e $(PREFIX)/.zsh-completions || ln -s $$PWD/zsh/zsh-completions $(PREFIX)/.zsh-completions
 	test -e $(PREFIX)/.gitconfig       || ln -s $$PWD/git/gitconfig       $(PREFIX)/.gitconfig
 	test -e $(PREFIX)/.tmux.conf       || ln -s $$PWD/tmux/tmux.conf      $(PREFIX)/.tmux.conf
 
 uninstall:
-	for target in .vim .vimrc .gvimrc .zshrc .gitconfig .tmux.conf; do \
+	for target in .vim .vimrc .gvimrc .zshrc .aliases .gitconfig .tmux.conf; do \
 		if [ -L $(PREFIX)/$$target ]; then \
 			rm $(PREFIX)/$$target;    \
 		else \
