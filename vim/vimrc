@@ -209,7 +209,11 @@ if has('vim_starting')
   set nocompatible
   set runtimepath+=$HOME/git/dotfiles/vim/bundle/neobundle.vim
 endif
-call neobundle#rc(expand('$HOME/git/dotfiles/vim/bundle'))
+
+call neobundle#begin(expand('$HOME/git/dotfiles/vim/bundle'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+call neobundle#end()
+
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
@@ -274,6 +278,8 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'editorconfig/editorconfig-vim'
 
 NeoBundle 'osyo-manga/vim-over'
+
+NeoBundle 'slim-template/vim-slim'
 
 NeoBundleCheck
 

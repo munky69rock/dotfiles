@@ -1,0 +1,17 @@
+*~
+*.bak
+.DS_Store
+.editorconfig
+.ruby-version
+node_modules/
+.gems
+log/*
+
+.idea
+*.iml
+
+.envrc
+vendor/bundler
+
+,*
+,/
