@@ -1,0 +1,257 @@
+" VIMRC
+
+" GENERAL SETTINGS: {{{1
+
+let g:vim_home=fnamemodify(resolve(expand('<sfile>')), ':p:h') . '/'
+
+syntax on
+set shell=/bin/sh
+set nocompatible
+set modeline
+"set modelines=0
+set whichwrap=b,s,h,l,<,>,[,]
+set hidden
+set swapfile
+let &directory=g:vim_home . "swp"
+let &undodir=g:vim_home . "undo"
+set backupskip=/tmp/*,/private/tmp/*
+set history=10000
+let &viminfo="'100,<50,s10,h,:5000,/5000,n" . g:vim_home . ".viminfo"
+set ttyfast
+set lazyredraw
+
+"" user interface
+set background=dark
+set title
+set ruler
+set number
+set showcmd
+set showmode
+set matchtime=2
+set hidden
+set shortmess+=I
+"set statusline==%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%{fugitive#statusline()}%=%l,%c%V%8P
+set wrap
+set textwidth=0
+set laststatus=2
+set backspace=indent,eol,start
+if has("autocmd")
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+endif
+"set scrolloff=3
+
+"" Wildmenu completion
+set wildmenu
+set wildmode=list:longest
+set wildignore+=.hg,.git,.svn " Version Controls"
+set wildignore+=*.aux,*.out,*.toc "Latex Indermediate files"
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg "Binary Imgs"
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest "Compiled Object files"
+set wildignore+=*.spl "Compiled speolling world list"
+set wildignore+=*.sw? "Vim swap files"
+set wildignore+=*.DS_Store "OSX SHIT"
+set wildignore+=*.luac "Lua byte code"
+set wildignore+=migrations "Django migrations"
+set wildignore+=*.pyc "Python Object codes"
+set wildignore+=*.orig "Merge resolution files"
+highlight SpecialKey term=underline ctermfg=darkgray guifg=darkgray
+highlight Pmenu ctermbg=4
+highlight PmenuSel ctermbg=1
+highlight PmenuSbar ctermbg=0
+set completeopt=menuone,longest,preview
+if has('win32') || has('win64')
+  "" TODO 
+else
+  set listchars=tab:▸.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
+endif
+
+"" indent
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+set nosmartindent
+set pastetoggle=<F3>
+
+"" search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+
+"" zenkakuspace highlight
+highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
+match ZenkakuSpace /　/
+
+"" auto save
+"autocmd FocusLost * :wa
+
+"" Working with split screen nicely
+"" Resize Split When the window is resized
+autocmd VimResized * :wincmd =
+"1}}}
+" ENCODING: {{{1
+if &encoding !=# 'utf-8'
+  set encoding=japan
+  set fileencoding=japan
+endif
+if has('iconv')
+  let s:enc_euc = 'euc-jp'
+  let s:enc_jis = 'iso-2022-jp'
+  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'eucjp-ms'
+    let s:enc_jis = 'iso-2022-jp-3'
+  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'euc-jisx0213'
+    let s:enc_jis = 'iso-2022-jp-3'
+  endif
+  if &encoding ==# 'utf-8'
+    let s:fileencodings_default = &fileencodings
+    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+    let &fileencodings = &fileencodings .','. s:fileencodings_default
+    unlet s:fileencodings_default
+  else
+    let &fileencodings = &fileencodings .','. s:enc_jis
+    set fileencodings+=utf-8,ucs-2le,ucs-2
+    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+      set fileencodings+=cp932
+      set fileencodings-=euc-jp
+      set fileencodings-=euc-jisx0213
+      set fileencodings-=eucjp-ms
+      let &encoding = s:enc_euc
+      let &fileencoding = s:enc_euc
+    else
+      let &fileencodings = &fileencodings .','. s:enc_euc
+    endif
+  endif
+  unlet s:enc_euc
+  unlet s:enc_jis
+endif
+if has('autocmd')
+  function! AU_ReCheck_FENC()
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+      let &fileencoding=&encoding
+    endif
+  endfunction
+  autocmd BufReadPost * call AU_ReCheck_FENC()
+endif
+set fileformats=unix,dos,mac
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
+"1}}}
+" SPECIFY FILETYPE: {{{1
+autocmd BufNewFile,BufRead *.psgi                   setl ft=perl
+autocmd BufNewFile,BufRead *.tt,*.tx                setl ft=html
+autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl ft=apache
+autocmd BufNewFile,BufRead *.scss                   setl ft=scss
+autocmd BufNewFile,BufRead *.sass                   setl ft=sass
+autocmd BufNewFile,BufRead *.less                   setl ft=less
+autocmd BufNewFile,BufRead *.jade                   setl ft=jade
+autocmd BufNewFile,BufRead *.coffee,Cakefile        setl ft=coffeescript
+autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
+autocmd BufNewFile,BufRead *.go                     setl ft=go
+autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
+"1}}}
+" KEY MAPPING: {{{1
+let mapleader = ","
+
+nmap <ESC><ESC> :nohlsearch<CR><ESC>
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+
+noremap <Space>h ^
+noremap <Space>l $
+noremap <Space>/ *
+
+"nnoremap <PageDown> <C-F>
+"nnoremap <PageUp> <C-B>
+
+nmap <leader>b :ls<CR>:buf 
+nmap <leader>e :e!<CR>
+nmap <leader>c :call SyntaxCheck()<CR>
+if !exists("*SyntaxCheck")
+  function SyntaxCheck()
+    execute ':w'
+    if &syntax == 'perl'
+      execute ':!perl -cw %'
+    elseif &syntax == 'ruby'
+      execute ':!ruby -cW %'
+    elseif &syntax == 'javascript'
+      execute ':!jslint %'
+    elseif &syntax == 'coffee'
+      execute ':!coffee -c %'
+    endif
+  endf
+endif
+
+autocmd FileType perl nmap <leader>w :!perl -wc %<CR>
+autocmd FileType perl nmap <leader>d :!perl %<CR>
+"1}}}
+" PLUGINS: {{{1
+
+"" unify vim plugin path to ~/.vim
+if has('win32') || has('win64')
+  set runtimepath+=~/.vim
+endif
+
+"" neobundle.vim
+if isdirectory(g:vim_home . "bundle/neobundle.vim")
+  echo 2
+  execute 'source' g:vim_home . "vimrc.neobundle"
+endif
+
+"1}}}
+" FILETYPE SETTINGS: {{{1
+autocmd FileType html,xhtml,haml,jade,scss,sass,less,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
+autocmd FileType sql    setl expandtab ts=2 sts=2 sw=2 nonu
+autocmd FileType yaml   setl expandtab ts=2 sts=2 sw=2
+autocmd FileType vim    setl noexpandtab ts=2 sts=2 sw=2 
+autocmd FileType perl   setl noexpandtab ff=unix ts=4 sts=4 sw=4
+autocmd FileType ruby   setl expandtab   ff=unix ts=2 sts=2 sw=2
+autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
+autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
+""" TODO: windows g?vimrc encoding=cp932
+" 1}}}
+" SYNTAX HIGHLIGHTING: {{{1
+let g:markdown_fenced_languages = [
+\  'coffee',
+\  'css',
+\  'erb=eruby',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'ruby',
+\  'sass',
+\  'xml',
+\  'sh',
+\]
+" 1}}}
+" LOCAL SETTINGS:{{{1
+function! SourceIfExist(path)
+  if filereadable(a:path)
+    execute 'source' a:path
+  endif
+endfunction
+
+if has('mac')
+    call SourceIfExist(g:vim_home . 'vimrc.mac')
+elseif has('unix')
+    call SourceIfExist(g:vim_home . 'vimrc.linux')
+elseif has('win32') || has('win64')
+    call SourceIfExist(g:vim_home . 'vimrc.win')
+endif
+
+call SourceIfExist($HOME . '/.vimrc.local')
+" }}}1
+
+" vim: foldmethod=marker foldcolumn=3 foldlevel=0 :

@@ -1,0 +1,10 @@
+- name: link git configuration files
+  file: src={{ git_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - gitconfig
+    - gitignore
+- name: link git configuration files for mac
+  when: ansible_os_family == "Darwin" 
+  file: src={{ git_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - gitconfig.mac

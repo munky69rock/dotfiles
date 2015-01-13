@@ -1,0 +1,19 @@
+- name: install ndenv
+  command: anyenv install ndenv
+
+- name: create plugin directory
+  file: dest={{ NDENV_PLUGIN_ROOT }} state=directory
+
+- name: install plugins
+  command: git clone {{ item }} chdir={{ NDENV_PLUGIN_ROOT }}
+  with_items:
+    - https://github.com/riywo/node-build.git
+
+- name: install node.js
+  command: ndenv install v0.10.35
+
+- name: install node packages
+  command: npm install chdir={{ ndenv_files_dir }}
+
+- name: ndenv rehash
+  command: ndenv rehash

@@ -1,0 +1,4 @@
+# homebrew
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# vim: se ft=sh :

@@ -1,9 +1,0 @@
-# vim: set ft=perl :
-
-requires 'pmtools';
-requires 'Module::CoreList';
-requires "Task::Plack";
-requires "Minilla";
-requires "Carton";
-#requires "Ark";
-#requires "Teng";

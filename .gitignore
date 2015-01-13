@@ -1,7 +1,7 @@
-vim/bundle/*
-!vim/bundle/neobundle.vim
-vim/swp/*
-vim/undo/*
-ruby/Gemfile.lock
-init
+roles/zsh/files/zsh-completions
+roles/vim/files/bundle/*
+roles/vim/files/swp/*
+roles/vim/files/undo/*
+.*
 !.gitkeep
+*.py[cod]

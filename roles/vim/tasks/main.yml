@@ -1,0 +1,11 @@
+- name: check if neobundle is installed
+  stat: path={{ vim_neobundle_dir }}
+  register: neobundle
+- name: install neobundle
+  command: git clone {{ vim_neobundle_repos }} chdir={{ vim_bundle_dir }}
+  when: neobundle.stat.exists == False
+
+- name: link vim configuration files
+  file: src={{ vim_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - vimrc

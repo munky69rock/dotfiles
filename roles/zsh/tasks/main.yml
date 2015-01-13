@@ -1,0 +1,12 @@
+- name: check if zsh-completions
+  stat: path={{ zsh_files_dir }}/zsh-completions
+  register: zsh_completions
+- name: install zsh-completions
+  command: git clone {{ zsh_completions_repos }} chdir={{ zsh_files_dir }}
+  when: zsh_completions.stat.exists == False
+
+- name: link zsh configuration files
+  file: src={{ zsh_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - zshrc
+    - zprofile

@@ -1,0 +1,23 @@
+- name: check if anyenv is installed
+  stat: path={{ ANYENV_ROOT }}
+  register: anyenv
+
+- name: clone anyenv
+  when: anyenv.stat.exists == False
+  git: repo={{ anyenv_repos }} dest={{ ANYENV_ROOT }}
+  poll: 30
+  async: 600
+
+- name: check if plugins directory is exists
+  stat: path={{ ANYENV_PLUGIN_ROOT }}
+  register: anyenv_plugins
+
+- name: create plugin directory
+  when: anyenv_plugins.stat.exists == False
+  file: dest={{ ANYENV_PLUGIN_ROOT }} state=directory
+
+- name: clone anyenv plugins 
+  when: anyenv_plugins.stat.exists == False
+  command: git clone {{ item }} chdir={{ ANYENV_PLUGIN_ROOT }}
+  with_items:
+    - https://github.com/znz/anyenv-update.git

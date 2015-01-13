@@ -1,0 +1,10 @@
+- name: install pyenv
+  command: anyenv install pyenv
+
+#- name: create plugin directory
+#  file: dest={{ PYENV_PLUGIN_ROOT }} state=directory
+
+- name: install plugins
+  command: git clone {{ item }} chdir={{ PYENV_PLUGIN_ROOT }}
+  with_items:
+      - https://github.com/yyuu/pyenv-virtualenv.git

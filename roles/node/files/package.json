@@ -1,0 +1,10 @@
+{
+  "name": "global node modules",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "scripts": {
+    "preinstall": "npm install -g coffee-script js2coffee typescript jade html2jade grunt-cli gulp bower jshint yo",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Masayuki Uehara"
+}

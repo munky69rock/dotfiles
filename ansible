@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Wrapper for ansible
+
+base_dir=$(cd $(dirname $0);pwd)
+ansible="ansible-playbook -i $base_dir/hosts"
+
+function has_ansible() {
+  which ansible-playbook &>/dev/null
+}
+
+function file_exists() {
+  test -f "${1}"
+}
+
+function error() {
+  echo "$@"
+  exit 1
+}
+
+function main() {
+  yml="$base_dir/${1}.yml"
+  if has_ansible; then
+    if file_exists $yml; then
+      $ansible $yml
+    else
+      error "${yml} is not exists."
+    fi
+  else
+    error "You need to install ansible first."
+  fi
+}
+
+main "$1"

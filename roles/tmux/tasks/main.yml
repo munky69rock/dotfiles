@@ -1,0 +1,4 @@
+- name: link tmux configuration files
+  file: src={{ tmux_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - tmux.conf

@@ -1,0 +1,60 @@
+- name: check homebrew is installed or not
+  when: ansible_os_family == "Darwin"
+  command: which brew
+  register: result
+  ignore_errors: True
+
+- name: install homebrew
+  when: result|failed
+  shell: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+- name: brew tap
+  when: result|failed
+  command: brew tap {{ item }}
+  with_items:
+    - caskroom/cask
+    - homebrew/binary
+    - homebrew/dupes
+    - homebrew/versions
+    - peco/peco
+
+- name: bundle update
+  when: result|failed
+  command: brew update
+
+- name: brew install
+  when: result|failed
+  command: brew install {{ item }}
+  # TODO: 外出し
+  with_items:
+    - ack
+    - the_silver_searcher
+    - android-sdk
+    - gnu-getopt
+    - gnu-tar
+    - graphicsmagick
+    - jq
+    - lv
+    - nkf
+    - protobuf
+    - pidof
+    - htop-osx
+    - pstree
+    - tree
+    - wget
+    - phantomjs
+    - lua
+    - vim
+    - macvim
+    - tmux
+    - reattach-to-user-namespace
+    - sip
+    - sshfs
+    - subversion
+    - git
+    - hub
+    - tig
+    - mercurial
+    - zsh
+    - zsh-completions
+    - brew-cask

@@ -1,0 +1,10 @@
+- name: install plenv
+  command: anyenv install plenv
+
+- name: create plugin directory
+  file: dest={{ PLENV_PLUGIN_ROOT }} state=directory
+
+- name: install plugins
+  command: git clone {{ item }} chdir={{ PLENV_PLUGIN_ROOT }}
+  with_items:
+      - https://github.com/tokuhirom/Perl-Build.git

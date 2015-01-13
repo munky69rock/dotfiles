@@ -1,0 +1,18 @@
+- name: install rbenv
+  command: anyenv install rbenv
+
+- name: create plugin directory
+  file: dest={{ RBENV_PLUGIN_ROOT }} state=directory
+
+- name: install plugins
+  command: git clone https://github.com/{{ item }}.git chdir={{ RBENV_PLUGIN_ROOT }}
+  with_items:
+    - sstephenson/ruby-build
+    - sstephenson/rbenv-default-gems 
+    - rkh/rbenv-update 
+
+- name: link ruby configuration files
+  file: src={{ ruby_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - pryrc
+    - gemrc

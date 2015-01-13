@@ -1,0 +1,4 @@
+- name: link screen configuration files
+  file: src={{ screen_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - screenrc

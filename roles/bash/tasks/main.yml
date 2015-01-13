@@ -1,0 +1,5 @@
+- name: link rcfiles
+  file: src={{ bash_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - bashrc
+    - bash_profile

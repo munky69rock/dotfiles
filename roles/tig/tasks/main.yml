@@ -1,0 +1,4 @@
+- name: link tig configuration files
+  file: src={{ tig_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  with_items:
+    - tigrc
