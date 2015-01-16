@@ -1,0 +1,24 @@
+- hosts: localhost
+  connection: local
+  vars:
+    HOME_DIR: ~/
+    ANYENV_ROOT: "{{ HOME_DIR }}/.anyenv"
+    ANYENV_PLUGIN_ROOT: "{{ ANYENV_ROOT }}/plugins"
+    roles_dir: "{{ inventory_dir }}/roles"
+    ruby_files_dir: "{{ roles_dir }}/ruby/files"
+    node_files_dir: "{{ roles_dir }}/node/files"
+    python_files_dir: "{{ roles_dir }}/python/files"
+    perl_files_dir: "{{ roles_dir }}/perl/files"
+    NDENV_ROOT: "{{ ANYENV_ROOT }}/envs/ndenv"
+    PLENV_ROOT: "{{ ANYENV_ROOT }}/envs/plenv"
+    PYENV_ROOT: "{{ ANYENV_ROOT }}/envs/pyenv"
+    RBENV_ROOT: "{{ ANYENV_ROOT }}/envs/rbenv"
+    NDENV_PLUGIN_ROOT: "{{ NDENV_ROOT }}/plugins"
+    PLENV_PLUGIN_ROOT: "{{ PLENV_ROOT }}/plugins"
+    PYENV_PLUGIN_ROOT: "{{ PYENV_ROOT }}/plugins"
+    RBENV_PLUGIN_ROOT: "{{ RBENV_ROOT }}/plugins"
+  roles:
+    - ruby
+    - node
+    - python
+    - perl

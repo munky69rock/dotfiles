@@ -10,10 +10,10 @@ rbenv
 """)
 
 roles = to_a("""
-rbenv
-ndenv
-pyenv
-plenv
+ruby
+node
+python
+perl
 """)
 
 variables = global_variables() + \

@@ -1,5 +1,10 @@
+- name: check if bashrc already exists
+  stat: path={{ HOME_DIR }}/.bashrc
+  register: bashrc
+
 - name: link rcfiles
   file: src={{ bash_files_dir }}/{{ item }} dest={{ HOME_DIR }}/.{{ item }} state=link
+  when: bashrc.stat.exists == False
   with_items:
     - bashrc
     - bash_profile

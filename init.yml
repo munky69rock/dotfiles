@@ -6,7 +6,6 @@
     ANYENV_PLUGIN_ROOT: "{{ ANYENV_ROOT }}/plugins"
     roles_dir: "{{ inventory_dir }}/roles"
     zsh_files_dir: "{{ roles_dir }}/zsh/files"
-    bash_files_dir: "{{ roles_dir }}/bash/files"
     vim_files_dir: "{{ roles_dir }}/vim/files"
     git_files_dir: "{{ roles_dir }}/git/files"
     tig_files_dir: "{{ roles_dir }}/tig/files"
@@ -16,7 +15,6 @@
     anyenv_files_dir: "{{ roles_dir }}/anyenv/files"
   roles:
     - zsh
-    - bash
     - vim
     - git
     - tig
