@@ -2,6 +2,6 @@ roles/zsh/files/zsh-completions
 roles/vim/files/bundle/*
 roles/vim/files/swp/*
 roles/vim/files/undo/*
-.*
+roles/**/.*
 !.gitkeep
 *.py[cod]
