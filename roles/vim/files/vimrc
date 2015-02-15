@@ -169,15 +169,25 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
+"" Tabs
+nmap <Tab> gt
+nmap <S-Tab> gT
+
+"" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
+
+"" Git
+"" Open current line on GitHub
+noremap ,o :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs open<CR><CR>
+
 noremap <Space>h ^
 noremap <Space>l $
 noremap <Space>/ *
 
-"nnoremap <PageDown> <C-F>
-"nnoremap <PageUp> <C-B>
-
 nmap <leader>b :ls<CR>:buf 
 nmap <leader>e :e!<CR>
+
 nmap <leader>c :call SyntaxCheck()<CR>
 if !exists("*SyntaxCheck")
   function SyntaxCheck()
@@ -194,8 +204,10 @@ if !exists("*SyntaxCheck")
   endf
 endif
 
+"" perl
 autocmd FileType perl nmap <leader>w :!perl -wc %<CR>
 autocmd FileType perl nmap <leader>d :!perl %<CR>
+
 "1}}}
 " PLUGINS: {{{1
 

@@ -39,3 +39,4 @@
 	blank = checkout --orphan
 	graph = log --graph --decorate --oneline
 	hub = browse-remote
+  rmrf = rm `git ls-files --deleted`
