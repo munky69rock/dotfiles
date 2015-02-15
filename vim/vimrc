@@ -1,10 +1,10 @@
 " VIMRC
 
 " GENERAL SETTINGS: {{{1
-
+scriptencoding utf-8
 syntax on
-set shell=/bin/sh
 set nocompatible
+set shell=/bin/sh
 set modeline
 "set modelines=0
 set whichwrap=b,s,h,l,<,>,[,]
@@ -273,7 +273,7 @@ NeoBundle 'bling/vim-airline'
 "NeoBundle 'itchyny/lightline.vim'
 
 "" colorscheme
-"NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'editorconfig/editorconfig-vim'
 
@@ -508,6 +508,9 @@ nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 """ }}}2
+"" vim-colors-solarized {{{2
+colorscheme solarized
+"" }}}2
 
 "1}}}
 " FILETYPE SETTINGS: {{{1

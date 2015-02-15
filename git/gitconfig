@@ -36,6 +36,16 @@
 	df = diff --color-words -w
 	pl = pull
 	cl = clone
+	amend = commit --amend
 	blank = checkout --orphan
 	graph = log --graph --decorate --oneline
 	hub = browse-remote
+    pr = browse-remote --pr
+    ag = "!git ls-files -z | xargs -0 ag --pager=\"less -F -R\" --nogroup --color-match=0\\;31 --color-path=0\\;0 --no-numbers"
+    wip = now --all --stat
+    del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic)\")"
+    rmrf = rm `git ls-files --deleted`
+    # ag = !git ls-files -z | xargs -0 ag
+
+[fetch]
+    prune = true

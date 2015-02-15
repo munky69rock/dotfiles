@@ -1,5 +1,7 @@
 se nobackup
 
+se transparency=8
+
 " Removing scrollbars
 se guitablabel=%-0.12t%M
 se guioptions-=T
@@ -16,6 +18,6 @@ else
 	se listchars=tab:▸\ ,eol:¬,nbsp:%
 endif
 se visualbell t_vb=
-colorscheme evening
+colorscheme solarized
 
 call SourceIfExist($HOME.'/.gvimrc.local')
