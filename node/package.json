@@ -4,7 +4,7 @@
   "description": "ERROR: No README.md file found!",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm install -g coffee-script js2coffee jsx typescript jade html2jade grunt-cli bower jshint express yo",
+    "preinstall": "npm install -g coffee-script js2coffee jsx typescript jade html2jade grunt-cli bower jshint express yo jscs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "",
