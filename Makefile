@@ -19,6 +19,7 @@ install:
 	test -e $(PREFIX)/.vimrc           || ln -s $$PWD/vim/vimrc           $(PREFIX)/.vimrc
 	test -e $(PREFIX)/.gvimrc          || ln -s $$PWD/vim/gvimrc          $(PREFIX)/.gvimrc
 	test -e $(PREFIX)/.zshrc           || ln -s $$PWD/zsh/zshrc           $(PREFIX)/.zshrc
+	test -e $(PREFIX)/.zsh_functions   || ln -s $$PWD/zsh/zsh_functions   $(PREFIX)/.zsh_functions
 	test -e $(PREFIX)/.aliases         || ln -s $$PWD/zsh/aliases         $(PREFIX)/.aliases
 	test -e $(PREFIX)/.zsh-completions || ln -s $$PWD/zsh/zsh-completions $(PREFIX)/.zsh-completions
 	test -e $(PREFIX)/.gitconfig       || ln -s $$PWD/git/gitconfig       $(PREFIX)/.gitconfig

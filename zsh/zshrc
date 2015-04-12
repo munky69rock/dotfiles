@@ -4,6 +4,8 @@ export LC_ALL=$LANG
 export EDITOR=$(which vim)
 export HOST=`hostname`
 
+. ~/.zsh_functions
+
 autoload colors
 colors
 PROMPT="%{${fg[white]}%}[%n@%m:%~]%#%{${reset_color}%} "
@@ -51,11 +53,11 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt share_history # share command history data
 
 # zsh-completions
-if [ -d ~/.zsh-completions ]; then
+if exists ~/.zsh-completions; then
   fpath=(~/.zsh-completions/src $fpath)
-elif [ -d $HOME/git/dotfiles/zsh/zsh-completions ]; then
+elif exists $HOME/git/dotfiles/zsh/zsh-completions; then
   fpath=($HOME/git/dotfiles/zsh/zsh-completions/src $fpath)
-elif [ -d /usr/local/share/zsh-completions ]; then
+elif exists /usr/local/share/zsh-completions; then
   fpath=(/usr/local/share/zsh-completions $fpath)
 fi
 
@@ -105,14 +107,14 @@ esac
 stty stop undef
 
 export ANYENV_ROOT=$HOME/.anyenv
-[ -d "$ANYENV_ROOT/bin" ] && export PATH=$ANYENV_ROOT/bin:$PATH
-[ -f "$ANYENV_ROOT/bin/anyenv" ] && eval "$(anyenv init -)"
+exists "$ANYENV_ROOT/bin"        && export PATH=$ANYENV_ROOT/bin:$PATH
+exists "$ANYENV_ROOT/bin/anyenv" && eval "$(anyenv init -)"
 
 stty stop undef
 
 ## load user .zshrc configuration file
-[ -f $HOME/.aliases ]     && source $HOME/.aliases
-[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
-[ -f $HOME/.zshrc.peco ]  && source $HOME/.zshrc.peco
+exists $HOME/.aliases     && source $HOME/.aliases
+exists $HOME/.zshrc.local && source $HOME/.zshrc.local
+exists $HOME/.zshrc.peco  && source $HOME/.zshrc.peco
 
 export PATH=$HOME/bin:$PATH

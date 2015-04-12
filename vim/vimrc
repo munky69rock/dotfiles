@@ -82,6 +82,10 @@ set ignorecase
 set smartcase
 set showmatch
 
+"" gui
+set clipboard+=autoselect
+set clipboard+=unnamed
+
 "" zenkakuspace highlight
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
