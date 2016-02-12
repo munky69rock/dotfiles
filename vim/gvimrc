@@ -13,6 +13,7 @@ if has('win32') || has('win64')
 	"" TODO
 	se guifont=Osaka−等幅:h11:cSHIFTJIS
 else
+	se guifont=Sauce\ Code\ Powerline:h13
 	se listchars=tab:▸\ ,eol:¬,nbsp:%
 endif
 se visualbell t_vb=

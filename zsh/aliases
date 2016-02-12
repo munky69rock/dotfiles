@@ -1,4 +1,8 @@
 alias pp="ps axuf | pager"
 alias sum="xargs | tr ' ' '+' | bc"
+alias gi=git
+alias be="bundle exec"
+
 [ -f $HOME/.aliases.local ] && source $HOME/.aliases.local
+
 # vim: syn=sh :

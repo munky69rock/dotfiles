@@ -1,57 +1,71 @@
 # inspired by [https://gist.github.com/4117588]
 [user]
-	name = Masayuki Uehara
-	email = munky69rock@gmail.com
+  name = Masayuki Uehara
+  email = munky69rock@gmail.com
+
 [include]
-    path = .gitconfig.local
+  path = ~/.gitconfig.local
+
 [core]
-	excludesfile = ~/.gitignore
-	autocrlf = input
-	pager = diff-so-fancy | less --tabs=1,5 -R
-#    # https://github.com/github/gitignore
-#    # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
-#    pager = less -r
-#    editor = vim
+  excludesfile = ~/.gitignore
+  autocrlf = input
+  pager = diff-so-fancy | less --tabs=1,5 -R
+#  # https://github.com/github/gitignore
+#  # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
+#  pager = less -r
+#  editor = vim
 
 [color]
-    ui = auto   
+  ui = auto   
+
 [push]
-    # push only the current branch
-    default = tracking
+  # push only the current branch
+  default = tracking
 
 # git-browse-remote
 # http://subtech.g.hatena.ne.jp/motemen/20120917/1347889804
-[web]
-    browser = google-chrome
 [browse-remote "github.com"]
-	top = https://{host}/{path}
-	ref = https://{host}/{path}/tree/{short_ref}
-	rev = https://{host}/{path}/commit/{commit}
-	file = "https://{host}/{path}/blob/{short_rev}/{file}{line && \"#L%d\" % line}"
+  top = https://{host}/{path}
+  ref = https://{host}/{path}/tree/{short_ref}
+  rev = https://{host}/{path}/commit/{commit}
+  file = "https://{host}/{path}/blob/{short_rev}/{file}{line && \"#L%d\" % line}"
 
 [alias]
-	br = branch
-	st = status --short --branch
-	ci = commit
-	co = checkout
-	df = diff --color-words -w
-	pl = pull
-	cl = clone
-	amend = commit --amend
-	blank = checkout --orphan
-	graph = log --graph --decorate --oneline
-	hub = browse-remote
-    pr = browse-remote --pr
-    ag = "!git ls-files -z | xargs -0 ag --pager=\"less -F -R\" --nogroup --color-match=0\\;31 --color-path=0\\;0 --no-numbers"
-    wip = now --all --stat
-    del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic)\")"
-    rmrf = rm `git ls-files --deleted`
-    # ag = !git ls-files -z | xargs -0 ag
+  br = branch
+  st = status --short --branch
+  ci = commit
+  co = checkout
+  df = diff --color-words -w
+  pl = pull
+  cl = clone
+  amend = commit --amend
+  blank = checkout --orphan
+  graph = log --graph --decorate --oneline
+  hub = browse-remote
+  pr = browse-remote --pr
+  ag = "!git ls-files -z | xargs -0 ag --pager=\"less -F -R\" --nogroup --color-match=0\\;31 --color-path=0\\;0 --no-numbers"
+  wip = now --all --stat
+  del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
+  rmrf = rm `git ls-files --deleted`
 
 [fetch]
-    prune = true
+  prune = true
+
+[init]
+  templatedir = ~/.git_template
+
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+
+[commit]
+  template = /Users/uehara.masayuki/.git_commit_msg.txt
+
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+
+# vim: ft=gitconfig :

@@ -16,16 +16,17 @@ SPROMPT="%{${fg[white]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 
 # http://qiita.com/items/8d5a627d773758dd8078?utm_source=Qiita+Newsletter+Users&utm_campaign=bff63624dd-Qiita_newsletter_31_19_12_2012&utm_medium=email
 # for git, mercurial, ect...
-autoload -Uz vcs_info add-zsh-hook
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-function _precmd_for_git () {
-psvar=()
-LANG=en_US.UTF-8 vcs_info
-[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-add-zsh-hook preexec _precmd_for_git
-RPROMPT="%1(v|%F{green}%1v%f|)"
+
+# autoload -Uz vcs_info add-zsh-hook
+# zstyle ':vcs_info:*' formats '(%s)-[%b]'
+# zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+# function _precmd_for_git () {
+# psvar=()
+# LANG=en_US.UTF-8 vcs_info
+# [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+# }
+# add-zsh-hook preexec _precmd_for_git
+# RPROMPT="%1(v|%F{green}%1v%f|)"
 
 export PROMPT_EOL_MARK=""
 setopt auto_cd
@@ -109,8 +110,8 @@ exists "$ANYENV_ROOT/bin"        && export PATH=$ANYENV_ROOT/bin:$PATH
 exists "$ANYENV_ROOT/bin/anyenv" && eval "$(anyenv init -)"
 
 ## load user .zshrc configuration file
-exists $HOME/.aliases     && source $HOME/.aliases
-exists $HOME/.zshrc.local && source $HOME/.zshrc.local
-exists $HOME/.zshrc.peco  && source $HOME/.zshrc.peco
+exists $HOME/.aliases     && . $HOME/.aliases
+exists $HOME/.zshrc.local && . $HOME/.zshrc.local
+exists $HOME/.zshrc.peco  && . $HOME/.zshrc.peco
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH

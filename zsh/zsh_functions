@@ -16,4 +16,16 @@ function tsync() {
   fi
 }
 
+function g() {
+  if [ -n "$1" ]; then
+    repo=$(ghq list | peco --select-1 --query "$1")
+  else
+    repo=$(ghq list | peco)
+  fi
+
+  if [ -n "$repo" ]; then
+    cd $(ghq root)/$repo
+  fi
+}
+
 # vim: set syn=sh :

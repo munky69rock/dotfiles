@@ -17,7 +17,7 @@ install:
 	test -e $(PREFIX)/.tmux.conf       || ln -s $$PWD/tmux/tmux.conf      $(PREFIX)/.tmux.conf
 
 uninstall:
-	for target in .vim .vimrc .gvimrc .zshrc .aliases .gitconfig .tmux.conf; do \
+	for target in .vim .vimrc .gvimrc .zshrc .aliases .gitconfig .tmux.conf .zsh-completions .zsh_functions; do \
 		if [ -L $(PREFIX)/$$target ]; then \
 			rm $(PREFIX)/$$target;    \
 		else \
