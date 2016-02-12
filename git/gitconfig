@@ -7,6 +7,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	autocrlf = input
+	pager = diff-so-fancy | less --tabs=1,5 -R
 #    # https://github.com/github/gitignore
 #    # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
 #    pager = less -r
@@ -49,3 +50,8 @@
 
 [fetch]
     prune = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22

@@ -1,6 +1,7 @@
-" VIMRC
+"================================================================================
+" GENERAL SETTINGS:
+"================================================================================
 
-" GENERAL SETTINGS: {{{1
 scriptencoding utf-8
 syntax on
 set nocompatible
@@ -10,8 +11,8 @@ set modeline
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set swapfile
-set directory=$HOME/git/dotfiles/vim/swp
-set undodir=$HOME/git/dotfiles/vim/undo
+set directory=$HOME/.vim/swp
+set undodir=$HOME/.vim/undo
 set backupskip=/tmp/*,/private/tmp/*
 set history=10000
 set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.viminfo
@@ -28,7 +29,6 @@ set showmode
 set matchtime=2
 set hidden
 set shortmess+=I
-"set statusline==%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%{fugitive#statusline()}%=%l,%c%V%8P
 set wrap
 set textwidth=0
 set laststatus=2
@@ -96,8 +96,12 @@ match ZenkakuSpace /　/
 "" Working with split screen nicely
 "" Resize Split When the window is resized
 autocmd VimResized * :wincmd =
-"1}}}
-" ENCODING: {{{1
+
+
+"================================================================================
+" ENCODING:
+"================================================================================
+
 if &encoding !=# 'utf-8'
   set encoding=japan
   set fileencoding=japan
@@ -146,8 +150,12 @@ set fileformats=unix,dos,mac
 if exists('&ambiwidth')
   set ambiwidth=double
 endif
-"1}}}
-" SPECIFY FILETYPE: {{{1
+
+
+"================================================================================
+" SPECIFY FILETYPE:
+"================================================================================
+
 autocmd BufNewFile,BufRead *.psgi                   setl ft=perl
 autocmd BufNewFile,BufRead *.tt,*.tx                setl ft=html
 autocmd BufNewFile,BufRead httpd.conf*,rewrite*conf setl ft=apache
@@ -159,8 +167,12 @@ autocmd BufNewFile,BufRead *.coffee,Cakefile        setl ft=coffeescript
 autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
 autocmd BufNewFile,BufRead *.go                     setl ft=go
 autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
-"1}}}
-" KEY MAPPING: {{{1
+
+
+"================================================================================
+" KEY MAPPING:
+"================================================================================
+
 let mapleader = ","
 
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
@@ -196,30 +208,30 @@ if !exists("*SyntaxCheck")
   endf
 endif
 
-autocmd FileType perl nmap <leader>w :!perl -wc %<CR>
-autocmd FileType perl nmap <leader>d :!perl %<CR>
-"1}}}
-" PLUGINS: {{{1
+
+"================================================================================
+" PLUGINS:
+"================================================================================
 
 "" unify vim plugin path to ~/.vim
 if has('win32') || has('win64')
   set runtimepath+=$HOME/.vim
 endif
 
+""-------------------------------------------------------------------------------
+"" neobundle.vim
+""-------------------------------------------------------------------------------
 
-"" neobundle.vim {{{2
-"filetype off
+filetype off
+
 if has('vim_starting')
   set nocompatible
-  set runtimepath+=$HOME/git/dotfiles/vim/bundle/neobundle.vim
+	set runtimepath^=$HOME/.vim/bundle/neobundle.vim
 endif
 
-call neobundle#begin(expand('$HOME/git/dotfiles/vim/bundle'))
+call neobundle#begin("$HOME/.vim/bundle")
 NeoBundleFetch 'Shougo/neobundle.vim'
-call neobundle#end()
 
-
-NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -234,18 +246,6 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
-"NeoBundle 'Shougo/echodoc'
-"NeoBundle 'Shougo/vim-vcs'
-"NeoBundle 'Shougo/vimfiler'
-"NeoBundle 'Shougo/vinarise'
-
-"NeoBundle 'vim-scripts/taglist.vim'
-"NeoBundle 'vim-scripts/vimwiki'
-
-"NeoBundle 'thinca/vim-ref'
-"NeoBundle 'thinca/vim-quickrun'
-
-NeoBundle 'mattn/emmet-vim'
 
 if executable('ag')
   NeoBundle 'rking/ag.vim'
@@ -256,21 +256,13 @@ NeoBundle 'jsx/jsx.vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'statianzo/vim-jade'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'lukaszkorecki/CoffeeTags'
+NeoBundle 'slim-template/vim-slim'
 
 """ Vim as your IDE [http://haridas.in/vim-as-your-ide.html]
-"NeoBundle 'git://git.wincent.com/command-t'
 NeoBundle 'fholgado/minibufexpl.vim'
-"NeoBundle 'klen/rope-vim'
 NeoBundle 'majutsushi/tagbar'
-"NeoBundle 'msanders/snipmate.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
-"NeoBundle 'scrooloose/syntastic'
-"NeoBundle 'vim-scripts/simple-pairs'
-
-"" git
-NeoBundle 'tpope/vim-fugitive'
 
 "" status line
 NeoBundle 'bling/vim-airline'
@@ -283,93 +275,42 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 NeoBundle 'osyo-manga/vim-over'
 
-NeoBundle 'slim-template/vim-slim'
-
 NeoBundle 'haya14busa/incsearch.vim'
+
+call neobundle#end()
+
+filetype plugin indent on
 
 NeoBundleCheck
 
-filetype plugin indent on
-""2}}}
+""-------------------------------------------------------------------------------
+"" nerdtree.vim
+""-------------------------------------------------------------------------------
 
-"" nerdtree.vim {{{2
 nnoremap <C-n> :NERDTreeToggle<CR>
-""2}}}
-"" minibufexpl.vim {{{2
+
+
+""-------------------------------------------------------------------------------
+"" minibufexpl.vim
+""-------------------------------------------------------------------------------
+
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-""2}}}
-"" rope.vim {{{2
-"imap <leader>j <ESC>:RopeGotoDefinition<CR>
-"nmap <leader>j <ESC>:RopeGotoDefinition<CR>
-"2}}}
-"" tagbar.vim {{{2
+
+""-------------------------------------------------------------------------------
+"" tagbar.vim
+""-------------------------------------------------------------------------------
+
 nmap <leader>l <ESC>:TagbarToggle<CR>
 imap <leader>l <ESC>:TagbarToggle<CR>i
-"" 2}}}
-"" neocomplcache.vim {{{2
-"let g:acp_enableAtStartup = 0
-"let g:neocomplcache_enable_at_startup = 1
-"let g:neocomplcache_enable_smart_case = 1
-"let g:neocomplcache_enable_camel_case_completion = 0
-"let g:neocomplcache_enable_underbar_completion = 1
-"let g:neocomplcache_min_syntax_length = 3
-""let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-"
-"""" Define keyword.
-"if !exists('g:neocomplcache_keyword_patterns')
-"  let g:neocomplcache_keyword_patterns = {}
-"endif
-"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-"
-"""" Plugin key-mappings.
-"imap <C-k> <Plug>(neocomplcache_snippets_expand)
-"smap <C-k> <Plug>(neocomplcache_snippets_expand)
-"inoremap <expr><C-g>     neocomplcache#undo_completion()
-"inoremap <expr><C-l>     neocomplcache#complete_common_string()
-"
-"""" SuperTab like snippets behavior.
-""imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"
-"""" Recommended key-mappings.
-"""" <CR>: close popup and save indent.
-"inoremap <expr><CR>   neocomplcache#smart_close_popup() . "\<CR>"
-"""" <TAB>: completion.
-"""" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"""" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplcache#close_popup()
-"inoremap <expr><C-e>  neocomplcache#cancel_popup()
-"
-"""" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-"
-"""" Shell like behavior(not recommended).
-""set completeopt+=longest
-""let g:neocomplcache_enable_auto_select = 1
-""let g:neocomplcache_disable_auto_complete = 1
-""inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-""inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-"
-"""" Enable omni completion.
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType perl setlocal omnifunc=perlcomplete#CompleteTags
-""autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"
-"" Enable heavy omni completion.
-"if !exists('g:neocomplcache_omni_patterns')
-"  let g:neocomplcache_omni_patterns = {}
-"endif
-""let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-"2}}}
+
+
+""-------------------------------------------------------------------------------
 "" neocomplete.vim {{{2
+""-------------------------------------------------------------------------------
+
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -452,9 +393,12 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-""2}}
 
-"" neosnippet {{{2
+
+""--------------------------------------------------------------------------------
+"" neosnippet
+""--------------------------------------------------------------------------------
+
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -474,61 +418,62 @@ endif
 "let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
 let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
 
-""2}}}
-"" unite.vim {{{2
+
+""-------------------------------------------------------------------------------
+"" unite.vim
+""-------------------------------------------------------------------------------
+
 if executable('ag')
   let g:unite_source_rec_async_command = 'ag --nocolor --nogroup --hidden -g ""'
 endif
 nnoremap <leader>h :<C-u>Unite -start-insert file_mru<CR>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
 nnoremap <leader>F :<C-u>Unite -start-insert file_rec<CR>
-""2}}}
-"" taglist.vim {{{2
-let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function;p:property'
-"" 2}}}
-"" coffeetags {{{2
-if executable('coffeetags')
-  let g:tagbar_type_coffee = {
-        \ 'ctagsbin' : 'coffeetags',
-        \ 'ctagsargs' : '',
-        \ 'kinds' : [
-        \ 'f:functions',
-        \ 'o:object',
-        \ ],
-        \ 'sro' : ".",
-        \ 'kind2scope' : {
-        \ 'f' : 'object',
-        \ 'o' : 'object',
-        \ }
-        \ }
-endif
-"" }}}2
-"" over.vim {{{2
+
+
+""-------------------------------------------------------------------------------
+"" over.vim
+""-------------------------------------------------------------------------------
+
 nnoremap <silent> <Leader>m :OverCommandLine<CR>
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-"" }}}2
-" incsearch.vim {{{2
+
+
+""-------------------------------------------------------------------------------
+" incsearch.vim
+""-------------------------------------------------------------------------------
+
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
-""" }}}2
-"" vim-colors-solarized {{{2
-colorscheme solarized
-"" }}}2
 
-"1}}}
-" FILETYPE SETTINGS: {{{1
+
+""-------------------------------------------------------------------------------
+"" vim-colors-solarized
+""-------------------------------------------------------------------------------
+
+colorscheme solarized
+
+
+"================================================================================
+" FILETYPE SETTINGS:
+"================================================================================
+
 autocmd FileType html,xhtml,haml,jade,scss,sass,less,css,javascript,coffeescript setl ff=dos ts=2 sts=2 sw=2 expandtab
 autocmd FileType sql    setl expandtab ts=2 sts=2 sw=2 nonu
-autocmd FileType yaml   setl expandtab
+autocmd FileType yaml   setl expandtab ts=2 sts=2 sw=2
 autocmd FileType vim    setl noexpandtab ts=2 sts=2 sw=2 
 autocmd FileType perl   setl noexpandtab ff=unix ts=4 sts=4 sw=4
 autocmd FileType ruby   setl expandtab   ff=unix ts=2 sts=2 sw=2
 autocmd FileType python setl expandtab   ff=unix ts=4 sts=4 sw=4
 autocmd FileType sh     setl expandtab   ts=2 sts=2 sw=2
 """ TODO: windows g?vimrc encoding=cp932
-" 1}}}
-" SYNTAX HIGHLIGHTING: {{{1
+
+
+"================================================================================
+" SYNTAX HIGHLIGHTING:
+"================================================================================
+
 let g:markdown_fenced_languages = [
 \  'coffee',
 \  'css',
@@ -541,8 +486,12 @@ let g:markdown_fenced_languages = [
 \  'xml',
 \  'sh',
 \]
-" 1}}}
-" LOCAL SETTINGS:{{{1
+
+
+"================================================================================
+" LOCAL SETTINGS:
+"================================================================================
+
 function! SourceIfExist(path)
   if filereadable(a:path)
     execute 'source' a:path
@@ -558,6 +507,3 @@ elseif has('win32') || has('win64')
 endif
 
 call SourceIfExist($HOME.'/.vimrc.local')
-" }}}1
-
-" vim: foldmethod=marker foldcolumn=3 foldlevel=0 :

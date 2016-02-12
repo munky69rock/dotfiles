@@ -1,6 +1,0 @@
-pip-tools
-fabric
-pyflakes
-pep8
-django
-httpie

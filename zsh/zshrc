@@ -53,12 +53,10 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt share_history # share command history data
 
 # zsh-completions
-if exists ~/.zsh-completions; then
-  fpath=(~/.zsh-completions/src $fpath)
-elif exists $HOME/git/dotfiles/zsh/zsh-completions; then
-  fpath=($HOME/git/dotfiles/zsh/zsh-completions/src $fpath)
-elif exists /usr/local/share/zsh-completions; then
+if exists /usr/local/share/zsh-completions; then
   fpath=(/usr/local/share/zsh-completions $fpath)
+elif exists ~/.zsh-completions; then
+  fpath=(~/.zsh-completions/src $fpath)
 fi
 
 autoload -U compinit
@@ -110,11 +108,9 @@ export ANYENV_ROOT=$HOME/.anyenv
 exists "$ANYENV_ROOT/bin"        && export PATH=$ANYENV_ROOT/bin:$PATH
 exists "$ANYENV_ROOT/bin/anyenv" && eval "$(anyenv init -)"
 
-stty stop undef
-
 ## load user .zshrc configuration file
 exists $HOME/.aliases     && source $HOME/.aliases
 exists $HOME/.zshrc.local && source $HOME/.zshrc.local
 exists $HOME/.zshrc.peco  && source $HOME/.zshrc.peco
 
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH

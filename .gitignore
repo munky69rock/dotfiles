@@ -2,6 +2,6 @@ vim/bundle/*
 !vim/bundle/neobundle.vim
 vim/swp/*
 vim/undo/*
-ruby/Gemfile.lock
 init
+vim/.netrwhist
 !.gitkeep
