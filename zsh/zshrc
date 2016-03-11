@@ -115,3 +115,4 @@ exists $HOME/.zshrc.local && . $HOME/.zshrc.local
 exists $HOME/.zshrc.peco  && . $HOME/.zshrc.peco
 
 export PATH=$HOME/bin:$PATH
+typeset -U path

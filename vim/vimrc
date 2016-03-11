@@ -70,10 +70,10 @@ set cursorline
 
 "" indent
 set autoindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set noexpandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 set nosmartindent
 set pastetoggle=<F3>
 
@@ -238,7 +238,7 @@ filetype off
 
 if has('vim_starting')
   set nocompatible
-	set runtimepath^=$HOME/.vim/bundle/neobundle.vim
+  set runtimepath^=$HOME/.vim/bundle/neobundle.vim
 endif
 
 call neobundle#begin("$HOME/.vim/bundle")
@@ -473,13 +473,9 @@ colorscheme solarized
 " FILETYPE SETTINGS:
 "================================================================================
 
-autocmd FileType html,xhtml,haml,slim,jade,scss,sass,less,css,javascript,coffeescript,javascript.jsx,eruby setl expandtab ts=2 sts=2 sw=2 ff=dos
-autocmd FileType sql               setl expandtab ts=2 sts=2 sw=2 nonu
-autocmd FileType yaml,gitconfig,sh setl expandtab ts=2 sts=2 sw=2
-autocmd FileType vim               setl noexpandtab ts=2 sts=2 sw=2 
-autocmd FileType perl              setl noexpandtab ff=unix ts=4 sts=4 sw=4 ff=unix
-autocmd FileType ruby              setl expandtab   ff=unix ts=2 sts=2 sw=2 ff=unix
-autocmd FileType python            setl expandtab   ff=unix ts=4 sts=4 sw=4 ff=unix
+autocmd FileType perl   setl ts=4 sts=4 sw=4 ff=unix
+autocmd FileType ruby   setl ff=unix
+autocmd FileType python setl ts=4 sts=4 sw=4 ff=unix
 """ TODO: windows g?vimrc encoding=cp932
 
 
