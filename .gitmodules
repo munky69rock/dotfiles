@@ -1,9 +1,9 @@
-[submodule "vim/bundle/neobundle.vim"]
-	path = vim/bundle/neobundle.vim
-	url = git://github.com/Shougo/neobundle.vim
 [submodule "zsh/zsh-completions"]
 	path = zsh/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
 [submodule "zsh/antigen"]
 	path = zsh/antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "vim/dein/repos/github.com/Shougo/dein.vim"]
+	path = vim/dein/repos/github.com/Shougo/dein.vim
+	url = https://github.com/Shougo/dein.vim
