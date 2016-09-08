@@ -235,94 +235,7 @@ endif
 "" dein.vim
 ""-------------------------------------------------------------------------------
 
-filetype off
-
-if !&compatible
-  set nocompatible
-endif
-
-let s:dein_dir = "$HOME/.vim/dein"
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if &runtimepath !~# '/dein.vim'
-  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
-call dein#begin(s:dein_dir)
-" Check cache
-if dein#load_state(expand('~/.vimrc'), expand('~/.vimrc.local'), expand('~/.vimrc.dein.local'))
-  call dein#add('Shougo/dein.vim')
-
-  call dein#add('Shougo/vimproc', {
-        \   'build': {
-        \     'windows': 'tools\\update-dll-mingw',
-        \     'cygwin': 'make -f make_cygwin.mak',
-        \     'mac': 'make -f make_mac.mak',
-        \     'linux': 'make',
-        \     'unix': 'gmake'
-        \   }
-        \ })
-
-  call dein#add('Shougo/unite.vim', {
-        \   'depends': ['vimproc'],
-        \   'on_cmd': ['Unite'],
-        \   'lazy': 1
-        \ })
-  call dein#add('Shougo/neomru.vim', {
-        \   'on_source': ['unite.vim'],
-        \   'on_cmd': ['Unite'],
-        \   'lazy': 1
-        \ })
-
-  call dein#add('Shougo/vimshell')
-
-  if has('lua')
-    call dein#add('Shougo/neocomplete.vim', {
-          \   'on_i': 1,
-          \   'lazy': 1
-          \ })
-    call dein#add('Shougo/neosnippet', {
-          \   'on_i': 1,
-          \   'lazy': 1
-          \ })
-    call dein#add('Shougo/neosnippet-snippets', {
-          \   'on_i': 1,
-          \   'lazy': 1
-          \ })
-  endif
-
-  if executable('ag')
-    call dein#add('rking/ag.vim')
-  endif
-
-  """ Vim as your IDE [http://haridas.in/vim-as-your-ide.html]
-  call dein#add('fholgado/minibufexpl.vim')
-  call dein#add('majutsushi/tagbar')
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('scrooloose/nerdtree')
-
-  "" colorscheme
-  call dein#add('altercation/vim-colors-solarized')
-
-  call dein#add('editorconfig/editorconfig-vim')
-
-  call dein#add('osyo-manga/vim-over')
-
-  call dein#add('haya14busa/incsearch.vim')
-
-  call SourceIfExist($HOME."/.vimrc.dein.local")
-
-endif
-
-call dein#end()
-call dein#save_state()
-
-" Installation check.
-if dein#check_install()
-  call dein#install()
-endif
-
-filetype plugin indent on
-
+call SourceIfExist($HOME."/.vim/vimrc.dein")
 
 ""-------------------------------------------------------------------------------
 "" nerdtree.vim
@@ -449,26 +362,28 @@ endif
 "" neosnippet
 ""--------------------------------------------------------------------------------
 
-if dein#tap('neosnippet')
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-  " SuperTab like snippets behavior.
-  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: pumvisible() ? "\<C-n>" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: "\<TAB>"
-
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=i
-  endif
-
-  "let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
-  let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
-endif
+"if dein#tap('neosnippet')
+"  " Plugin key-mappings.
+"	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"	xmap <C-k>     <Plug>(neosnippet_expand_target)
+"
+"	" SuperTab like snippets behavior.
+"	"imap <expr><TAB>
+"	" \ pumvisible() ? "\<C-n>" :
+"	" \ neosnippet#expandable_or_jumpable() ?
+"	" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"
+"	" For conceal markers.
+"	if has('conceal')
+"		set conceallevel=2 concealcursor=niv
+"	endif
+"
+"  "let g:neosnippet#snippets_directory='$HOME/.vim/bundle/neosnippet/autoload/neosnippet/snippets,$HOME/.vim/snippets'
+"  let g:neosnippet#snippets_directory='$HOME/.vim/snippets'
+"endif
 
 
 ""-------------------------------------------------------------------------------
@@ -548,11 +463,11 @@ let g:markdown_fenced_languages = [
 "================================================================================
 
 if has('mac')
-  call SourceIfExist($HOME."/.vimrc.mac")
+  call SourceIfExist($HOME."/.vim/vimrc.mac")
 elseif has('unix')
-  call SourceIfExist($HOME.'/.vimrc.linux')
+  call SourceIfExist($HOME.'/.vim/vimrc.linux')
 elseif has('win32') || has('win64')
-  call SourceIfExist($HOME.'/.vimrc.win')
+  call SourceIfExist($HOME.'/.vim/vimrc.win')
 endif
 
-call SourceIfExist($HOME.'/.vimrc.local')
+call SourceIfExist($HOME.'/.vim/vimrc.local')

@@ -4,5 +4,7 @@ vim/swp/*
 vim/undo/*
 init
 vim/.netrwhist
+vim/vimrc.local
+vim/vimrc.dein.local
 fish/functions/fish_prompt.fish
 !.gitkeep

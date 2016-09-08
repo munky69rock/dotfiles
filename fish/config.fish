@@ -42,6 +42,5 @@ exec_if_executable direnv "direnv hook fish | source"
 
 set GOPATH $HOME/.go
 set PATH $GOPATH/bin $PATH
-set PATH /usr/local/opt/go/libexec/bin $PATH
 
 source_if_exists "$HOME/.config/fish/config.local.fish"

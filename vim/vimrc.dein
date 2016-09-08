@@ -1,0 +1,80 @@
+filetype off
+
+if !&compatible
+  set nocompatible
+endif
+
+let s:dein_dir = "$HOME/.vim/dein"
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if &runtimepath !~# '/dein.vim'
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+call dein#begin(s:dein_dir)
+" Check cache
+if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand('~/.vimrc/vimrc.dein'))
+  call dein#add('Shougo/dein.vim')
+
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+
+  call dein#add('Shougo/unite.vim', {
+        \   'depends': ['vimproc'],
+        \   'on_cmd': ['Unite'],
+        \   'lazy': 1
+        \ })
+  call dein#add('Shougo/neomru.vim', {
+        \   'on_source': ['unite.vim'],
+        \   'on_cmd': ['Unite'],
+        \   'lazy': 1
+        \ })
+
+  call dein#add('Shougo/vimshell')
+
+  if has('lua')
+    call dein#add('Shougo/neocomplete.vim', {
+          \   'on_i': 1,
+          \   'lazy': 1
+          \ })
+    call dein#add('Shougo/neosnippet', {
+          \   'on_i': 1,
+          \   'lazy': 1
+          \ })
+    call dein#add('Shougo/neosnippet-snippets', {
+          \   'on_i': 1,
+          \   'lazy': 1,
+          \   'depends': 'Shougo/neosnippet'
+          \ })
+  endif
+
+  if executable('ag')
+    call dein#add('rking/ag.vim')
+  endif
+
+  """ Vim as your IDE [http://haridas.in/vim-as-your-ide.html]
+  call dein#add('fholgado/minibufexpl.vim')
+  call dein#add('majutsushi/tagbar')
+  call dein#add('scrooloose/nerdcommenter')
+  call dein#add('scrooloose/nerdtree')
+
+  "" colorscheme
+  call dein#add('altercation/vim-colors-solarized')
+
+  call dein#add('editorconfig/editorconfig-vim')
+
+  call dein#add('osyo-manga/vim-over')
+
+  call dein#add('haya14busa/incsearch.vim')
+
+  call SourceIfExist($HOME."/.vim/vimrc.dein.local")
+
+endif
+
+call dein#end()
+call dein#save_state()
+
+" Installation check.
+if dein#check_install()
+  call dein#install()
+endif
+
+filetype plugin indent on
