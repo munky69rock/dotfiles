@@ -1,7 +1,7 @@
 function exists(){ test -e $1 }
 function executable() { which $1 &> /dev/null }
 function exec_if_exectable() { executable $1 && shift && $@ }
-function exec_if_exists() { executable $1 && shift && $@ }
+function exec_if_exists() { exists $1 && shift && $@ }
 
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
@@ -25,6 +25,13 @@ function g() {
 
   if [ -n "$repo" ]; then
     cd $(ghq root)/$repo
+  fi
+}
+
+function gb() {
+  branch=$(git branch | grep -v '*' | peco --select-1 --query "$1")
+  if [ -n "$branch" ]; then
+    git checkout $branch
   fi
 }
 

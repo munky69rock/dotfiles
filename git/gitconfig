@@ -9,7 +9,7 @@
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
-  pager = diff-so-fancy | less --tabs=1,5 -R
+  #pager = diff-so-fancy | less --tabs=1,5 -R
 #  # https://github.com/github/gitignore
 #  # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
 #  pager = less -r
@@ -32,6 +32,7 @@
 
 [alias]
   br = branch
+  brs = branch --sort=authordate
   st = status --short --branch
   ci = commit
   co = checkout
@@ -45,6 +46,7 @@
   pr = browse-remote --pr
   ag = "!git ls-files -z | xargs -0 ag --pager=\"less -F -R\" --nogroup --color-match=0\\;31 --color-path=0\\;0 --no-numbers"
   wip = now --all --stat
+  push-f = push --force-with-lease
   del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
   rmrf = rm `git ls-files --deleted`
 
@@ -67,5 +69,13 @@
   oldHighlight = red bold 52
   newNormal = green bold
   newHighlight = green bold 22
+
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+
+[diff]
+	compactionHeuristic = true
 
 # vim: ft=gitconfig :

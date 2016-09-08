@@ -5,7 +5,8 @@
 scriptencoding utf-8
 syntax on
 set nocompatible
-set shell=/bin/sh
+"set shell=/bin/sh
+set shell=bash\ -i
 set modeline
 "set modelines=0
 set whichwrap=b,s,h,l,<,>,[,]
@@ -248,7 +249,7 @@ endif
 
 call dein#begin(s:dein_dir)
 " Check cache
-if dein#load_cache([expand('~/.vimrc'), expand('~/.vimrc.local'), expand('~/.vimrc.dein.local')])
+if dein#load_state(expand('~/.vimrc'), expand('~/.vimrc.local'), expand('~/.vimrc.dein.local'))
   call dein#add('Shougo/dein.vim')
 
   call dein#add('Shougo/vimproc', {
@@ -310,10 +311,10 @@ if dein#load_cache([expand('~/.vimrc'), expand('~/.vimrc.local'), expand('~/.vim
 
   call SourceIfExist($HOME."/.vimrc.dein.local")
 
-  call dein#save_cache()
 endif
 
 call dein#end()
+call dein#save_state()
 
 " Installation check.
 if dein#check_install()
