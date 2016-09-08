@@ -36,12 +36,8 @@ if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand(
           \   'lazy': 1
           \ })
     call dein#add('Shougo/neosnippet', {
-          \   'on_i': 1,
-          \   'lazy': 1
           \ })
     call dein#add('Shougo/neosnippet-snippets', {
-          \   'on_i': 1,
-          \   'lazy': 1,
           \   'depends': 'Shougo/neosnippet'
           \ })
   endif
