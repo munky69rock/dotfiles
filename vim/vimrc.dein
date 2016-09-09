@@ -12,7 +12,7 @@ endif
 
 call dein#begin(s:dein_dir)
 " Check cache
-if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand('~/.vimrc/vimrc.dein'))
+if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand('~/.vim/vimrc.dein'), expand('~/.vim/vimrc.dein.local'))
   call dein#add('Shougo/dein.vim')
 
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -20,20 +20,16 @@ if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand(
   call dein#add('Shougo/unite.vim', {
         \   'depends': ['vimproc'],
         \   'on_cmd': ['Unite'],
-        \   'lazy': 1
         \ })
   call dein#add('Shougo/neomru.vim', {
         \   'on_source': ['unite.vim'],
         \   'on_cmd': ['Unite'],
-        \   'lazy': 1
         \ })
 
   call dein#add('Shougo/vimshell')
 
   if has('lua')
     call dein#add('Shougo/neocomplete.vim', {
-          \   'on_i': 1,
-          \   'lazy': 1
           \ })
     call dein#add('Shougo/neosnippet', {
           \ })
