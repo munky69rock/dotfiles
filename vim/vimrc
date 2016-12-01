@@ -34,6 +34,7 @@ set wrap
 set textwidth=0
 set laststatus=2
 set backspace=indent,eol,start
+set breakindent
 if has("autocmd")
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line ("'\"") <= line("$") |
@@ -78,6 +79,19 @@ set expandtab
 set nosmartindent
 set pastetoggle=<F3>
 
+if &term =~ "xterm"
+  let &t_SI .= "\e[?2004h"
+  let &t_EI .= "\e[?2004l"
+  let &pastetoggle = "\e[201~"
+
+  function XTermPasteBegin(ret)
+    set paste
+    return a:ret
+  endfunction
+
+  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
+
 "" search
 set hlsearch
 set incsearch
@@ -88,6 +102,17 @@ set showmatch
 "" gui
 set clipboard+=autoselect
 set clipboard+=unnamed
+
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  elseif v:version > 703 || v:version is 703 && has('patch632')
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+endif
 
 "" zenkakuspace highlight
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -173,7 +198,6 @@ autocmd BufNewFile,BufRead *.coffee,Cakefile        setl ft=coffeescript
 autocmd BufNewFile,BufRead *.as                     setl ft=actionscript
 autocmd BufNewFile,BufRead *.go                     setl ft=go
 autocmd BufNewFile,BufRead Podfile,Thorfile,*.thor  setl ft=ruby
-"autocmd BufNewFile,BufRead *.tsv,*.csv              setl fenc=cp932 ff=dos
 
 
 "================================================================================
@@ -190,31 +214,8 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
-noremap <Space>h ^
-noremap <Space>l $
-noremap <Space>/ *
-
 "nnoremap <PageDown> <C-F>
 "nnoremap <PageUp> <C-B>
-
-nmap <leader>b :ls<CR>:buf 
-nmap <leader>e :e!<CR>
-nmap <leader>c :call SyntaxCheck()<CR>
-if !exists("*SyntaxCheck")
-  function SyntaxCheck()
-    execute ':w'
-    if &syntax == 'perl'
-      execute ':!perl -cw %'
-    elseif &syntax == 'ruby'
-      execute ':!ruby -cW %'
-    elseif &syntax == 'javascript'
-      execute ':!jslint %'
-    elseif &syntax == 'coffee'
-      execute ':!coffee -c %'
-    endif
-  endf
-endif
-
 
 "================================================================================
 " PLUGINS:
@@ -230,6 +231,8 @@ endfunction
 if has('win32') || has('win64')
   set runtimepath+=$HOME/.vim
 endif
+
+call SourceIfExist($VIMRUNTIME."/macros/matchit.vim")
 
 ""-------------------------------------------------------------------------------
 "" dein.vim
@@ -283,24 +286,24 @@ if dein#tap('neocomplete.vim')
   " Set minimum syntax keyword length.
   let g:neocomplete#sources#syntax#min_keyword_length = 3
   let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-  
+
   " Define dictionary.
   let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
       \ 'vimshell' : $HOME.'/.vimshell_hist',
       \ 'scheme' : $HOME.'/.gosh_completions'
           \ }
-  
+
   " Define keyword.
   if !exists('g:neocomplete#keyword_patterns')
       let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-  
+
   " Plugin key-mappings.
   inoremap <expr><C-g>     neocomplete#undo_completion()
   inoremap <expr><C-l>     neocomplete#complete_common_string()
-  
+
   " Recommended key-mappings.
   " <CR>: close popup and save indent.
   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -316,23 +319,23 @@ if dein#tap('neocomplete.vim')
   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
   " Close popup by <Space>.
   "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-  
+
   " AutoComplPop like behavior.
   "let g:neocomplete#enable_auto_select = 1
-  
+
   " Shell like behavior(not recommended).
   "set completeopt+=longest
   "let g:neocomplete#enable_auto_select = 1
   "let g:neocomplete#disable_auto_complete = 1
   "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-  
+
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  
+
   " Enable heavy omni completion.
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
@@ -340,7 +343,7 @@ if dein#tap('neocomplete.vim')
   "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
   "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
   "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-  
+
   " For perlomni.vim setting.
   " https://github.com/c9s/perlomni.vim
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'

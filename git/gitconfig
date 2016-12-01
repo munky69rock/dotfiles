@@ -49,6 +49,7 @@
   push-f = push --force-with-lease
   del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
   rmrf = rm `git ls-files --deleted`
+  ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 
 [fetch]
   prune = true
@@ -62,7 +63,7 @@
   required = true
 
 [commit]
-  template = /Users/uehara.masayuki/.git_commit_msg.txt
+  template = ~/.git_commit_msg.txt
 
 [color "diff-highlight"]
   oldNormal = red bold
@@ -71,11 +72,11 @@
   newHighlight = green bold 22
 
 [pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+  log  = /usr/local/bin/diff-highlight | less
+  show = /usr/local/bin/diff-highlight | less
+  diff = /usr/local/bin/diff-highlight | less
 
 [diff]
-	compactionHeuristic = true
+  compactionHeuristic = true
 
 # vim: ft=gitconfig :
