@@ -3,14 +3,14 @@ BIN_DIR  = $(PREFIX)/bin
 XDG_CONFIG_HOME = $(PREFIX)/.config
 TARGETS = .vim .vimrc .gvimrc .zshrc .aliases .gitconfig .tmux.conf .zsh-completions .zsh_functions .config/fish/config.fish .config/fish/functions
 
-init:
+init: ## Initialize submodules
 	mkdir -p $(BIN_DIR)
 	mkdir -p $(XDG_CONFIG_HOME)/fish
 	git submodule init
 	git submodule update
 	touch init
 
-install:
+install: ## Install rcfiles
 	test -e $(PREFIX)/.vim             || ln -s $$PWD/vim                 $(PREFIX)/.vim
 	test -e $(PREFIX)/.zshrc           || ln -s $$PWD/zsh/zshrc           $(PREFIX)/.zshrc
 	test -e $(PREFIX)/.zsh_functions   || ln -s $$PWD/zsh/zsh_functions   $(PREFIX)/.zsh_functions
@@ -21,7 +21,7 @@ install:
 	test -e $(XDG_CONFIG_HOME)/fish/config.fish || ln -s $$PWD/fish/config.fish $(XDG_CONFIG_HOME)/fish/config.fish
 	test -e $(XDG_CONFIG_HOME)/fish/functions   || ln -s $$PWD/fish/functions   $(XDG_CONFIG_HOME)/fish/functions
 
-uninstall:
+uninstall: ## Uninstall rcfiles
 	for target in $(TARGETS); do \
 		if [ -L $(PREFIX)/$$target ]; then \
 			rm $(PREFIX)/$$target;    \
@@ -30,6 +30,10 @@ uninstall:
 		fi ; \
 	done
 
-all: init install
+all: init install ## Initialize and install
 
-.PHONY: all install uninstall 
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+#.DEFAULT_GOAL := help
+.PHONY: all install uninstall help
