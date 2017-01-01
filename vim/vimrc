@@ -103,7 +103,7 @@ set showmatch
 set clipboard+=autoselect
 set clipboard+=unnamed
 
-if has('mouse')
+if ($SSH_TTY == "") && has('mouse')
   set mouse=a
   if has('mouse_sgr')
     set ttymouse=sgr

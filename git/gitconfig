@@ -50,6 +50,7 @@
   del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
   rmrf = rm `git ls-files --deleted`
   ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+  pall = "!find . -type d -name .git -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
 
 [fetch]
   prune = true
