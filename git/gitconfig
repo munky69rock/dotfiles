@@ -69,10 +69,6 @@
   newHighlight = green bold 22
 
 [pager]
-  log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-  show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-  diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-
   # mac
   #log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
   #show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
