@@ -9,11 +9,6 @@
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
-  #pager = diff-so-fancy | less --tabs=1,5 -R
-#  # https://github.com/github/gitignore
-#  # http://stackoverflow.com/questions/136178/git-diff-handling-long-lines
-#  pager = less -r
-#  editor = vim
 
 [color]
   ui = auto   
@@ -59,9 +54,10 @@
   templatedir = ~/.git_template
 
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
   required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 
 [commit]
   template = ~/.git_commit_msg.txt
@@ -73,9 +69,19 @@
   newHighlight = green bold 22
 
 [pager]
-  log  = /usr/local/bin/diff-highlight | less
-  show = /usr/local/bin/diff-highlight | less
-  diff = /usr/local/bin/diff-highlight | less
+  log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+
+  # mac
+  #log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  #show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  #diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+
+  # ubuntu
+  #log  = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+  #show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+  #diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 
 [diff]
   compactionHeuristic = true

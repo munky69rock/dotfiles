@@ -6,17 +6,26 @@ scriptencoding utf-8
 syntax on
 set nocompatible
 "set shell=/bin/sh
-set shell=bash\ -i
+if !has('nvim')
+  set shell=bash\ -i
+endif
 set modeline
 "set modelines=0
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set swapfile
-set directory=$HOME/.vim/swp
-set undodir=$HOME/.vim/undo
+if has('nvim')
+  set directory=$HOME/.config/nvim/swp
+  set undodir=$HOME/.config/nvim/undo
+  set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.config/nvim/nviminfo
+else
+  set directory=$HOME/.vim/swp
+  set undodir=$HOME/.vim/undo
+  set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.viminfo
+endif
+
 set backupskip=/tmp/*,/private/tmp/*
 set history=10000
-set viminfo='100,<50,s10,h,:5000,/5000,n$HOME/.viminfo
 set ttyfast
 set lazyredraw
 
@@ -100,10 +109,12 @@ set smartcase
 set showmatch
 
 "" gui
-set clipboard+=autoselect
-set clipboard+=unnamed
+if !has('nvim')
+  set clipboard+=autoselect
+  set clipboard+=unnamed
+endif
 
-if ($SSH_TTY == "") && has('mouse')
+if ($SSH_TTY == "") && has('mouse') && !has('nvim')
   set mouse=a
   if has('mouse_sgr')
     set ttymouse=sgr
@@ -238,7 +249,11 @@ call SourceIfExist($VIMRUNTIME."/macros/matchit.vim")
 "" dein.vim
 ""-------------------------------------------------------------------------------
 
-call SourceIfExist($HOME."/.vim/vimrc.dein")
+if has('nvim')
+  call SourceIfExist($HOME."/.config/nvim/dein.vim")
+else
+  call SourceIfExist($HOME."/.vim/vimrc.dein")
+endif
 
 ""-------------------------------------------------------------------------------
 "" nerdtree.vim
@@ -422,6 +437,22 @@ if dein#tap('vim-colors-solarized')
 endif
 
 
+""-------------------------------------------------------------------------------
+"" denite.nvim
+""-------------------------------------------------------------------------------
+
+if dein#tap('denite.nvim')
+endif
+
+
+""-------------------------------------------------------------------------------
+"" deoplete.nvim
+""-------------------------------------------------------------------------------
+
+if dein#tap('deoplete.nvim')
+  let g:deoplete#enable_at_startup = 1
+endif
+
 "================================================================================
 " FILETYPE SETTINGS:
 "================================================================================
@@ -437,7 +468,6 @@ autocmd FileType python setl ts=4 sts=4 sw=4 ff=unix
 "================================================================================
 
 let g:markdown_fenced_languages = [
-      \  'coffee',
       \  'css',
       \  'erb=eruby',
       \  'javascript',
@@ -454,12 +484,24 @@ let g:markdown_fenced_languages = [
 " LOCAL SETTINGS:
 "================================================================================
 
-if has('mac')
-  call SourceIfExist($HOME."/.vim/vimrc.mac")
-elseif has('unix')
-  call SourceIfExist($HOME.'/.vim/vimrc.linux')
-elseif has('win32') || has('win64')
-  call SourceIfExist($HOME.'/.vim/vimrc.win')
-endif
+if has('nvim')
+  if has('mac')
+    call SourceIfExist($HOME."/.config/nvim/init.mac.vim")
+  elseif has('unix')
+    call SourceIfExist($HOME.'/.config/nvim/init.linux.vim')
+  elseif has('win32') || has('win64')
+    call SourceIfExist($HOME.'/.config/nvim/init.win.vim')
+  endif
 
-call SourceIfExist($HOME.'/.vim/vimrc.local')
+  call SourceIfExist($HOME.'/.config/nvim/init.local.vim')
+else
+  if has('mac')
+    call SourceIfExist($HOME."/.vim/vimrc.mac")
+  elseif has('unix')
+    call SourceIfExist($HOME.'/.vim/vimrc.linux')
+  elseif has('win32') || has('win64')
+    call SourceIfExist($HOME.'/.vim/vimrc.win')
+  endif
+
+  call SourceIfExist($HOME.'/.vim/vimrc.local')
+endif

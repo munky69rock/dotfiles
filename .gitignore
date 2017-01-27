@@ -1,10 +1,19 @@
+init
+
+# vim
+t 
 vim/dein/
 !vim/dein/repos/github.com/Shougo/dein.vim
 vim/swp/*
 vim/undo/*
-init
 vim/.netrwhist
-vim/vimrc.local
-vim/vimrc.dein.local
+vim/*.local
+
+# nvim
+
+vim/*local.vim
+vim/nviminfo
+vim/ndein 
+
 fish/functions/fish_prompt.fish
 !.gitkeep

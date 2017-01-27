@@ -19,11 +19,9 @@ if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand(
 
   call dein#add('Shougo/unite.vim', {
         \   'depends': ['vimproc'],
-        \   'on_cmd': ['Unite'],
         \ })
   call dein#add('Shougo/neomru.vim', {
         \   'on_source': ['unite.vim'],
-        \   'on_cmd': ['Unite'],
         \ })
 
   call dein#add('Shougo/vimshell')

@@ -2,6 +2,7 @@ export LANG="ja_JP.UTF-8"
 export LC_ALL=$LANG
 
 export EDITOR=$(which vim)
+
 export HOST=`hostname`
 
 . ~/.zsh_functions
