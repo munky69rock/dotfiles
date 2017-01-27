@@ -10,11 +10,11 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-call dein#begin(s:dein_dir)
 " Check cache
-if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand('~/.vim/vimrc.dein'), expand('~/.vim/vimrc.dein.local'))
-  call dein#add('Shougo/dein.vim')
+if dein#load_state(expand('~/.vim/vimrc.dein'), expand('~/.vim/vimrc.dein.local'))
+  call dein#begin(s:dein_dir)
 
+  call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
   call dein#add('Shougo/unite.vim', {
@@ -24,16 +24,8 @@ if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand(
         \   'on_source': ['unite.vim'],
         \ })
 
-  call dein#add('Shougo/vimshell')
-
   if has('lua')
-    call dein#add('Shougo/neocomplete.vim', {
-          \ })
-    call dein#add('Shougo/neosnippet', {
-          \ })
-    call dein#add('Shougo/neosnippet-snippets', {
-          \   'depends': 'Shougo/neosnippet'
-          \ })
+    call dein#add('Shougo/neocomplete.vim')
   endif
 
   if executable('ag')
@@ -51,16 +43,11 @@ if dein#load_state(expand('~/.vim/vimrc'), expand('~/.vim/vimrc.local'), expand(
 
   call dein#add('editorconfig/editorconfig-vim')
 
-  call dein#add('osyo-manga/vim-over')
-
-  call dein#add('haya14busa/incsearch.vim')
-
   call SourceIfExist($HOME."/.vim/vimrc.dein.local")
 
+  call dein#end()
+  call dein#save_state()
 endif
-
-call dein#end()
-call dein#save_state()
 
 " Installation check.
 if dein#check_install()

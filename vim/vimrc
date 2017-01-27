@@ -5,15 +5,13 @@
 scriptencoding utf-8
 syntax on
 set nocompatible
-"set shell=/bin/sh
-if !has('nvim')
-  set shell=bash\ -i
-endif
+"set shell=bash\ -i
 set modeline
 "set modelines=0
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set swapfile
+
 if has('nvim')
   set directory=$HOME/.config/nvim/swp
   set undodir=$HOME/.config/nvim/undo

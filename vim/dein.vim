@@ -10,9 +10,9 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-call dein#begin(s:dein_dir)
 " Check cache
-if dein#load_state(expand('~/.config/nvim/init.vim'), expand('~/.config/nvim/init.local.vim'), expand('~/.config/nvim/dein.vim'), expand('~/.config/nvim/dein.local.vim'))
+if dein#load_state(expand('~/.config/nvim/dein.vim'), expand('~/.config/nvim/dein.local.vim'))
+  call dein#begin(s:dein_dir)
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/denite.nvim')
@@ -29,10 +29,9 @@ if dein#load_state(expand('~/.config/nvim/init.vim'), expand('~/.config/nvim/ini
   call dein#add('editorconfig/editorconfig-vim')
 
   call SourceIfExist($HOME."/.config/nvim/dein.local.vim")
+  call dein#end()
+  call dein#save_state()
 endif
-
-call dein#end()
-call dein#save_state()
 
 " Installation check.
 if dein#check_install()
