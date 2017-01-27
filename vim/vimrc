@@ -440,6 +440,12 @@ endif
 ""-------------------------------------------------------------------------------
 
 if dein#tap('denite.nvim')
+  if executable('ag')
+    call denite#custom#var('file_rec', 'command',
+    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  endif
+  nnoremap <leader>h :<C-u>Denite file_mru<CR>
+  nnoremap <leader>f :<C-u>Denite file_rec<CR>
 endif
 
 
