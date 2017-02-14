@@ -16,6 +16,24 @@ function tsync() {
   fi
 }
 
+function gr() {
+  if [ -n "$1" ]; then
+    if which rg  &> /dev/null; then
+      row=$(rg -n "$1" | peco --select-1 --query "$1")
+    elif which ag &> /dev/null; then
+      row=$(ag "$1" | peco --select-1 --query "$1")
+    else
+      row=$(grep "$1" -R * | peco --select-1 --query "$1")
+    fi
+  fi
+
+  if [ -n "$row" ]; then
+    fn=$(echo $row | cut -d ':' -f 1)
+    line=$(echo $row | cut -d ':' -f 2)
+    vim +$line $fn
+  fi
+}
+
 function g() {
   if [ -n "$1" ]; then
     repo=$(ghq list | peco --select-1 --query "$1")
