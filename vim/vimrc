@@ -107,7 +107,9 @@ set smartcase
 set showmatch
 
 "" gui
-if !has('nvim')
+if has('nvim')
+  set clipboard+=unnamedplus
+else
   set clipboard+=autoselect
   set clipboard+=unnamed
 endif
