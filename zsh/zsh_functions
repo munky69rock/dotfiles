@@ -17,10 +17,14 @@ function tsync() {
 }
 
 function gr() {
+  local row=""
+  local fn=""
+  local line=""
+
   if [ -n "$1" ]; then
-    if which rg  &> /dev/null; then
+    if executable rg; then
       row=$(rg -n "$1" | peco --select-1 --query "$1")
-    elif which ag &> /dev/null; then
+    elif executable ag; then
       row=$(ag "$1" | peco --select-1 --query "$1")
     else
       row=$(grep "$1" -R * | peco --select-1 --query "$1")
@@ -35,6 +39,7 @@ function gr() {
 }
 
 function g() {
+  local repo=""
   if [ -n "$1" ]; then
     repo=$(ghq list | peco --select-1 --query "$1")
   else
@@ -47,7 +52,7 @@ function g() {
 }
 
 function gb() {
-  branch=$(git branch | grep -v '*' | peco --select-1 --query "$1")
+  local branch=$(git branch | grep -v '*' | peco --select-1 --query "$1")
   if [ -n "$branch" ]; then
     git checkout $branch
   fi
