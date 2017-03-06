@@ -58,4 +58,16 @@ function gb() {
   fi
 }
 
+function h() {
+  local history=""
+  if [ -n "$1" ]; then
+    history=$(\history -n 1 | tail -r | peco --select-1 --query "$1")
+  else
+    history=$(\history -n 1 | tail -r | peco)
+  fi
+  if [ -n "$history" ]; then
+    print -z $history
+  fi
+}
+
 # vim: set syn=sh :
