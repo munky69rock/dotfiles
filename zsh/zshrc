@@ -39,4 +39,3 @@ exists "$ANYENV_ROOT/bin/anyenv" && eval "$(anyenv init -)"
 ## load user .zshrc configuration file
 source_if_exists $HOME/.aliases
 source_if_exists $HOME/.zshrc.local
-source_if_exists $HOME/.zshrc.peco
