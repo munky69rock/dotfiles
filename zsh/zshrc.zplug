@@ -1,0 +1,14 @@
+test -d $HOME/.zplug || git clone https://github.com/zplug/zplug $HOME/.zplug
+. $HOME/.zplug/init.zsh
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-completions"
+zplug "Tarrasch/zsh-autoenv"
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/theme-and-appearance", from:oh-my-zsh
+zplug "lib/termsupport", from:oh-my-zsh
+zplug "plugins/tmux", from:oh-my-zsh
+
+source_if_exists "$HOME/.zshrc.zplug.local"
+
+zplug check || zplug install
+zplug load
