@@ -6,7 +6,7 @@ zplug "Tarrasch/zsh-autoenv"
 zplug "lib/completion", from:oh-my-zsh
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 zplug "lib/termsupport", from:oh-my-zsh
-zplug "plugins/tmux", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
 
 source_if_exists "$HOME/.zshrc.zplug.local"
 
