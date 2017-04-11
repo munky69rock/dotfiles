@@ -53,7 +53,7 @@ function g() {
 }
 
 function gb() {
-  local branch=$(git branch | grep -v '*' | peco --select-1 --query "$1")
+  local branch=$(git branch | grep -v '*' | tr -d ' ' | peco --select-1 --query "$1")
   if [ -n "$branch" ]; then
     git checkout $branch
   fi
@@ -69,6 +69,22 @@ function h() {
   if [ -n "$history" ]; then
     print -z $history
   fi
+}
+
+function d() {
+  local dir=""
+  if [ -n "$1" ]; then
+    dir=$(dirs -p | grep -v '^~$' | peco --select-1 --query "$1")
+  else
+    dir=$(dirs -p | grep -v '^~$' | peco --select-1)
+  fi
+  if [ -n "$dir" ]; then
+    cd "${dir/\~/$HOME}"
+  fi
+}
+
+function xcode-uiid() {
+  defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
 }
 
 # vim: set syn=sh :

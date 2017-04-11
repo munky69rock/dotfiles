@@ -8,7 +8,7 @@ setopt histignorealldups sharehistory histreduceblanks histignorespace
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+# Keep 10000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=$HOME/.zsh_history
@@ -28,13 +28,15 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
-. $HOME/.zsh_functions
+. $HOME/.functions.zsh
 
-source_if_exists "$HOME/.zshrc.zplug"
+source_if_exists "$HOME/.zplugrc"
 
 export ANYENV_ROOT=$HOME/.anyenv
-exists "$ANYENV_ROOT/bin"        && export PATH=$ANYENV_ROOT/bin:$PATH
-exists "$ANYENV_ROOT/bin/anyenv" && eval "$(anyenv init -)"
+if exists "$ANYENV_ROOT/bin"; then
+  export PATH=$ANYENV_ROOT/bin:$PATH
+  eval "$(anyenv init -)"
+fi
 
 ## load user .zshrc configuration file
 source_if_exists $HOME/.aliases

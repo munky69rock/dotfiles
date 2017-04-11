@@ -26,26 +26,27 @@
   file = "https://{host}/{path}/blob/{short_rev}/{file}{line && \"#L%d\" % line}"
 
 [alias]
-  br = branch
-  brs = branch --sort=authordate
-  st = status --short --branch
-  ci = commit
-  co = checkout
-  df = diff --color-words -w
-  pl = pull
-  cl = clone
-  amend = commit --amend
-  blank = checkout --orphan
-  graph = log --graph --decorate --oneline
-  hub = browse-remote
-  pr = browse-remote --pr
-  ag = "!git ls-files -z | xargs -0 ag --pager=\"less -F -R\" --nogroup --color-match=0\\;31 --color-path=0\\;0 --no-numbers"
-  wip = now --all --stat
+  br     = branch
+  brs    = branch --sort=authordate
+  st     = status --short --branch
+  ci     = commit
+  co     = checkout
+  df     = diff --color-words -w
+  pl     = pull
+  cl     = clone
+  amend  = commit --amend
+  blank  = checkout --orphan
+  graph  = log --graph --decorate --oneline
+  hub    = browse-remote
+  pr     = browse-remote --pr
+  ag     = "!git ls-files -z | xargs -0 ag --pager=\"less -F -R\" --nogroup --color-match=0\\;31 --color-path=0\\;0 --no-numbers"
+  wip    = now --all --stat
   push-f = push --force-with-lease
-  del = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
-  rmrf = rm `git ls-files --deleted`
+  del    = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
+  rmrf   = rm `git ls-files --deleted`
   ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
-  pall = "!find . -type d -name .git -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
+  pall   = "!find . -type d -name .git -exec bash -c \"cd \"{}\"/.. && pwd\" \\; -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
+  pall1  = "!find . -type d -name .git -depth 2 -exec bash -c \"cd \"{}\"/.. && pwd\" \\; -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
 
 [fetch]
   prune = true
