@@ -1,7 +1,7 @@
 PREFIX ?= ~
 BIN_DIR  = $(PREFIX)/bin
 XDG_CONFIG_HOME = $(PREFIX)/.config
-TARGETS = .vim .zshrc .aliases .gitconfig .tmux.conf .functions.zsh .zplugrc
+TARGETS = .vim .zshrc .aliases .gitconfig .gitignore .tmux.conf .functions.zsh .zplugrc
 
 init: ## Initialize submodules
 	mkdir -p $(BIN_DIR)
@@ -16,6 +16,7 @@ install: ## Install rcfiles
 	test -e $(PREFIX)/.zplugrc       || ln -s $$PWD/zsh/zplugrc       $(PREFIX)/.zplugrc
 	test -e $(PREFIX)/.aliases       || ln -s $$PWD/zsh/aliases.zsh   $(PREFIX)/.aliases
 	test -e $(PREFIX)/.gitconfig     || ln -s $$PWD/git/gitconfig     $(PREFIX)/.gitconfig
+	test -e $(PREFIX)/.gitignore     || ln -s $$PWD/git/gitignore     $(PREFIX)/.gitignore
 	test -e $(PREFIX)/.tmux.conf     || ln -s $$PWD/tmux/tmux.conf    $(PREFIX)/.tmux.conf
 
 uninstall: ## Uninstall rcfiles
