@@ -87,4 +87,26 @@ function xcode-uiid() {
   defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
 }
 
+function pbtable() {
+  local -A opthash
+  zparseopts -D -M -A opthash -- p h -help=h
+  if [ -n "$opthash[(i)-h]" ]; then
+    cat <<-HELP
+
+		Usage:
+		  pbtable [options]
+
+		Options:
+		  -h, --help    Show this help message
+		  -p            print table
+
+		HELP
+  elif [ -n "$opthash[(i)-p]" ]; then
+    pbpaste | perl -pe 'BEGIN{ $i = 0 }; if ($i++ == 0) { for $c ("", "--") { print("|" . join("|", map { $c } split(/\t/, $_)) . "|\n") } } s/\t/ | /;s/^/| /;s/$/ |/'
+  else
+    pbpaste | perl -pe 'BEGIN{ $i = 0 }; if ($i++ == 0) { for $c ("", "--") { print("|" . join("|", map { $c } split(/\t/, $_)) . "|\n") } } s/\t/ | /;s/^/| /;s/$/ |/' | pbcopy
+    echo copied!
+  fi
+}
+
 # vim: set syn=sh :
