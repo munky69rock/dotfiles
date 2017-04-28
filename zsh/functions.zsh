@@ -83,8 +83,21 @@ function d() {
   fi
 }
 
-function xcode-uiid() {
+function xcode-uuid() {
   defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
+}
+
+function xcode-plugin-build() {
+  xcodebuild -configuration Release
+}
+
+function gen-autoenv-pyvenv() {
+  echo "source bin/activate" > .autoenv.zsh
+  echo "deactivate"          > .autoenv_leave.zsh
+  cd ..
+  cd -
+  cd ..
+  cd -
 }
 
 function pbtable() {
