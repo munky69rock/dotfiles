@@ -3,6 +3,9 @@ function executable() { which $1 &> /dev/null }
 function exec_if_exectable() { executable $1 && shift && $@ }
 function exec_if_exists() { exists $1 && shift && $@ }
 function source_if_exists() { exists $1 && . $1 }
+function today() { date +"%Y%m%d" }
+function now() { date +"%Y%m%d%H%M%S" }
+function unixtime() { date +"%s" }
 
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
