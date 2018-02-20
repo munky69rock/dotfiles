@@ -86,6 +86,27 @@ function d() {
   fi
 }
 
+function t() {
+  local session=""
+  if [ -n "$1" ]; then
+    session=$(tmux ls -F "#S" | peco --select-1 --query "$1")
+  else
+    session=$(tmux ls -F "#S" | peco --select-1)
+  fi
+  if [ -n "$session" ]; then
+    if [ -z "$TMUX" ]; then
+      cmd="attach"
+    else
+      cmd="switch-client"
+    fi
+    tmux $cmd -t $session
+  fi
+}
+
+function tn() {
+  tmux new -s $(basename $(pwd))
+}
+
 function xcode-uuid() {
   defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
 }
