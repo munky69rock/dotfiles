@@ -1,5 +1,3 @@
-alias pp="ps axuf | pager"
-alias sum="xargs | tr ' ' '+' | bc"
 alias gi=git
 alias be="bundle exec"
 

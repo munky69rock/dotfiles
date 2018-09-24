@@ -11,3 +11,5 @@
 .envrc
 .autoenv.zsh
 .autoenv_leave.zsh
+
+.pryrc

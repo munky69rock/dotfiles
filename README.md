@@ -1,4 +1,4 @@
-# System Configuration Files
+# dotfiles
 
 ## Install
 

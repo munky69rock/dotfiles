@@ -122,6 +122,8 @@ if ($SSH_TTY == "") && has('mouse') && !has('nvim')
     set ttymouse=sgr
   else
     set ttymouse=xterm2
+  if has('unnamedplus')
+    set clipboard+=unnamedplus
   endif
 endif
 
@@ -434,6 +436,7 @@ endif
 ""-------------------------------------------------------------------------------
 
 if dein#tap('vim-colors-solarized')
+  let g:solarized_termcolors=256
   colorscheme solarized
 endif
 

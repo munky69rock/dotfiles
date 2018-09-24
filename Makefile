@@ -1,30 +1,39 @@
 PREFIX ?= ~
-BIN_DIR  = $(PREFIX)/bin
+BIN_DIR = $(PREFIX)/bin
 XDG_CONFIG_HOME = $(PREFIX)/.config
-TARGETS = .vim .zshrc .aliases .gitconfig .gitignore .tmux.conf .functions.zsh .zplugrc
+
+DELIMITER = :
+define TARGET_MAPPING
+vim:vim
+zshrc:zsh/zshrc
+functions.zsh:zsh/functions.zsh
+zplugrc:zsh/zplugrc
+aliases:zsh/aliases.zsh
+gitconfig:git/gitconfig
+gitignore.global:git/gitignore.global
+tmux.conf:tmux/tmux.conf
+endef
+TARGET_PAIR = $(shell echo $(subst \n, ,$(TARGET_MAPPING)))
+TARGETS = $(shell echo $(TARGET_PAIR) | tr ' ' '\n' | cut -d '$(DELIMITER)' -f 1 | tr '\n' ' ')
 
 init: ## Initialize submodules
 	mkdir -p $(BIN_DIR)
 	mkdir -p $(XDG_CONFIG_HOME)
 	git submodule update --init
-	touch init
 
 install: ## Install rcfiles
-	test -e $(PREFIX)/.vim           || ln -s $$PWD/vim               $(PREFIX)/.vim
-	test -e $(PREFIX)/.zshrc         || ln -s $$PWD/zsh/zshrc         $(PREFIX)/.zshrc
-	test -e $(PREFIX)/.functions.zsh || ln -s $$PWD/zsh/functions.zsh $(PREFIX)/.functions.zsh
-	test -e $(PREFIX)/.zplugrc       || ln -s $$PWD/zsh/zplugrc       $(PREFIX)/.zplugrc
-	test -e $(PREFIX)/.aliases       || ln -s $$PWD/zsh/aliases.zsh   $(PREFIX)/.aliases
-	test -e $(PREFIX)/.gitconfig     || ln -s $$PWD/git/gitconfig     $(PREFIX)/.gitconfig
-	test -e $(PREFIX)/.gitignore     || ln -s $$PWD/git/gitignore     $(PREFIX)/.gitignore
-	test -e $(PREFIX)/.tmux.conf     || ln -s $$PWD/tmux/tmux.conf    $(PREFIX)/.tmux.conf
+	for pair in $(TARGET_PAIR); do \
+		target=$$(echo $$pair | cut -d $(DELIMITER) -f 1); \
+		source=$$(echo $$pair | cut -d $(DELIMITER) -f 2); \
+		test -e $(PREFIX)/.$$target || ln -s $$PWD/$$source $(PREFIX)/.$$target; \
+	done
 
 uninstall: ## Uninstall rcfiles
 	for target in $(TARGETS); do \
-		if [ -L $(PREFIX)/$$target ]; then \
-			rm $(PREFIX)/$$target;    \
+		if [ -L $(PREFIX)/.$$target ]; then \
+			rm $(PREFIX)/.$$target; \
 		else \
-			echo skip $(PREFIX)/$$target;  \
+			echo skip $(PREFIX)/.$$target; \
 		fi ; \
 	done
 

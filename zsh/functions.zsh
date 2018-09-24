@@ -3,23 +3,29 @@ function executable() { which $1 &> /dev/null }
 function exec_if_exectable() { executable $1 && shift && $@ }
 function exec_if_exists() { exists $1 && shift && $@ }
 function source_if_exists() { exists $1 && . $1 }
+
 function today() { date +"%Y%m%d" }
 function now() { date +"%Y%m%d%H%M%S" }
 function unixtime() { date +"%s" }
 
-function lt() { ls -ltrsa "$@" | tail; }
-function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
+function psgrep() {
+    if [ "$(uname -s)" = "Darwin" ]; then
+      ps aux | grep -v grep | grep "$@" -i --color=auto
+    else
+      ps aufx | grep -v grep | grep "$@" -i --color=auto
+    fi
+}
 function fname() { find . -iname "*$@*"; }
-function remove_lines_from() { grep -F -x -v -f $2 $1; }
 function mcd() { mkdir $1 && cd $1; }
 function tsync() {
   if [ $# -eq 2 ]; then
-	tar cz $1 | ssh $2 "tar xz"
+    tar cz $1 | ssh $2 "tar xz"
   else
     echo "tsync [src] [dst]"
   fi
 }
 
+# peco
 function gr() {
   local row=""
   local fn=""
@@ -104,7 +110,13 @@ function t() {
 }
 
 function tn() {
-  tmux new -s $(basename $(pwd))
+  tmux new -s ${$(basename $(pwd))/.*/}
+}
+
+function refresh_tmux() {
+  if [ ! -z "$TMUX" ]; then
+    tmux refresh-client -S
+  fi
 }
 
 function xcode-uuid() {
@@ -124,6 +136,7 @@ function gen-autoenv-pyvenv() {
   cd -
 }
 
+# Mac
 function pbtable() {
   local -A opthash
   zparseopts -D -M -A opthash -- p h -help=h
@@ -144,6 +157,19 @@ function pbtable() {
     pbpaste | perl -pe 'BEGIN{ $i = 0 }; if ($i++ == 0) { for $c ("", "--") { print("|" . join("|", map { $c } split(/\t/, $_)) . "|\n") } } s/\t/ | /;s/^/| /;s/$/ |/' | pbcopy
     echo copied!
   fi
+}
+
+function pbsb2md() {
+  pbpaste | perl -pe 's/\[\* ([^\]]+)]/## $1/;s/\[(\S+) ([^\]]+)\]/[$2]($1)/' | pbcopy
+}
+
+function pbmd2sb() {
+  pbpaste | perl -pe 's/## $1/\[\* ([^\]]+)]/;s/\[([^\]]+)\]\(([^\)]+)\)/\[$2 $1\]/' | pbcopy
+}
+
+# anyenv
+function clear_anyenv_path() {
+  export PATH=$(echo $PATH | tr ":" "\n" | grep -v ".anyenv" | tr "\n" ":")
 }
 
 # vim: set syn=sh :
