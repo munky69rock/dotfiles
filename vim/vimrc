@@ -112,6 +112,9 @@ if has('nvim')
 else
   set clipboard+=autoselect
   set clipboard+=unnamed
+  if has('unnamedplus')
+    set clipboard+=unnamedplus
+  endif
 endif
 
 if ($SSH_TTY == "") && has('mouse') && !has('nvim')
@@ -122,8 +125,6 @@ if ($SSH_TTY == "") && has('mouse') && !has('nvim')
     set ttymouse=sgr
   else
     set ttymouse=xterm2
-  if has('unnamedplus')
-    set clipboard+=unnamedplus
   endif
 endif
 
