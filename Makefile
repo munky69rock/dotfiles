@@ -5,6 +5,7 @@ XDG_CONFIG_HOME = $(PREFIX)/.config
 DELIMITER = :
 define TARGET_MAPPING
 vim:vim
+config/nvim:vim
 zshrc:zsh/zshrc
 functions.zsh:zsh/functions.zsh
 zplugrc:zsh/zplugrc
