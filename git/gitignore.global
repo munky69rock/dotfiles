@@ -7,9 +7,14 @@
 .idea
 *.iml
 *.cache
+*.ipr
+*.iws
+.rakeTasks
+.generators
 
 .envrc
 .autoenv.zsh
 .autoenv_leave.zsh
 
 .pryrc
+.vscode/

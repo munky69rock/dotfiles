@@ -1,6 +1,6 @@
 function exists(){ test -e $1 }
 function executable() { which $1 &> /dev/null }
-function exec_if_exectable() { executable $1 && shift && $@ }
+function exec_if_executable() { executable $1 && $@ }
 function exec_if_exists() { exists $1 && shift && $@ }
 function source_if_exists() { exists $1 && . $1 }
 
@@ -94,6 +94,7 @@ function d() {
 
 function t() {
   local session=""
+  local cmd=""
   if [ -n "$1" ]; then
     session=$(tmux ls -F "#S" | peco --select-1 --query "$1")
   else
@@ -110,7 +111,24 @@ function t() {
 }
 
 function tn() {
-  tmux new -s ${$(basename $(pwd))/.*/}
+  local session=""
+  local cmd=""
+  session=${$(basename $(pwd))//./-}
+  if tmux has-session -t $session &> /dev/null; then
+    if [ -z "$TMUX" ]; then
+      cmd="attach"
+    else
+      cmd="switch-client"
+    fi
+    tmux $cmd -t $session
+  else
+    if [ -z "$TMUX" ]; then
+      tmux new -s $session
+    else
+      tmux new -s $session -d
+      tmux switch-client -t $session
+    fi
+  fi
 }
 
 function refresh_tmux() {
@@ -164,7 +182,7 @@ function pbsb2md() {
 }
 
 function pbmd2sb() {
-  pbpaste | perl -pe 's/## $1/\[\* ([^\]]+)]/;s/\[([^\]]+)\]\(([^\)]+)\)/\[$2 $1\]/' | pbcopy
+  pbpaste | perl -pe 's/## (.*)/\[\* $1]/;s/\[([^\]]+)\]\(([^\)]+)\)/\[$2 $1\]/;s/^\- / /;' | pbcopy
 }
 
 # anyenv

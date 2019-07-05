@@ -1,5 +1,6 @@
 alias gi=git
 alias be="bundle exec"
+alias ndenv=nodenv
 
 if which strace &> /dev/null; then
 elif which dtruss &> /dev/null; then

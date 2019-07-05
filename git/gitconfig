@@ -45,6 +45,7 @@
   del    = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
   rmrf   = rm `git ls-files --deleted`
   ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+  pm     = pull origin master
   pall   = "!find . -type d -name .git -exec bash -c \"cd \"{}\"/.. && pwd\" \\; -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
   pall1  = "!find . -type d -name .git -depth 2 -exec bash -c \"cd \"{}\"/.. && pwd\" \\; -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
   prune  = fetch --prune
