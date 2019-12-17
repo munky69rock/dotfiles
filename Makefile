@@ -1,6 +1,7 @@
 PREFIX ?= ~
 BIN_DIR = $(PREFIX)/bin
 XDG_CONFIG_HOME = $(PREFIX)/.config
+XDG_CONFIG_DIRS = git
 
 DELIMITER = :
 define TARGET_MAPPING
@@ -11,25 +12,28 @@ functions.zsh:zsh/functions.zsh
 zplugrc:zsh/zplugrc
 aliases:zsh/aliases.zsh
 gitconfig:git/gitconfig
-gitignore.global:git/gitignore.global
+config/git/ignore:git/ignore
 tmux.conf:tmux/tmux.conf
 endef
 TARGET_PAIR = $(shell echo $(subst \n, ,$(TARGET_MAPPING)))
 TARGETS = $(shell echo $(TARGET_PAIR) | tr ' ' '\n' | cut -d '$(DELIMITER)' -f 1 | tr '\n' ' ')
 
-init: ## Initialize submodules
+setup: ## Creates directories and initialize submodules
 	mkdir -p $(BIN_DIR)
 	mkdir -p $(XDG_CONFIG_HOME)
+	for dir in $(XDG_CONFIG_DIRS); do \
+		mkdir -p $(XDG_CONFIG_HOME)/$$dir; \
+	done
 	git submodule update --init
 
-install: ## Install rcfiles
+install: ## Installs all dotfiles
 	for pair in $(TARGET_PAIR); do \
 		target=$$(echo $$pair | cut -d $(DELIMITER) -f 1); \
 		source=$$(echo $$pair | cut -d $(DELIMITER) -f 2); \
 		test -e $(PREFIX)/.$$target || ln -s $$PWD/$$source $(PREFIX)/.$$target; \
 	done
 
-uninstall: ## Uninstall rcfiles
+uninstall: ## Uninstalls all dotfiles
 	for target in $(TARGETS); do \
 		if [ -L $(PREFIX)/.$$target ]; then \
 			rm $(PREFIX)/.$$target; \
@@ -38,10 +42,10 @@ uninstall: ## Uninstall rcfiles
 		fi ; \
 	done
 
-all: init install ## Initialize and install
+all: setup install ## Completes dotfile installation
 
 help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m # %s\n", $$1, $$2}'
 
 #.DEFAULT_GOAL := help
-.PHONY: init all install uninstall help
+.PHONY: setup all install uninstall help

@@ -1,8 +1,20 @@
 *~
 *.bak
+
+# Mac
+
 .DS_Store
 
+.envrc
+.autoenv.zsh
+.autoenv_leave.zsh
+
+# Ruby
+
 .gems
+.pryrc
+
+# IntelliJ
 
 .idea
 *.iml
@@ -12,9 +24,6 @@
 .rakeTasks
 .generators
 
-.envrc
-.autoenv.zsh
-.autoenv_leave.zsh
+# VS Code
 
-.pryrc
 .vscode/
