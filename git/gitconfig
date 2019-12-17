@@ -26,6 +26,7 @@
 
 [alias]
   br     = branch
+  sw     = switch
   brs    = branch --sort=authordate
   st     = status --short --branch
   ci     = commit
