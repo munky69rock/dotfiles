@@ -6,7 +6,7 @@
   path = ~/.gitconfig.local
 
 [core]
-  excludesfile = ~/.gitignore.global
+  # excludesfile = ~/.gitignore.global
   autocrlf = input
 
 [color]
