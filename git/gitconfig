@@ -90,4 +90,8 @@
 #[commit]
 #  template = ~/.git_commit_msg.txt
 
+[ghq]
+  root = ~/.ghq
+
+
 # vim: ft=gitconfig :
