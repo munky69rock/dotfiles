@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install required packages
-      run: apt-get update && apt-get install -y git sudo
+      run: apt-get update && apt-get install -y git sudo make
     - name: Install dotfiles
       run: make && make install
     
@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install required packages
-        run: yum install -y git sudo
+        run: yum install -y git sudo make
       - name: Install dotfiles
         run: make && make install
   
@@ -42,7 +42,7 @@ jobs:
       - name: Update packages
         run: pacman -Syu --noconfirm
       - name: Install required packages
-        run: pacman -S --noconfirm git sudo
+        run: pacman -S --noconfirm git sudo make
       - name: Install dotfiles
         run: make && make install
 
