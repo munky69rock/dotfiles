@@ -394,9 +394,13 @@ endif
 "" vim-colors-solarized
 ""-------------------------------------------------------------------------------
 
-if dein#tap('vim-colors-solarized')
-  let g:solarized_termcolors=256
-  colorscheme solarized
+"if dein#tap('vim-colors-solarized')
+"  let g:solarized_termcolors=256
+"  colorscheme solarized
+"endif
+
+if dein#tap('vim-solarized8')
+  colorscheme solarized8
 endif
 
 

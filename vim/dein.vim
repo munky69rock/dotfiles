@@ -24,7 +24,8 @@ if dein#load_state(expand('~/.config/nvim/dein.vim'), expand('~/.config/nvim/dei
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('scrooloose/nerdtree')
 
-  call dein#add('altercation/vim-colors-solarized')
+  "" colorscheme
+  call dein#add('lifepillar/vim-solarized8')
 
   call dein#add('editorconfig/editorconfig-vim')
 

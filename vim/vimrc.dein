@@ -39,7 +39,7 @@ if dein#load_state(expand('~/.vim/vimrc.dein'), expand('~/.vim/vimrc.dein.local'
   call dein#add('scrooloose/nerdtree')
 
   "" colorscheme
-  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('lifepillar/vim-solarized8')
 
   call dein#add('editorconfig/editorconfig-vim')
 
