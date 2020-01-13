@@ -80,17 +80,6 @@ function h() {
   fi
 }
 
-function d() {
-  local dir=""
-  if [ -n "$1" ]; then
-    dir=$(dirs -p | grep -v '^~$' | peco --select-1 --query "$1")
-  else
-    dir=$(dirs -p | grep -v '^~$' | peco --select-1)
-  fi
-  if [ -n "$dir" ]; then
-    cd "${dir/\~/$HOME}"
-  fi
-}
 
 function t() {
   local session=""
