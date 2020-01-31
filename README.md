@@ -1,6 +1,6 @@
 # dotfiles
 
-![GitHub Actions CI Status][https://github.com/munky69rock/dotfiles/workflows/CI/badge.svg]
+![GitHub Actions CI Status](https://github.com/munky69rock/dotfiles/workflows/CI/badge.svg)
 
 ## Install
 
