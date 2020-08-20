@@ -48,35 +48,42 @@ function gr() {
   fi
 }
 
-function g() {
+function zle_search_git_repos() {
   local repo=""
   if [ -n "$1" ]; then
-    repo=$(ghq list | peco --select-1 --query "$1")
+    repo=$(ghq list | sort | peco --select-1 --query "$1")
   else
-    repo=$(ghq list | peco --select-1)
+    repo=$(ghq list | sort | peco --select-1)
   fi
 
   if [ -n "$repo" ]; then
     cd $(ghq root)/$repo
   fi
+  zle reset-prompt
 }
 
-function gb() {
+function zle_search_git_branch() {
   local branch=$(git branch | grep -v '*' | tr -d ' ' | peco --select-1 --query "$1")
   if [ -n "$branch" ]; then
     git checkout $branch
   fi
+  zle reset-prompt
 }
 
-function h() {
+function zle_search_history() {
   local history=""
   if [ -n "$1" ]; then
     history=$(\history -n 1 | tail -r | peco --select-1 --query "$1")
   else
     history=$(\history -n 1 | tail -r | peco --select-1)
   fi
+
+  zle reset-prompt
   if [ -n "$history" ]; then
-    print -z $history
+    BUFFER=$history
+    CURSOR=${#BUFFER}
+
+    #print -z $history
   fi
 }
 
@@ -177,6 +184,10 @@ function pbmd2sb() {
 # anyenv
 function clear_anyenv_path() {
   export PATH=$(echo $PATH | tr ":" "\n" | grep -v ".anyenv" | tr "\n" ":")
+}
+
+function strip_scrapbox_link() {
+  pbpaste | perl -pe 's/    /  /g;s/\[([^\[\]\\(\)]*)\]\(https:\/\/scrapbox[^\)\[\]]*\)/$1/g' | pbcopy
 }
 
 # vim: set syn=sh :

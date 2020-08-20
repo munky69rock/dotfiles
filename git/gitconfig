@@ -34,7 +34,7 @@
   df     = diff --color-words -w
   pl     = pull
   cl     = clone
-  cm     = checkout master
+  sm     = switch master
   amend  = commit --amend
   blank  = checkout --orphan
   graph  = log --graph --decorate --oneline
@@ -93,5 +93,6 @@
 [ghq]
   root = ~/.ghq
 
-
 # vim: ft=gitconfig :
+[pull]
+	ff = only

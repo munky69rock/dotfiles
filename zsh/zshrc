@@ -32,6 +32,14 @@ bindkey "^n" history-beginning-search-forward-end
 
 source_if_exists "$HOME/.zplugrc"
 
+zle -N zle_search_history
+zle -N zle_search_git_repos
+zle -N zle_search_git_branch
+bindkey -r "^R"
+bindkey "^R" zle_search_history
+bindkey "^G^G" zle_search_git_repos
+bindkey "^G^B" zle_search_git_branch
+
 export ANYENV_ROOT=$HOME/.anyenv
 if exists "$ANYENV_ROOT/bin"; then
   if [ ! -z "$TMUX" ]; then

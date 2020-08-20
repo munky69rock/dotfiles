@@ -453,6 +453,13 @@ endif
 
 if dein#tap('deoplete.nvim')
   let g:deoplete#enable_at_startup = 1
+
+  if dein#tap('deoplete-tabnine')
+    call deoplete#custom#var('tabnine', {
+    \ 'line_limit': 500,
+    \ 'max_num_results': 20,
+    \ })
+  endif
 endif
 
 endif "" if exists("#dein")
