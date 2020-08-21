@@ -8,12 +8,16 @@ jobs:
     container: ubuntu:latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Install required packages
-      run: apt-get update && apt-get install -y git sudo make
-    - name: Install dotfiles
-      run: make && make install
-    
+      - uses: actions/checkout@v1
+
+      - name: Install required packages
+        run: apt-get update && apt-get install -y git sudo make
+        env:
+          DEBIAN_FRONTEND: noninteractive
+
+      - name: Install dotfiles
+        run: make && make install
+
   centos:
     runs-on: ubuntu-latest
     container: centos:latest
@@ -23,7 +27,7 @@ jobs:
         run: yum install -y git sudo make
       - name: Install dotfiles
         run: make && make install
-  
+
   alpine:
     runs-on: ubuntu-latest
     container: alpine:latest
@@ -51,13 +55,18 @@ jobs:
     container: ubuntu:latest
     steps:
       - uses: actions/checkout@v1
+
       - name: Update packages
         run: apt-get update
+
       - name: Install packages for install repository
         run: apt-get install -y git sudo software-properties-common
+
       - name: Install required repository
         run: apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe"
+
       - name: Install required packages
-        run: apt-get update; apt-get install -y shellcheck
+        run: apt-get install -y shellcheck
+
       - name: Execute shellcheck
         run: test $(shellcheck  -f gcc ~/.zshrc | grep -v "SC1036\|SC1056\|SC1070\|SC1072\|SC1073\|SC1083\|SC2034\|SC2139\|SC2148\|SC1090\|SC1117\|SC2206\|SC1009\|SC2016\|SC2046\|SC2154" | tee -a /dev/stderr | wc -l) -le 1
