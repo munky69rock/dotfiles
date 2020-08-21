@@ -70,6 +70,8 @@ jobs:
 
       - name: Install packages for install repository
         run: apt-get install -y git sudo software-properties-common
+        env:
+          DEBIAN_FRONTEND: noninteractive
 
       - name: Install required repository
         run: apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe"
