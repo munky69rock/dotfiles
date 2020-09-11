@@ -24,7 +24,8 @@ setup: ## Creates directories and initialize submodules
 	for dir in $(XDG_CONFIG_DIRS); do \
 		mkdir -p $(XDG_CONFIG_HOME)/$$dir; \
 	done
-	git submodule update --init
+	sh <(curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh) ~/.cache/dein.vim
+	sh <(curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh) ~/.cache/dein.nvim
 
 install: ## Installs all dotfiles
 	for pair in $(TARGET_PAIR); do \

@@ -4,16 +4,17 @@ if !&compatible
   set nocompatible
 endif
 
-let s:dein_dir = "$HOME/.config/nvim/ndein"
+let s:dein_dir = "$HOME/.cache/dein.nvim"
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
 " Check cache
-if dein#load_state(expand('~/.config/nvim/dein.vim'), expand('~/.config/nvim/dein.local.vim'))
+if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
-  call dein#add('Shougo/dein.vim')
+
+  call dein#add(s:dein_repo_dir)
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/denite.nvim')
   call dein#add('Shougo/neomru.vim')
@@ -30,6 +31,7 @@ if dein#load_state(expand('~/.config/nvim/dein.vim'), expand('~/.config/nvim/dei
   call dein#add('editorconfig/editorconfig-vim')
 
   call SourceIfExist($HOME."/.config/nvim/dein.local.vim")
+
   call dein#end()
   call dein#save_state()
 endif

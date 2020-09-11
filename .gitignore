@@ -1,7 +1,5 @@
 # vim
 
-vim/dein/
-!vim/dein/repos/github.com/Shougo/dein.vim
 vim/swp/*
 vim/undo/*
 vim/.netrwhist
@@ -11,7 +9,6 @@ vim/*.local
 
 vim/*local.vim
 vim/nviminfo
-vim/ndein 
 
 fish/functions/fish_prompt.fish
 !.gitkeep
