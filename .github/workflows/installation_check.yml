@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Install required packages
-        run: apt-get update && apt-get install -y git sudo make
+        run: apt-get update && apt-get install -y git curl sudo make
         env:
           DEBIAN_FRONTEND: noninteractive
 
@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install required packages
-        run: yum install -y git sudo make
+        run: yum install -y git curl sudo make
       - name: Install dotfiles
         run: make && make install
 
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install required packages
-        run: apk add git sudo bash alpine-sdk
+        run: apk add git curl sudo bash alpine-sdk
       - name: Install dotfiles
         run: make && make install
 
@@ -53,7 +53,7 @@ jobs:
       - name: Update packages
         run: pacman -Syu --noconfirm
       - name: Install required packages
-        run: pacman -S --noconfirm git sudo make
+        run: pacman -S --noconfirm git curl sudo make
       - name: Install dotfiles
         run: make && make install
 
