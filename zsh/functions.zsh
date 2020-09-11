@@ -72,10 +72,16 @@ function zle_search_git_branch() {
 
 function zle_search_history() {
   local history=""
-  if [ -n "$1" ]; then
-    history=$(\history -n 1 | tail -r | peco --select-1 --query "$1")
+  local reverse=""
+  if executable tac; then
+    reverse="tac"
   else
-    history=$(\history -n 1 | tail -r | peco --select-1)
+    reverse="tail -r"
+  fi
+  if [ -n "$1" ]; then
+    history=$(\history -n 1 | $reverse | peco --select-1 --query "$1")
+  else
+    history=$(\history -n 1 | $reverse | peco --select-1)
   fi
 
   zle reset-prompt
