@@ -70,6 +70,18 @@ function zle_search_git_branch() {
   zle reset-prompt
 }
 
+function zle_checkout_github_pr() {
+  echo -ne "\nfetching github pr list ...\r"
+  local pr=$(gh pr list | grep -v dependabot | peco --select-1 --query "$1")
+  if [ -n "$pr" ]; then
+    no=$(echo $pr | sed -Ee "s/^([0-9]+).*/\1/")
+    echo -ne "checking out github pr ...\r"
+    gh pr checkout $no
+  fi
+  echo -ne "\r"
+  zle reset-prompt
+}
+
 function zle_search_history() {
   local history=""
   local reverse=""
