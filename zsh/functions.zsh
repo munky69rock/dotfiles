@@ -196,4 +196,20 @@ function strip_scrapbox_link() {
   pbpaste | perl -pe 's/    /  /g;s/\[([^\[\]\\(\)]*)\]\(https:\/\/scrapbox[^\)\[\]]*\)/$1/g' | pbcopy
 }
 
+function switch_dark_mode() {
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    local light="Light"
+    local dark="Dark"
+    local current=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
+
+    if [[ $current == $dark && $ITERM_PROFILE == $light ]]; then
+      echo -ne "\033]50;SetProfile=Dark\a"
+      export ITERM_PROFILE=$dark
+    elif [[ -z "$current" && $ITERM_PROFILE == $dark ]]; then
+      echo -ne "\033]50;SetProfile=$light\a"
+      export ITERM_PROFILE=$light
+    fi
+  fi
+}
+
 # vim: set syn=sh :
