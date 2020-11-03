@@ -409,7 +409,10 @@ endif
 ""-------------------------------------------------------------------------------
 
 if dein#tap('denite.nvim')
-  if executable('ag')
+  if executable('rg')
+    call denite#custom#var('file/rec', 'command',
+    \ ['rg', '--files', '--glob', '!.git', '--hidden', '--color', 'never'])
+  elseif executable('ag')
     call denite#custom#var('file/rec', 'command',
 	  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
   endif
