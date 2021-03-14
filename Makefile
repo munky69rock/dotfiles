@@ -14,7 +14,7 @@ aliases:zsh/aliases.zsh
 gitconfig:git/gitconfig
 config/git/ignore:git/ignore
 tmux.conf:tmux/tmux.conf
-asdfrc/asdf/asdfrc
+asdfrc:asdf/asdfrc
 endef
 TARGET_PAIR = $(shell echo $(subst \n, ,$(TARGET_MAPPING)))
 TARGETS = $(shell echo $(TARGET_PAIR) | tr ' ' '\n' | cut -d '$(DELIMITER)' -f 1 | tr '\n' ' ')
