@@ -4,18 +4,22 @@ test -d $HOME/.zplug || git clone https://github.com/zplug/zplug $HOME/.zplug
 
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
-zplug "Tarrasch/zsh-autoenv"
 zplug "lib/completion", from:oh-my-zsh
 zplug "lib/termsupport", from:oh-my-zsh
 zplug "lib/directories", from:oh-my-zsh
 zplug "lib/functions", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
+zplug "plugins/asdf", from:oh-my-zsh
 
 source_if_exists "$HOME/.zplugrc.local"
 
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 
-zplug check || zplug install
+checkfile=/tmp/zplug-$(date +%Y%m%d)
+if ! test -f $checkfile; then
+  touch $checkfile
+  zplug check || zplug install
+fi
 zplug load
 
 # vim: se ft=sh :

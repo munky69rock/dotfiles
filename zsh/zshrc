@@ -42,15 +42,6 @@ bindkey "^G^G" zle_search_git_repos
 bindkey "^G^B" zle_search_git_branch
 bindkey "^G^P" zle_checkout_github_pr
 
-export ANYENV_ROOT=$HOME/.anyenv
-if exists "$ANYENV_ROOT/bin"; then
-  if [ ! -z "$TMUX" ]; then
-    clear_anyenv_path
-  fi
-  export PATH=$ANYENV_ROOT/bin:$PATH
-  eval "$(anyenv init -)"
-fi
-
 ## load user .zshrc configuration file
 source_if_exists $HOME/.aliases
 source_if_exists $HOME/.zshrc.local
