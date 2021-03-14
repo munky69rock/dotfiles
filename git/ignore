@@ -25,5 +25,8 @@
 .generators
 
 # VS Code
-
 .vscode/
+*.code-workspace
+
+# tmuxinator
+.tmuxinator.yml

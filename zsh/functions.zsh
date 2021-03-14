@@ -127,6 +127,12 @@ function t() {
 function tn() {
   local session=""
   local cmd=""
+
+  if [ -f ".tmuxinator.yml" ]; then
+    tmuxinator start
+    return
+  fi
+
   session=${$(basename $(pwd))//./-}
   if tmux has-session -t $session &> /dev/null; then
     if [ -z "$TMUX" ]; then
