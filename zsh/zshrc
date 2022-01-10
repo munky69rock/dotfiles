@@ -13,14 +13,22 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=$HOME/.zsh_history
 
+# zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [ ! -d "${ZINIT_HOME}" ]; then
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
 
 export LANG="ja_JP.UTF-8"
 export LC_ALL=$LANG
-export EDITOR=$(which nvim || which vim)
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/opt/homebrew/bin:$PATH
+export EDITOR=$(which nvim 2>/dev/null || which vim)
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -30,7 +38,7 @@ bindkey "^n" history-beginning-search-forward-end
 
 . $HOME/.functions.zsh
 
-source_if_exists "$HOME/.zplugrc"
+source_if_exists "$HOME/.zinitrc"
 
 zle -N zle_search_history
 zle -N zle_search_git_repos

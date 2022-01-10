@@ -9,7 +9,7 @@ vim:vim
 config/nvim:vim
 zshrc:zsh/zshrc
 functions.zsh:zsh/functions.zsh
-zplugrc:zsh/zplugrc
+zinitrc:zsh/zinit.zsh
 aliases:zsh/aliases.zsh
 gitconfig:git/gitconfig
 config/git/ignore:git/ignore

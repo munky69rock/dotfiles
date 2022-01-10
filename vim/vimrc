@@ -4,7 +4,9 @@
 
 scriptencoding utf-8
 syntax on
-set nocompatible
+if &compatible
+  set nocompatible
+endif
 "set shell=bash\ -i
 set modeline
 "set modelines=0
@@ -98,6 +100,9 @@ if &term =~ "xterm"
 
   inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
+
+" FIXME 
+cnoremap 33a1 <c-u>undo<CR>
 
 "" search
 set hlsearch

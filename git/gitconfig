@@ -44,6 +44,7 @@
   wip    = now --all --stat
   push-f = push --force-with-lease
   del    = "!git branch -d $(git branch --merged | egrep \"(hotfix|feature|topic|fix)\")"
+  pull-f = "!git fetch && echo preparing to force pull $(git current-branch) && sleep 3 && git reset --hard origin/$(git current-branch)"
   rmrf   = rm `git ls-files --deleted`
   ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
   pm     = pull origin master
@@ -51,6 +52,7 @@
   pall1  = "!find . -type d -name .git -depth 2 -exec bash -c \"cd \"{}\"/.. && pwd\" \\; -exec bash -c \"cd \"{}\"/.. && git pull\" \\;"
   prune  = fetch --prune
   stash-all = stash save --include-untracked
+  current-branch = symbolic-ref --short HEAD
 
 [fetch]
   prune = true
@@ -93,3 +95,5 @@
 # vim: ft=gitconfig :
 [pull]
 	ff = only
+[init]
+	defaultBranch = main
