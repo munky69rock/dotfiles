@@ -19,18 +19,6 @@ jobs:
       - name: Install dotfiles
         run: make && make install
 
-  centos:
-    runs-on: ubuntu-latest
-    container: centos:latest
-    timeout-minutes: 5
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install required packages
-        run: yum install -y git sudo make
-      - name: Install dotfiles
-        run: make && make install
-
   alpine:
     runs-on: ubuntu-latest
     container: alpine:latest

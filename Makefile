@@ -1,20 +1,27 @@
 PREFIX ?= ~
 BIN_DIR = $(PREFIX)/bin
 XDG_CONFIG_HOME = $(PREFIX)/.config
-XDG_CONFIG_DIRS = git
+XDG_DATA_HOME = $(PREFIX)/.local/share
+XDG_CACHE_HOME = $(PREFIX)/.cache
+XDG_CONFIG_DIRS = zsh git asdf tmux
+XDG_DATA_DIRS = zsh
 
 DELIMITER = :
 define TARGET_MAPPING
-vim:vim
+config/vim:vim
 config/nvim:vim
-zshrc:zsh/zshrc
-functions.zsh:zsh/functions.zsh
-zinitrc:zsh/zinit.zsh
-aliases:zsh/aliases.zsh
-gitconfig:git/gitconfig
+
+zshenv:zsh/zshenv
+config/zsh/.zshrc:zsh/zshrc
+config/zsh/functions.zsh:zsh/functions.zsh
+config/zsh/zinit.zsh:zsh/zinit.zsh
+config/zsh/aliases.zsh:zsh/aliases.zsh
+
+config/git/config:git/gitconfig
 config/git/ignore:git/ignore
-tmux.conf:tmux/tmux.conf
-asdfrc:asdf/asdfrc
+
+config/tmux/tmux.conf:tmux/tmux.conf
+config/asdf/asdfrc:asdf/asdfrc
 endef
 TARGET_PAIR = $(shell echo $(subst \n, ,$(TARGET_MAPPING)))
 TARGETS = $(shell echo $(TARGET_PAIR) | tr ' ' '\n' | cut -d '$(DELIMITER)' -f 1 | tr '\n' ' ')
@@ -25,8 +32,11 @@ setup: ## Creates directories and initialize submodules
 	for dir in $(XDG_CONFIG_DIRS); do \
 		mkdir -p $(XDG_CONFIG_HOME)/$$dir; \
 	done
-	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -s | sh /dev/stdin ~/.cache/dein.vim
-	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -s | sh /dev/stdin ~/.cache/dein.nvim
+	for dir in $(XDG_DATA_DIRS); do \
+		mkdir -p $(XDG_DATA_HOME)/$$dir; \
+	done
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -s | sh /dev/stdin $(XDG_CACHE_HOME)/dein.vim
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -s | sh /dev/stdin $(XDG_CACHE_HOME)/dein.nvim
 
 install: ## Installs all dotfiles
 	for pair in $(TARGET_PAIR); do \
