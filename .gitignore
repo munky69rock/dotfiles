@@ -10,5 +10,4 @@ vim/*.local
 vim/*local.vim
 vim/nviminfo
 
-fish/functions/fish_prompt.fish
 !.gitkeep
