@@ -2,7 +2,7 @@ if &compatible
   set nocompatible " Be iMproved
 endif
 
-let s:dein_dir = expand("$HOME/.cache/dein.nvim")
+let s:dein_dir = expand("$XDG_CACHE_HOME/dein.nvim")
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
@@ -27,7 +27,7 @@ call dein#add('lifepillar/vim-solarized8')
 
 call dein#add('editorconfig/editorconfig-vim')
 
-call SourceIfExist($HOME."/.config/nvim/dein.local.vim")
+call SourceIfExist($XDG_CONFIG_HOME."/nvim/dein.local.vim")
 
 call dein#end()
 

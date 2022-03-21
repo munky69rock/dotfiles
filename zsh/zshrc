@@ -11,10 +11,10 @@ bindkey -e
 # Keep 10000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=$HOME/.zsh_history
+HISTFILE="${XDG_DATA_HOME}/zsh/zsh_history"
 
 # zinit
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"
 if [ ! -d "${ZINIT_HOME}" ]; then
   mkdir -p "$(dirname $ZINIT_HOME)"
   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
@@ -36,9 +36,9 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
-. $HOME/.functions.zsh
+. $ZDOTDIR/functions.zsh
 
-source_if_exists "$HOME/.zinitrc"
+source_if_exists "$ZDOTDIR/zinit.zsh"
 
 zle -N zle_search_history
 zle -N zle_search_git_repos
@@ -50,6 +50,8 @@ bindkey "^G^G" zle_search_git_repos
 bindkey "^G^B" zle_search_git_branch
 bindkey "^G^P" zle_checkout_github_pr
 
+export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
+
 ## load user .zshrc configuration file
-source_if_exists $HOME/.aliases
-source_if_exists $HOME/.zshrc.local
+source_if_exists $ZDOTDIR/aliases.zsh
+source_if_exists $ZDOTDIR/.zshrc.local
